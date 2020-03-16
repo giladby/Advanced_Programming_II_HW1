@@ -5,9 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="630" Width="1120">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="40" Margin="106,54,0,0" TextWrapping="Wrap" Text="Hello World" VerticalAlignment="Top" Width="335" TextChanged="TextBox_TextChanged"/>
-
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="433" Margin="10,153,0,0" Stroke="Black" VerticalAlignment="Top" Width="520"/>
+        <Button Content="CONNECT TO SIMULATOR" HorizontalAlignment="Left" Height="46" Margin="138,97,0,0" VerticalAlignment="Top" Width="226"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="13,29,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="18"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="92,25,0,0" VerticalAlignment="Top" Width="348"/>
+        <Label x:Name="statusLabel" Content="Not Connected" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Height="31" Width="348" FontSize="18"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="205" Margin="549,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="345" Margin="549,241,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
+        <Label Content="DASHBOARD" HorizontalAlignment="Left" Height="29" Margin="760,25,0,0" VerticalAlignment="Top" Width="118" FontSize="18"/>
+        <Label Content="altimeter_indicated-altitude-ft" HorizontalAlignment="Left" Height="40" Margin="585,196,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="attitude-indicator_internal-pitch-deg" HorizontalAlignment="Left" Height="40" Margin="585,176,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="attitude-indicator_internal-roll-deg" HorizontalAlignment="Left" Height="40" Margin="585,156,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="gps_indicated-altitude-ft" HorizontalAlignment="Left" Height="40" Margin="585,136,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="airspeed-indicator_indicated-speed-kt" HorizontalAlignment="Left" Height="40" Margin="585,116,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="gps_indicated-ground-speed-kt" HorizontalAlignment="Left" Height="40" Margin="585,96,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="gps_indicated-vertical-speed" HorizontalAlignment="Left" Height="40" Margin="585,76,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label Content="indicated-heading-deg" HorizontalAlignment="Left" Height="40" Margin="585,56,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+        <Label x:Name="altimeter_indicated_altitude_ft" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,196,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="attitude_indicator_internal_pitch_deg" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,176,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="attitude_indicator_internal_roll_deg" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,156,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="gps_indicated_altitude_ft" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,136,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="airspeed_indicator_indicated_speed_kt" Content="0" HorizontalAlignment="Left" Height="29" Margin="895,116,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="gps_indicated_ground_speed_kt" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,96,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="gps_indicated_vertical_speed" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,76,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="indicated_heading_deg" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,56,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,84,0,0" VerticalAlignment="Top" Width="454"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,104,0,0" VerticalAlignment="Top" Width="454"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,124,0,0" VerticalAlignment="Top" Width="454"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,144,0,0" VerticalAlignment="Top" Width="454"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,164,0,0" VerticalAlignment="Top" Width="454"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,184,0,0" VerticalAlignment="Top" Width="454"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,204,0,0" VerticalAlignment="Top" Width="454"/>
     </Grid>
 </Window>

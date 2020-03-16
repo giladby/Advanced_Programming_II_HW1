@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace FlightSimulatorApp
 {
     /// <summary>
@@ -23,8 +24,6 @@ namespace FlightSimulatorApp
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine("hello");
-            Console.WriteLine("hello");
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
