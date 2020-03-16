@@ -24,6 +24,7 @@ namespace FlightSimulatorApp
         {
             InitializeComponent();
             Console.WriteLine("hello");
+            Console.WriteLine("hello");
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
