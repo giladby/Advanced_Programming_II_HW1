@@ -22,7 +22,6 @@ namespace FlightSimulatorApp.Controls
             knobs = new List<Ellipse> { KnobMask, KnobBase5, KnobBase4, KnobBase3, KnobBase2, KnobBase1 };
         }
 
-        private setKnobPos
 
         private void centerKnob_Completed(object sender, EventArgs e)
         {
