@@ -3,17 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:MyControls="clr-namespace:FlightSimulatorApp.Controls"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="630" Width="1120">
     <Grid>
+        
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="433" Margin="10,153,0,0" Stroke="Black" VerticalAlignment="Top" Width="520"/>
         <Button Content="CONNECT TO SIMULATOR" HorizontalAlignment="Left" Height="46" Margin="138,97,0,0" VerticalAlignment="Top" Width="226"/>
         <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="13,29,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="18"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="92,25,0,0" VerticalAlignment="Top" Width="348"/>
         <Label x:Name="statusLabel" Content="Not Connected" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Height="31" Width="348" FontSize="18"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="205" Margin="549,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="345" Margin="549,241,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="350" Margin="549,241,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
         <Label Content="DASHBOARD" HorizontalAlignment="Left" Height="29" Margin="760,25,0,0" VerticalAlignment="Top" Width="118" FontSize="18"/>
         <Label Content="altimeter_indicated-altitude-ft" HorizontalAlignment="Left" Height="40" Margin="585,196,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
         <Label Content="attitude-indicator_internal-pitch-deg" HorizontalAlignment="Left" Height="40" Margin="585,176,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
@@ -38,5 +40,6 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,164,0,0" VerticalAlignment="Top" Width="454"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,184,0,0" VerticalAlignment="Top" Width="454"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,204,0,0" VerticalAlignment="Top" Width="454"/>
+        <MyControls:Joystick Margin="549,243,213.6,12.8"/>
     </Grid>
 </Window>
