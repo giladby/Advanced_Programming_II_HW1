@@ -24,11 +24,27 @@ namespace FlightSimulatorApp
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            Console.WriteLine(throttleSlider.Value);
+        }
 
+        private void ipBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Console.WriteLine(ipBox.Text);
+        }
+
+        private void portBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Console.WriteLine(portBox.Text);
+        }
+
+        private void aileronSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine(aileronSlider.Value);
         }
     }
 }
