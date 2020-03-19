@@ -13,8 +13,6 @@ namespace FlightSimulatorApp
         int time;
         public MySimulatorClient()
         {
-            string y = "y1";
-            int x = 5;
             mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             time = 10000;
             mySocket.ReceiveTimeout = time;
