@@ -11,14 +11,14 @@ namespace FlightSimulatorApp
     {
         Queue<string> setMsgs = new Queue<string>();
         ISimulatorClient client;
-        volatile bool stop;
         private Object myLock;
+        volatile bool connected;
 
         public MySimulatorModel(ISimulatorClient c)
         {
             this.client = c;
-            stop = false;
             myLock = new Object();
+            connected = false;
         }
 
         double headingDeg;
@@ -159,6 +159,10 @@ namespace FlightSimulatorApp
             }
             set
             {
+                if (value == MainWindow.disconnectedStatus)
+                {
+                    connected = false;
+                }
                 stauts = value;
                 NotifyPropertyChanged("Status");
             }
@@ -180,10 +184,12 @@ namespace FlightSimulatorApp
             string result = client.connect(ip, port);
             if(result == MainWindow.connectedStatus)
             {
+                connected = true;
                 start();
             }
             Status = result;
         }
+
 
         private void recvData(string property)
         {
@@ -230,7 +236,7 @@ namespace FlightSimulatorApp
         {
             new Thread(delegate ()
             {
-                while (!stop)
+                while (connected)
                 {
                     lock (myLock)
                     {
