@@ -13,12 +13,16 @@ namespace FlightSimulatorApp
         ISimulatorClient client;
         private Object myLock;
         volatile bool connected;
+        System.Timers.Timer myStatusTimer;
+        int statusTimerTime;
 
         public MySimulatorModel(ISimulatorClient c)
         {
             this.client = c;
             myLock = new Object();
             connected = false;
+            myStatusTimer = new System.Timers.Timer();
+            statusTimerTime = 10000;
         }
 
         double headingDeg;
@@ -150,12 +154,12 @@ namespace FlightSimulatorApp
             }
         }
 
-        string stauts;
+        string status;
         public string Status
         {
             get
             {
-                return stauts;
+                return status;
             }
             set
             {
@@ -163,8 +167,9 @@ namespace FlightSimulatorApp
                 {
                     connected = false;
                 }
-                stauts = value;
+                status = value;
                 NotifyPropertyChanged("Status");
+                resetStatusTimer();
             }
         }
 
@@ -234,6 +239,13 @@ namespace FlightSimulatorApp
 
         public void start()
         {
+            // set the status timer
+            myStatusTimer.Interval = statusTimerTime;
+            myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
+            myStatusTimer.AutoReset = true;
+            myStatusTimer.Enabled = true;
+
+            // set and get thread
             new Thread(delegate ()
             {
                 while (connected)
@@ -278,6 +290,20 @@ namespace FlightSimulatorApp
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
+        }
+
+        public void StatusTimerOnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            if (connected)
+            {
+                Status = MainWindow.connectedStatus;
+            }
+        }
+
+        private void resetStatusTimer()
+        {
+            myStatusTimer.Stop();
+            myStatusTimer.Start();
         }
     }
 }
