@@ -11,6 +11,8 @@ namespace FlightSimulatorApp
     {
         Socket mySocket;
         int time;
+        
+
         public MySimulatorClient()
         {
             mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -23,16 +25,12 @@ namespace FlightSimulatorApp
             try
             {
                 mySocket.Connect(ip, port);
-                return "Connected to simulator.";
+                return MySimulatorModel.connectedStatus;
             } 
             catch
             {
-                return "Failed connecting to simulator.";
+                return MySimulatorModel.connectionFailedStatus;
             }
-            
-            
-            
-            
         }
 
         public string recieve()
@@ -47,9 +45,9 @@ namespace FlightSimulatorApp
             {
                 if(!mySocket.Connected)
                 {
-                    return "Disconnected from simulator.";
+                    return MySimulatorModel.disconnectedStatus;
                 }
-                return "Error trying to recieve data from simulator.";
+                return MySimulatorModel.rcvErrorStatus;
             }
         }
 
@@ -59,15 +57,15 @@ namespace FlightSimulatorApp
             try
             {
                 mySocket.Send(msgToSend);
-                return "OK";
+                return MySimulatorModel.okStatus;
             }
             catch
             {
                 if (!mySocket.Connected)
                 {
-                    return "Disconnected from simulator.";
+                    return MySimulatorModel.disconnectedStatus;
                 }
-                return "Error trying to send data from simulator.";
+                return MySimulatorModel.sendErrorStatus;
             }
         }
     }

@@ -9,6 +9,12 @@ namespace FlightSimulatorApp
 {
     class MySimulatorModel : ISimulatorModel
     {
+        static public string connectedStatus = "Connected to simulator.";
+        static public string connectionFailedStatus = "Failed connecting to simulator.";
+        static public string disconnectedStatus = "Disconnected from simulator.";
+        static public string rcvErrorStatus = "Error trying to recieve data from simulator.";
+        static public string sendErrorStatus = "Error trying to send data from simulator.";
+        static public string okStatus = "OK";
         Queue<string> setMsgs = new Queue<string>();
         ISimulatorClient client;
         volatile bool stop;
@@ -178,7 +184,7 @@ namespace FlightSimulatorApp
         public void connect(string ip, int port)
         {
             string result = client.connect(ip, port);
-            if(result == "Connected to simulator.")
+            if(result == MySimulatorModel.connectedStatus)
             {
                 start();
             }
@@ -188,19 +194,41 @@ namespace FlightSimulatorApp
         private void recvData(string property)
         {
             double value;
-            string rcv = client.recieve();
-            if (rcv != "Error trying to recieve data from simulator." && rcv != "Disconnected from simulator.")
+            string rcvStatus = client.recieve();
+            if (rcvStatus != MySimulatorModel.rcvErrorStatus && rcvStatus != MySimulatorModel.disconnectedStatus)
             {
-                value = Double.Parse(rcv);
+                value = Double.Parse(rcvStatus);
                 switch (property)
                 {
                     case "HeadingDeg":
+                        HeadingDeg = value;
+                        break;
+                    case "VerticalSpeed":
+                        VerticalSpeed = value;
+                        break;
+                    case "GroundSpeedKt":
+                        GroundSpeedKt = value;
+                        break;
+                    case "IndicatedSpeedKt":
+                        IndicatedSpeedKt = value;
+                        break;
+                    case "GpsIndicatedAltitudeFt":
+                        GpsIndicatedAltitudeFt = value;
+                        break;
+                    case "RollDeg":
+                        RollDeg = value;
+                        break;
+                    case "PitchDeg":
+                        PitchDeg = value;
+                        break;
+                    case "AltimeterIndicatedAltitudeFt":
+                        AltimeterIndicatedAltitudeFt = value;
                         break;
                 }
             }
             else
             {
-                Status = rcv;
+                Status = rcvStatus;
             }
         }
 
@@ -214,7 +242,11 @@ namespace FlightSimulatorApp
                     {
                         while (setMsgs.Count != 0)
                         {
-                            client.send(setMsgs.Dequeue());
+                            string sendStatus = client.send(setMsgs.Dequeue());
+                            if (sendStatus != MySimulatorModel.okStatus)
+                            {
+                                Status = sendStatus;
+                            }
                         }
                     }
 
@@ -223,17 +255,17 @@ namespace FlightSimulatorApp
                     client.send("get /instrumentation/gps/indicated-vertical-speed");
                     recvData("VerticalSpeed");
                     client.send("get /instrumentation/gps/indicated-ground-speed-kt");
-                    GroundSpeedKt = Double.Parse(client.recieve());
+                    recvData("GroundSpeedKt");
                     client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt");
-                    IndicatedSpeedKt = Double.Parse(client.recieve());
+                    recvData("IndicatedSpeedKt");
                     client.send("get /instrumentation/encoder/indicated-altitude-ft");
-                    GpsIndicatedAltitudeFt = Double.Parse(client.recieve());
+                    recvData("GpsIndicatedAltitudeFt");
                     client.send("get /instrumentation/attitude-indicator/internal-roll-deg");
-                    RollDeg = Double.Parse(client.recieve());
+                    recvData("RollDeg");
                     client.send("get /instrumentation/attitude-indicator/internal-pitch-deg");
-                    PitchDeg = Double.Parse(client.recieve());
+                    recvData("PitchDeg");
                     client.send("get /instrumentation/altimeter/indicated-altitude-ft");
-                    AltimeterIndicatedAltitudeFt = Double.Parse(client.recieve());
+                    recvData("AltimeterIndicatedAltitudeFt");
 
                     Thread.Sleep(250);
                 }
