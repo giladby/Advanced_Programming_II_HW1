@@ -9,7 +9,7 @@ namespace FlightSimulatorApp
 {
     class MySimulatorModel : ISimulatorModel
     {
-        int y;
+        int x;
         Queue<string> setMsgs = new Queue<string>();
         ISimulatorClient client;
         volatile bool stop;
