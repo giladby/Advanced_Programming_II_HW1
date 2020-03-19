@@ -29,20 +29,17 @@ namespace FlightSimulatorApp
         static public string okStatus = "OK";
 
         SimulatorViewModel vm;
-        bool connected;
         public MainWindow()
         {
             InitializeComponent();
             vm = new SimulatorViewModel(new MySimulatorModel(new MySimulatorClient()));
             DataContext = vm;
             disconnectedMode();
-            connected = false;
             connectButton.IsEnabled = true;
         }
 
         private void disconnectedMode()
         {
-            connected = false;
             throttleSlider.IsEnabled = false;
             aileronSlider.IsEnabled = false;
             myJoystick.IsEnabled = false;
@@ -50,30 +47,10 @@ namespace FlightSimulatorApp
 
         private void connectedMode()
         {
-            connected = true;
             connectButton.IsEnabled = false;
             throttleSlider.IsEnabled = true;
             aileronSlider.IsEnabled = true;
             myJoystick.IsEnabled = true;
-        }
-        public string Status
-        {
-            get
-            {
-                return statusLabel.Content.ToString();
-            }
-            set
-            {
-                if(value == "Connected to simulator.")
-                {
-                    connectedMode();
-                }
-                if(value == "Disconnected from simulator.")
-                {
-                    disconnectedMode();
-                }
-                statusLabel.Content = value;
-            }
         }
 
         private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -98,10 +75,20 @@ namespace FlightSimulatorApp
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!connected)
+            vm.connect(ipBox.Text, int.Parse(portBox.Text));
+        }
+
+        private void statusBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(statusBox.Text == MainWindow.connectedStatus)
             {
-                //connect to simulator
+                connectedMode();
             }
+            if(statusBox.Text == MainWindow.disconnectedStatus)
+            {
+                disconnectedMode();
+            }
+            Console.WriteLine("hello");
         }
     }
 }

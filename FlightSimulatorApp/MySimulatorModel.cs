@@ -167,6 +167,7 @@ namespace FlightSimulatorApp
                 {
                     connected = false;
                 }
+                Console.WriteLine("error in status of model");
                 status = value;
                 NotifyPropertyChanged("Status");
                 resetStatusTimer();
@@ -192,6 +193,7 @@ namespace FlightSimulatorApp
                 connected = true;
                 start();
             }
+            Console.WriteLine("error in model");
             Status = result;
         }
 
@@ -286,7 +288,8 @@ namespace FlightSimulatorApp
 
         public void NotifyPropertyChanged(string propName)
         {
-            if(this.PropertyChanged != null)
+            Console.WriteLine("error in notify");
+            if (this.PropertyChanged != null)
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }

@@ -9,12 +9,10 @@
         x:Name="mainWindow"
         Title="MainWindow" Height="630" Width="1120">
 
-    <Grid>
+    <Grid Margin="0,-1,-0.4,0.8">
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="433" Margin="10,153,0,0" Stroke="Black" VerticalAlignment="Top" Width="520"/>
         <Button x:Name="connectButton" Content="CONNECT TO SIMULATOR" HorizontalAlignment="Left" Height="46" Margin="214,97,0,0" VerticalAlignment="Top" Width="226" Click="connectButton_Click" FontSize="16" FontWeight="Bold"/>
-        <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="13,29,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="18"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="92,25,0,0" VerticalAlignment="Top" Width="348"/>
-        <Label x:Name="statusLabel" Content="{Binding VM_Status}" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Height="31" Width="348" FontSize="18"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="13,29,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="18" FontWeight="Bold"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="205" Margin="549,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="350" Margin="549,241,0,0" Stroke="Black" VerticalAlignment="Top" Width="542"/>
         <Label Content="DASHBOARD" HorizontalAlignment="Left" Height="29" Margin="760,25,0,0" VerticalAlignment="Top" Width="118" FontSize="18"/>
@@ -78,5 +76,6 @@
         <Label Content="IP:" HorizontalAlignment="Left" Height="31" Margin="69,92,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label Content="Port:" HorizontalAlignment="Left" Height="31" Margin="69,118,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label x:Name="controlsView" Content="Controls are disabled. Connect to enable." HorizontalAlignment="Left" Margin="654,240,0,0" VerticalAlignment="Top" Height="31" Width="348" FontSize="18"/>
+        <TextBox x:Name="statusBox" HorizontalAlignment="Left" Height="31" Margin="92,33,0,0" TextWrapping="Wrap" Text="{Binding VM_Status}" VerticalAlignment="Top" Width="318" IsReadOnly="True" TextChanged="statusBox_TextChanged" FontSize="18" FontFamily="Lucida Sans Unicode" />
     </Grid>
 </Window>

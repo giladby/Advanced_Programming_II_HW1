@@ -16,6 +16,15 @@ namespace FlightSimulatorApp
             {
                 setProperty("VM_" + e.getPropName());
             };
+            
+        }
+
+        public void connect(string ip, int port)
+        {
+            VM_Status = "hello";
+
+            //model.connect(ip, port);
+
         }
 
         double VM_headingDeg;
@@ -148,6 +157,7 @@ namespace FlightSimulatorApp
             }
             set
             {
+                Console.WriteLine("error in vm status prop");
                 VM_status = value;
             }
         }
@@ -179,6 +189,9 @@ namespace FlightSimulatorApp
                     break;
                 case "VM_AltimeterIndicatedAltitudeFt":
                     VM_AltimeterIndicatedAltitudeFt = model.AltimeterIndicatedAltitudeFt;
+                    break;
+                case "VM_Status":
+                    VM_Status = model.Status;
                     break;
             }
         }
