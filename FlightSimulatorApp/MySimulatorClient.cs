@@ -11,7 +11,6 @@ namespace FlightSimulatorApp
     {
         Socket mySocket;
         int time;
-        
 
         public MySimulatorClient()
         {
