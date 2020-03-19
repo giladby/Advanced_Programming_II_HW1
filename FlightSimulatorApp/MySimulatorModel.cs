@@ -9,6 +9,7 @@ namespace FlightSimulatorApp
 {
     class MySimulatorModel : ISimulatorModel
     {
+        int y;
         Queue<string> setMsgs = new Queue<string>();
         ISimulatorClient client;
         volatile bool stop;
@@ -194,7 +195,7 @@ namespace FlightSimulatorApp
                 value = Double.Parse(rcv);
                 switch (property)
                 {
-                    case "":
+                    case "HeadingDeg":
                         break;
                 }
             }
