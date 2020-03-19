@@ -10,7 +10,7 @@
     <Grid>
 
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="433" Margin="10,153,0,0" Stroke="Black" VerticalAlignment="Top" Width="520"/>
-        <Button Content="CONNECT TO SIMULATOR" HorizontalAlignment="Left" Height="46" Margin="214,97,0,0" VerticalAlignment="Top" Width="226"/>
+        <Button x:Name="connectButton" Content="CONNECT TO SIMULATOR" HorizontalAlignment="Left" Height="46" Margin="214,97,0,0" VerticalAlignment="Top" Width="226" Click="connectButton_Click" FontSize="16" FontWeight="Bold"/>
         <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="13,29,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="18"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="92,25,0,0" VerticalAlignment="Top" Width="348"/>
         <Label x:Name="statusLabel" Content="Not Connected" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Height="31" Width="348" FontSize="18"/>
@@ -25,14 +25,14 @@
         <Label Content="gps_indicated-ground-speed-kt" HorizontalAlignment="Left" Height="40" Margin="585,96,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
         <Label Content="gps_indicated-vertical-speed" HorizontalAlignment="Left" Height="40" Margin="585,76,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
         <Label Content="indicated-heading-deg" HorizontalAlignment="Left" Height="40" Margin="585,56,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-        <Label x:Name="altimeter_indicated_altitude_ft" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,196,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="attitude_indicator_internal_pitch_deg" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,176,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="attitude_indicator_internal_roll_deg" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,156,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="gps_indicated_altitude_ft" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,136,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="airspeed_indicator_indicated_speed_kt" Content="0" HorizontalAlignment="Left" Height="29" Margin="895,116,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="gps_indicated_ground_speed_kt" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,96,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="gps_indicated_vertical_speed" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,76,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
-        <Label x:Name="indicated_heading_deg" Content="0" HorizontalAlignment="Left" Height="40" Margin="895,56,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="altimeter_indicated_altitude_ft" Content="{Binding VM_AltimeterIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="895,196,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="attitude_indicator_internal_pitch_deg" Content="{Binding VM_PitchDeg}" HorizontalAlignment="Left" Height="40" Margin="895,176,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="attitude_indicator_internal_roll_deg" Content="{Binding VM_RollDeg}" HorizontalAlignment="Left" Height="40" Margin="895,156,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="gps_indicated_altitude_ft" Content="{Binding VM_GpsIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="895,136,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="airspeed_indicator_indicated_speed_kt" Content="{Binding VM_IndicatedSpeedKt}" HorizontalAlignment="Left" Height="29" Margin="895,116,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="gps_indicated_ground_speed_kt" Content="{Binding VM_GroundSpeedKt}" HorizontalAlignment="Left" Height="40" Margin="895,96,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="gps_indicated_vertical_speed" Content="{Binding VM_VerticalSpeed}" HorizontalAlignment="Left" Height="40" Margin="895,76,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Label x:Name="indicated_heading_deg" Content="{Binding VM_HeadingDeg}" HorizontalAlignment="Left" Height="40" Margin="895,56,0,0" VerticalAlignment="Top" Width="196" FontSize="16"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,84,0,0" VerticalAlignment="Top" Width="454"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,104,0,0" VerticalAlignment="Top" Width="454"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,124,0,0" VerticalAlignment="Top" Width="454"/>
@@ -40,7 +40,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,164,0,0" VerticalAlignment="Top" Width="454"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,184,0,0" VerticalAlignment="Top" Width="454"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="579,204,0,0" VerticalAlignment="Top" Width="454"/>
-        <MyControls:Joystick elevatorValue="0.2" x:Name="myJoystick" Margin="738,253,32.6,7.8" RenderTransformOrigin="0.5,0.5">
+        <MyControls:Joystick x:Name="myJoystick" Margin="738,253,32.6,7.8" RenderTransformOrigin="0.5,0.5" RudderValue="{Binding VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" ElevatorValue="{Binding VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
             <MyControls:Joystick.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
@@ -50,7 +50,7 @@
                 </TransformGroup>
             </MyControls:Joystick.RenderTransform>
         </MyControls:Joystick>
-        <Slider x:Name="aileronSlider" Maximum="1" Minimum="-1" Value ="0" HorizontalAlignment="Left" Height="18" Margin="492,424,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="aileronSlider_PreviewMouseUp">
+        <Slider x:Name="aileronSlider" Maximum="1" Minimum="-1" Value ="{Binding VM_Aileron}" HorizontalAlignment="Left" Height="18" Margin="492,424,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="aileronSlider_PreviewMouseUp">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -60,7 +60,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="throttleSlider" Maximum="1" Minimum="-1" Value ="0" HorizontalAlignment="Left" Height="18" Margin="570,424,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="throttleSlider_PreviewMouseUp">
+        <Slider x:Name="throttleSlider" Maximum="1" Minimum="-1" Value ="{Binding VM_Throttle}" HorizontalAlignment="Left" Height="18" Margin="570,424,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="throttleSlider_PreviewMouseUp">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -76,5 +76,6 @@
         <TextBox x:Name="portBox" HorizontalAlignment="Left" Height="20" Margin="111,122,0,0" TextWrapping="Wrap" Text="5402" VerticalAlignment="Top" Width="66" TextChanged="portBox_TextChanged"/>
         <Label Content="IP:" HorizontalAlignment="Left" Height="31" Margin="69,92,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label Content="Port:" HorizontalAlignment="Left" Height="31" Margin="69,118,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
+        <Label x:Name="controlsView" Content="Controls are disabled. Connect to enable." HorizontalAlignment="Left" Margin="654,240,0,0" VerticalAlignment="Top" Height="31" Width="348" FontSize="18"/>
     </Grid>
 </Window>

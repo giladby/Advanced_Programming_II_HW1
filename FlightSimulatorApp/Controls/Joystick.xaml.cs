@@ -21,30 +21,34 @@ namespace FlightSimulatorApp.Controls
         private double blackRadius;
         private double mouseX;
         private double mouseY;
-        public double elevatorValue
-        {
-           
-            get
-            {
-                return -1 * (Knob.Margin.Top / blackRadius);
-            }
-            set
-            {
-                
-            }
-        }
-        public double rudderValue
-        {
-            
-            get
-            {
-                return Knob.Margin.Left / blackRadius;
-            }
-            set
-            {
 
-            }
+
+
+        public double ElevatorValue
+        {
+            get { return (double)GetValue(ElevatorValueProperty); }
+            set { SetValue(ElevatorValueProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ElevatorValueProperty =
+            DependencyProperty.Register("ElevatorValue", typeof(double), typeof(Joystick));
+
+
+
+
+        public double RudderValue
+        {
+            get { return (double)GetValue(RudderValueProperty); }
+            set { SetValue(RudderValueProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RudderValueProperty =
+            DependencyProperty.Register("RudderValue", typeof(double), typeof(Joystick));
+
+
+        
         public Joystick()
         {
             InitializeComponent();
@@ -58,9 +62,15 @@ namespace FlightSimulatorApp.Controls
 
         private void setSimulator()
         {
-            double rudder = Knob.Margin.Left / blackRadius;
-            double elevator = -1 * (Knob.Margin.Top / blackRadius);
-            Console.WriteLine($"rudder: {rudder}, elevator: {elevator}");
+            if(RudderValue != Knob.Margin.Left / blackRadius)
+            {
+                RudderValue = Knob.Margin.Left / blackRadius;
+            }
+            
+            if(ElevatorValue != -1 * (Knob.Margin.Top / blackRadius))
+            {
+                ElevatorValue = -1 * (Knob.Margin.Top / blackRadius);
+            }
         }
 
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)

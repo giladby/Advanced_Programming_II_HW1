@@ -8,9 +8,8 @@ namespace FlightSimulatorApp
 {
     interface ISimulatorClient
     {
-        void connect(string ip, int port);
-        void send(string data);
+        string connect(string ip, int port);
+        string send(string data);
         string recieve();
-        void disconnect();
     }
 }

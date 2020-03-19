@@ -21,10 +21,20 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        SimulatorViewModel vm;
+        bool connected;
         public MainWindow()
         {
             InitializeComponent();
-            
+            vm = new SimulatorViewModel(new MySimulatorModel(new MySimulatorClient()));
+            DataContext = vm;
+            connected = false;
+            throttleSlider.IsEnabled = false;
+            aileronSlider.IsEnabled = false;
+            myJoystick.IsEnabled = false;
+            connectButton.IsEnabled = true;
+
+
         }
 
         private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -45,6 +55,23 @@ namespace FlightSimulatorApp
         private void aileronSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             Console.WriteLine(aileronSlider.Value);
+        }
+
+        private void connectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!connected)
+            {
+                //connect to simulator
+
+                connected = true;
+                statusLabel.Content = "Connected to simulator";
+                connectButton.IsEnabled = false;
+                ipBox.IsEnabled = false;
+                portBox.IsEnabled = false;
+                throttleSlider.IsEnabled = true;
+                aileronSlider.IsEnabled = true;
+                myJoystick.IsEnabled = true;
+            }
         }
     }
 }

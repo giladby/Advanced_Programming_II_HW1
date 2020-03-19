@@ -3,29 +3,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace FlightSimulatorApp
 {
     class MySimulatorClient : ISimulatorClient
     {
-        public void connect(string ip, int port)
+        Socket mySocket;
+        int time;
+        public MySimulatorClient()
         {
-            throw new NotImplementedException();
+            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            time = 10000;
+            mySocket.ReceiveTimeout = time;
         }
 
-        public void disconnect()
+        public string connect(string ip, int port)
         {
-            throw new NotImplementedException();
+            try
+            {
+                mySocket.Connect(ip, port);
+                return "Connected to simulator.";
+            } 
+            catch
+            {
+                return "Failed connecting to simulator.";
+            }
+            
+            
+            
+            
         }
 
         public string recieve()
         {
-            throw new NotImplementedException();
+            byte[] rcvBuffer = new byte[256];
+            try
+            {
+                int numberOfBytes = mySocket.Receive(rcvBuffer);
+                return Encoding.ASCII.GetString(rcvBuffer, 0, numberOfBytes);
+            }
+            catch
+            {
+                if(!mySocket.Connected)
+                {
+                    return "Disconnected from simulator.";
+                }
+                return "Error trying to recieve data from simulator.";
+            }
         }
 
-        public void send(string data)
+        public string send(string data)
         {
-            throw new NotImplementedException();
+            byte[] msgToSend = Encoding.ASCII.GetBytes(data + "\n");
+            try
+            {
+                mySocket.Send(msgToSend);
+                return "OK";
+            }
+            catch
+            {
+                if (!mySocket.Connected)
+                {
+                    return "Disconnected from simulator.";
+                }
+                return "Error trying to send data from simulator.";
+            }
         }
     }
 }

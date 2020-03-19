@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -149,11 +150,25 @@ namespace FlightSimulatorApp
             }
         }
 
+        string stauts;
+        public string Status
+        {
+            get
+            {
+                return stauts;
+            }
+            set
+            {
+                stauts = value;
+                NotifyPropertyChanged("Status");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void addSetString(string name, double value)
         {
-            string msg = "set " + name + value.ToString();
+            string msg = "set " + name + " " + value.ToString();
             lock(myLock)
             {
                 setMsgs.Enqueue(msg);
@@ -162,18 +177,67 @@ namespace FlightSimulatorApp
 
         public void connect(string ip, int port)
         {
-            client.connect(ip, port);
+            string result = client.connect(ip, port);
+            if(result == "Connected to simulator.")
+            {
+                start();
+            }
+            Status = result;
         }
 
-        public void disconnect()
+        private void recvData(string property)
         {
-            throw new NotImplementedException();
+            double value;
+            string rcv = client.recieve();
+            if (rcv != "Error trying to recieve data from simulator." && rcv != "Disconnected from simulator.")
+            {
+                value = Double.Parse(rcv);
+                switch (property)
+                {
+                    case "":
+                        break;
+                }
+            }
+            else
+            {
+                Status = rcv;
+            }
         }
 
         public void start()
         {
-            stop = true;
-            client.disconnect();
+            new Thread(delegate ()
+            {
+                while (!stop)
+                {
+                    lock (myLock)
+                    {
+                        while (setMsgs.Count != 0)
+                        {
+                            client.send(setMsgs.Dequeue());
+                        }
+                    }
+
+                    client.send("get /instrumentation/heading-indicator/indicated-heading-deg");
+                    recvData("HeadingDeg");
+                    client.send("get /instrumentation/gps/indicated-vertical-speed");
+                    recvData("VerticalSpeed");
+                    client.send("get /instrumentation/gps/indicated-ground-speed-kt");
+                    GroundSpeedKt = Double.Parse(client.recieve());
+                    client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt");
+                    IndicatedSpeedKt = Double.Parse(client.recieve());
+                    client.send("get /instrumentation/encoder/indicated-altitude-ft");
+                    GpsIndicatedAltitudeFt = Double.Parse(client.recieve());
+                    client.send("get /instrumentation/attitude-indicator/internal-roll-deg");
+                    RollDeg = Double.Parse(client.recieve());
+                    client.send("get /instrumentation/attitude-indicator/internal-pitch-deg");
+                    PitchDeg = Double.Parse(client.recieve());
+                    client.send("get /instrumentation/altimeter/indicated-altitude-ft");
+                    AltimeterIndicatedAltitudeFt = Double.Parse(client.recieve());
+
+                    Thread.Sleep(250);
+                }
+            }).Start();
         }
 
         public void NotifyPropertyChanged(string propName)
