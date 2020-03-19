@@ -35,12 +35,12 @@ namespace FlightSimulatorApp
             InitializeComponent();
             vm = new SimulatorViewModel(new MySimulatorModel(new MySimulatorClient()));
             DataContext = vm;
-            disconnectedStatus();
+            disconnectedMode();
             connected = false;
             connectButton.IsEnabled = true;
         }
 
-        private void disconnectedStatus()
+        public static void disconnectedMode()
         {
             connected = false;
             throttleSlider.IsEnabled = false;
@@ -48,7 +48,7 @@ namespace FlightSimulatorApp
             myJoystick.IsEnabled = false;
         }
 
-        private void connectedStatus()
+        private void connectedMode()
         {
             connected = true;
             connectButton.IsEnabled = false;
@@ -64,13 +64,13 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if(value == "Connected to simulator.")
+                if(value == connectedStatus)
                 {
-                    connectedStatus();
+                    connectedMode();
                 }
-                if(value == "Disconnected from simulator.")
+                if(value == disconnectedStatus)
                 {
-                    disconnectedStatus();
+                    disconnectedMode();
                 }
                 statusLabel.Content = value;
             }

@@ -6,9 +6,10 @@
         xmlns:MyControls="clr-namespace:FlightSimulatorApp.Controls"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
+        x:Name="mainWindow"
         Title="MainWindow" Height="630" Width="1120">
-    <Grid>
 
+    <Grid>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="433" Margin="10,153,0,0" Stroke="Black" VerticalAlignment="Top" Width="520"/>
         <Button x:Name="connectButton" Content="CONNECT TO SIMULATOR" HorizontalAlignment="Left" Height="46" Margin="214,97,0,0" VerticalAlignment="Top" Width="226" Click="connectButton_Click" FontSize="16" FontWeight="Bold"/>
         <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="13,29,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="18"/>
