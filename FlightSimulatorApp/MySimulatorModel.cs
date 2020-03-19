@@ -9,12 +9,6 @@ namespace FlightSimulatorApp
 {
     class MySimulatorModel : ISimulatorModel
     {
-        static public string connectedStatus = "Connected to simulator.";
-        static public string connectionFailedStatus = "Failed connecting to simulator.";
-        static public string disconnectedStatus = "Disconnected from simulator.";
-        static public string rcvErrorStatus = "Error trying to recieve data from simulator.";
-        static public string sendErrorStatus = "Error trying to send data from simulator.";
-        static public string okStatus = "OK";
         Queue<string> setMsgs = new Queue<string>();
         ISimulatorClient client;
         volatile bool stop;
@@ -184,7 +178,7 @@ namespace FlightSimulatorApp
         public void connect(string ip, int port)
         {
             string result = client.connect(ip, port);
-            if(result == MySimulatorModel.connectedStatus)
+            if(result == MainWindow.connectedStatus)
             {
                 start();
             }
@@ -195,7 +189,7 @@ namespace FlightSimulatorApp
         {
             double value;
             string rcvStatus = client.recieve();
-            if (rcvStatus != MySimulatorModel.rcvErrorStatus && rcvStatus != MySimulatorModel.disconnectedStatus)
+            if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
             {
                 value = Double.Parse(rcvStatus);
                 switch (property)
@@ -243,7 +237,7 @@ namespace FlightSimulatorApp
                         while (setMsgs.Count != 0)
                         {
                             string sendStatus = client.send(setMsgs.Dequeue());
-                            if (sendStatus != MySimulatorModel.okStatus)
+                            if (sendStatus != MainWindow.okStatus)
                             {
                                 Status = sendStatus;
                             }

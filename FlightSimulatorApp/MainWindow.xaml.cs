@@ -21,6 +21,13 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        static public string connectedStatus = "Connected to simulator.";
+        static public string connectionFailedStatus = "Failed connecting to simulator.";
+        static public string disconnectedStatus = "Disconnected from simulator.";
+        static public string rcvErrorStatus = "Error trying to recieve data from simulator.";
+        static public string sendErrorStatus = "Error trying to send data from simulator.";
+        static public string okStatus = "OK";
+
         SimulatorViewModel vm;
         bool connected;
         public MainWindow()
