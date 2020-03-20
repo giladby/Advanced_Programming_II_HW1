@@ -267,6 +267,7 @@ namespace FlightSimulatorApp
                             msg = setMsgs.Dequeue();
                             Console.WriteLine(msg);
                             string sendStatus = client.send(msg);
+                            Console.WriteLine("sendStatus is "+ sendStatus);
                             if (sendStatus != MainWindow.okStatus)
                             {
                                 if (sendStatus == "ERR\n")
@@ -281,6 +282,7 @@ namespace FlightSimulatorApp
                             else
                             {
                                 string rcvStatus = client.recieve();
+                                Console.WriteLine("rcvStatus is " + rcvStatus);
                                 if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
                                 {
                                     if (rcvStatus == "ERR\n")
