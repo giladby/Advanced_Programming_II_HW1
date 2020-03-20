@@ -28,7 +28,6 @@ namespace FlightSimulatorApp
             } 
             catch
             {
-                Console.WriteLine("error in client");
                 return MainWindow.connectionFailedStatus;
             }
         }

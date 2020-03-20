@@ -167,7 +167,6 @@ namespace FlightSimulatorApp
                 {
                     connected = false;
                 }
-                Console.WriteLine("error in status of model");
                 status = value;
                 NotifyPropertyChanged("Status");
                 resetStatusTimer();
@@ -193,7 +192,6 @@ namespace FlightSimulatorApp
                 connected = true;
                 start();
             }
-            Console.WriteLine("error in model");
             Status = result;
         }
 
@@ -204,6 +202,11 @@ namespace FlightSimulatorApp
             string rcvStatus = client.recieve();
             if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
             {
+                if(rcvStatus == "ERR\n")
+                {
+                    Status = MainWindow.rcvErrorStatus;
+                    return;
+                }
                 value = Double.Parse(rcvStatus);
                 switch (property)
                 {
@@ -259,7 +262,14 @@ namespace FlightSimulatorApp
                             string sendStatus = client.send(setMsgs.Dequeue());
                             if (sendStatus != MainWindow.okStatus)
                             {
-                                Status = sendStatus;
+                                if (sendStatus == "ERR\n")
+                                {
+                                    Status = MainWindow.sendErrorStatus;
+                                }
+                                else
+                                {
+                                    Status = sendStatus;
+                                }
                             }
                         }
                     }
@@ -288,7 +298,6 @@ namespace FlightSimulatorApp
 
         public void NotifyPropertyChanged(string propName)
         {
-            Console.WriteLine("error in notify");
             if (this.PropertyChanged != null)
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));

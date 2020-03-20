@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace FlightSimulatorApp
 {
-    class SimulatorViewModel
+    class SimulatorViewModel : UserControl
     {
         private ISimulatorModel model;
         public SimulatorViewModel(ISimulatorModel m)
@@ -21,9 +23,8 @@ namespace FlightSimulatorApp
 
         public void connect(string ip, int port)
         {
-            VM_Status = "hello";
 
-            //model.connect(ip, port);
+            model.connect(ip, port);
 
         }
 
@@ -148,19 +149,22 @@ namespace FlightSimulatorApp
             }
         }
 
-        string VM_status;
         public string VM_Status
         {
-            get
+            get { return (string)GetValue(StatusProperty); }
+            set 
             {
-                return VM_status;
-            }
-            set
-            {
-                Console.WriteLine("error in vm status prop");
-                VM_status = value;
+                this.Dispatcher.Invoke((Action)(() =>
+                {//this refer to form in WPF application 
+                    SetValue(StatusProperty, value);
+                })); 
             }
         }
+
+        // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StatusProperty =
+            DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorViewModel));
+
 
         private void setProperty(string propName)
         {

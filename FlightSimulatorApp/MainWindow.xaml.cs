@@ -31,11 +31,13 @@ namespace FlightSimulatorApp
         SimulatorViewModel vm;
         public MainWindow()
         {
-            InitializeComponent();
             vm = new SimulatorViewModel(new MySimulatorModel(new MySimulatorClient()));
             DataContext = vm;
+            InitializeComponent();
+            
             disconnectedMode();
             connectButton.IsEnabled = true;
+            vm.VM_Status = "hi";
         }
 
         private void disconnectedMode()
@@ -61,6 +63,7 @@ namespace FlightSimulatorApp
         private void ipBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Console.WriteLine(ipBox.Text);
+            vm.VM_Status = "ip";
         }
 
         private void portBox_TextChanged(object sender, TextChangedEventArgs e)
