@@ -208,6 +208,7 @@ namespace FlightSimulatorApp
                     return;
                 }
                 value = Double.Parse(rcvStatus);
+                //Console.WriteLine(value);
                 switch (property)
                 {
                     case "HeadingDeg":
@@ -250,6 +251,8 @@ namespace FlightSimulatorApp
             myStatusTimer.AutoReset = true;
             myStatusTimer.Enabled = true;
 
+            string msg;
+
             // set and get thread
             new Thread(delegate ()
             {
@@ -259,7 +262,9 @@ namespace FlightSimulatorApp
                     {
                         while (setMsgs.Count != 0)
                         {
-                            string sendStatus = client.send(setMsgs.Dequeue());
+                            msg = setMsgs.Dequeue();
+                            Console.WriteLine(msg);
+                            string sendStatus = client.send(msg);
                             if (sendStatus != MainWindow.okStatus)
                             {
                                 if (sendStatus == "ERR\n")

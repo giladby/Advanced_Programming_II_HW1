@@ -45,6 +45,7 @@ namespace FlightSimulatorApp
             throttleSlider.IsEnabled = false;
             aileronSlider.IsEnabled = false;
             myJoystick.IsEnabled = false;
+            controlsView.Visibility = Visibility.Visible;
         }
 
         private void connectedMode()
@@ -53,6 +54,7 @@ namespace FlightSimulatorApp
             throttleSlider.IsEnabled = true;
             aileronSlider.IsEnabled = true;
             myJoystick.IsEnabled = true;
+            controlsView.Visibility = Visibility.Collapsed;
         }
 
         private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
