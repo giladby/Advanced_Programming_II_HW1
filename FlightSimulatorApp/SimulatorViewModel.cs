@@ -211,7 +211,6 @@ namespace FlightSimulatorApp
                 if (VM_elevator != value)
                 {
                     VM_elevator = value;
-                    Console.WriteLine($"change elevator to : {value}");
                     model.addSetString("/controls/flight/elevator", VM_elevator);
                 }
             }
@@ -228,7 +227,6 @@ namespace FlightSimulatorApp
                 if (VM_rudder != value)
                 {
                     VM_rudder = value;
-                    Console.WriteLine($"change rudder to : {value}");
                     model.addSetString("/controls/flight/rudder", VM_rudder);
                 }
             }

@@ -59,23 +59,22 @@ namespace FlightSimulatorApp
 
         private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine(throttleSlider.Value);
+            //Console.WriteLine(throttleSlider.Value);
         }
 
         private void ipBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Console.WriteLine(ipBox.Text);
-            vm.VM_Status = "ip";
+            //Console.WriteLine(ipBox.Text);
         }
 
         private void portBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Console.WriteLine(portBox.Text);
+            //Console.WriteLine(portBox.Text);
         }
 
         private void aileronSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine(aileronSlider.Value);
+            //Console.WriteLine(aileronSlider.Value);
         }
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
@@ -93,7 +92,7 @@ namespace FlightSimulatorApp
             {
                 disconnectedMode();
             }
-            Console.WriteLine("hello");
+            Console.WriteLine("statusBox's text has changed");
         }
     }
 }

@@ -53,9 +53,17 @@ namespace FlightSimulatorApp
         public string send(string data)
         {
             byte[] msgToSend = Encoding.ASCII.GetBytes(data + "\n");
+            byte[] rcvBuffer = new byte[256];
+            string rcvMsg;
             try
             {
                 mySocket.Send(msgToSend);
+                int numberOfBytes = mySocket.Receive(rcvBuffer);
+                rcvMsg = Encoding.ASCII.GetString(rcvBuffer, 0, numberOfBytes);
+                if (rcvMsg == "Err\n") 
+                {
+                    return MainWindow.sendErrorStatus;
+                }
                 return MainWindow.okStatus;
             }
             catch
