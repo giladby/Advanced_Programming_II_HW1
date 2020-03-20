@@ -183,8 +183,6 @@ namespace FlightSimulatorApp
             {
                 setMsgs.Enqueue(msg);
             }
-            
-            Console.WriteLine("msg in addSetString: " + setMsgs.Count.ToString());
         }
 
         public void connect(string ip, int port)
@@ -203,7 +201,6 @@ namespace FlightSimulatorApp
         {
             double value;
             string rcvStatus = client.recieve();
-            Console.WriteLine(rcvStatus + "in function");
             if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
             {
                 if(rcvStatus == "ERR\n")
@@ -263,10 +260,8 @@ namespace FlightSimulatorApp
             {
                 while (connected)
                 {
-                    Console.WriteLine("before locking");
                     lock (myLock)
                     {
-                        Console.WriteLine("msg in start: " + setMsgs.Count.ToString());
                         while (setMsgs.Count != 0)
                         {
                             msg = setMsgs.Dequeue();
@@ -283,9 +278,23 @@ namespace FlightSimulatorApp
                                     Status = sendStatus;
                                 }
                             }
+                            else
+                            {
+                                string rcvStatus = client.recieve();
+                                if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
+                                {
+                                    if (rcvStatus == "ERR\n")
+                                    {
+                                        Status = MainWindow.sendErrorStatus;
+                                    }
+                                }
+                                else
+                                {
+                                    Status = rcvStatus;
+                                }
+                            }
                         }
                     }
-                    Console.WriteLine("after locking");
                     client.send("get /instrumentation/heading-indicator/indicated-heading-deg");
                     recvData("HeadingDeg");
                     client.send("get /instrumentation/gps/indicated-vertical-speed");
