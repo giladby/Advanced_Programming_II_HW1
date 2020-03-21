@@ -37,15 +37,17 @@ namespace FlightSimulatorApp
             vm = new SimulatorViewModel(new MySimulatorModel(new MySimulatorClient()));
             DataContext = vm;
             InitializeComponent();
-            
+
+            ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
+            portBox.Text = ConfigurationManager.AppSettings.Get("port");
+
             disconnectedMode();
             statusBox.Text = MainWindow.notConnectedStatus;
         }
 
         private void disconnectedMode()
         {
-            ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
-            portBox.Text = ConfigurationManager.AppSettings.Get("port");
+            
             connectButton.IsEnabled = true;
             ipBox.IsEnabled = true;
             portBox.IsEnabled = true;
