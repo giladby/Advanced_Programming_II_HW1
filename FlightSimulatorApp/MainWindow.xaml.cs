@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 
 namespace FlightSimulatorApp
@@ -43,6 +44,8 @@ namespace FlightSimulatorApp
 
         private void disconnectedMode()
         {
+            ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
+            portBox.Text = ConfigurationManager.AppSettings.Get("port");
             connectButton.IsEnabled = true;
             ipBox.IsEnabled = true;
             portBox.IsEnabled = true;

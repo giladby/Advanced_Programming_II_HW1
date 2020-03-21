@@ -94,8 +94,8 @@
         </Slider>
         <Label Content="Aileron" HorizontalAlignment="Left" Height="31" Margin="584,41,0,0" VerticalAlignment="Top" Width="74" FontSize="18" FontFamily="Lucida Sans Unicode" Grid.Row="1"/>
         <Label Content="Throttle" HorizontalAlignment="Left" Height="31" Margin="669,41,0,0" VerticalAlignment="Top" Width="79" FontSize="18" FontFamily="Lucida Sans Unicode" Grid.Row="1"/>
-        <TextBox x:Name="ipBox" HorizontalAlignment="Left" Height="20" Margin="136,71,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="66" TextChanged="ipBox_TextChanged"/>
-        <TextBox x:Name="portBox" HorizontalAlignment="Left" Height="20" Margin="136,96,0,0" TextWrapping="Wrap" Text="5402" VerticalAlignment="Top" Width="66" TextChanged="portBox_TextChanged"/>
+        <TextBox x:Name="ipBox" HorizontalAlignment="Left" Height="20" Margin="136,71,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66" TextChanged="ipBox_TextChanged"/>
+        <TextBox x:Name="portBox" HorizontalAlignment="Left" Height="20" Margin="136,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66" TextChanged="portBox_TextChanged"/>
         <Label Content="IP:" HorizontalAlignment="Left" Height="31" Margin="94,66,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label Content="Port:" HorizontalAlignment="Left" Height="31" Margin="94,92,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label x:Name="controlsView" Content="Controls are disabled. Connect to enable." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="656,11,0,0" VerticalAlignment="Top" Height="31" Width="365" FontSize="18" Background="{x:Null}" Grid.Row="1"/>
