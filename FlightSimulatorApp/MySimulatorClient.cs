@@ -10,17 +10,11 @@ namespace FlightSimulatorApp
     class MySimulatorClient : ISimulatorClient
     {
         Socket mySocket;
-        int time;
-
-        public MySimulatorClient()
-        {
-            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            time = 10000;
-            mySocket.ReceiveTimeout = time;
-        }
 
         public string connect(string ip, int port)
         {
+            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            mySocket.ReceiveTimeout = 10000;
             try
             {
                 mySocket.Connect(ip, port);
@@ -34,13 +28,12 @@ namespace FlightSimulatorApp
 
         public string recieve()
         {
-            byte[] rcvBuffer = new byte[256];
+            byte[] rcvBuffer = new byte[1024];
             try
             {
                 int numberOfBytes = mySocket.Receive(rcvBuffer);
                 return Encoding.ASCII.GetString(rcvBuffer, 0, numberOfBytes);
-            }
-            catch
+            } catch
             {
                 if(!mySocket.Connected)
                 {
@@ -52,7 +45,7 @@ namespace FlightSimulatorApp
 
         public string send(string data)
         {
-            byte[] msgToSend = Encoding.ASCII.GetBytes(data + "\n");
+            byte[] msgToSend = Encoding.ASCII.GetBytes(data);
             try
             {
                 mySocket.Send(msgToSend);
@@ -64,7 +57,6 @@ namespace FlightSimulatorApp
                 {
                     return MainWindow.disconnectedStatus;
                 }
-                Console.WriteLine("trying to send " + data + " ,connected, but fail");
                 return MainWindow.sendErrorStatus;
             }
         }

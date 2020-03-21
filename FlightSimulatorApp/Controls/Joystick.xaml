@@ -116,7 +116,6 @@
                     <TranslateTransform x:Name="knobPosition" />
                 </Canvas.RenderTransform>
                 <Canvas.Resources>
-
                     <Storyboard x:Key="CenterKnob" Name="centerKnob" Completed="centerKnob_Completed">
 
                         <DoubleAnimation Storyboard.TargetName="knobPosition"

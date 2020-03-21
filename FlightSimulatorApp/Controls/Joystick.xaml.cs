@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,8 +22,6 @@ namespace FlightSimulatorApp.Controls
         private double blackRadius;
         private double mouseX;
         private double mouseY;
-
-
 
         public double ElevatorValue
         {
@@ -53,7 +52,7 @@ namespace FlightSimulatorApp.Controls
         {
             InitializeComponent();
             mousePressed = false;
-            blackRadius = 50;
+            blackRadius = 60;
         }
         private void centerKnob_Completed(object sender, EventArgs e)
         {
@@ -100,6 +99,7 @@ namespace FlightSimulatorApp.Controls
             mousePressed = false;
             Knob.Margin = new Thickness(0, 0, 0, 0);
             setSimulator();
+            
         }
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)

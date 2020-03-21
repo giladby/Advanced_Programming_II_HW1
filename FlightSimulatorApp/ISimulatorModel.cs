@@ -20,6 +20,8 @@ namespace FlightSimulatorApp
         double RollDeg { set; get; }
         double PitchDeg { set; get; }
         double AltimeterIndicatedAltitudeFt { set; get; }
+        double Latitude { set; get; }
+        double Longitude { set; get; }
 
         void addSetString(string name, double value);
     }

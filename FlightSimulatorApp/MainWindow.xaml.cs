@@ -21,11 +21,12 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        static public string connectedStatus = "Connected to simulator.";
-        static public string connectionFailedStatus = "Failed connecting to simulator.";
-        static public string disconnectedStatus = "Disconnected from simulator.";
-        static public string rcvErrorStatus = "Error trying to recieve data from simulator.";
-        static public string sendErrorStatus = "Error trying to send data from simulator.";
+        static public string connectedStatus = "Connected";
+        static public string notConnectedStatus = "Not Connected";
+        static public string connectionFailedStatus = "Failed Connecting To Simulator";
+        static public string disconnectedStatus = "Disconnected From Simulator";
+        static public string rcvErrorStatus = "Error Trying To Receive Data From Simulator";
+        static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
         static public string okStatus = "OK";
 
         SimulatorViewModel vm;
@@ -36,14 +37,18 @@ namespace FlightSimulatorApp
             InitializeComponent();
             
             disconnectedMode();
-            connectButton.IsEnabled = true;
-            vm.VM_Status = "hi";
+            statusBox.Text = MainWindow.notConnectedStatus;
         }
 
         private void disconnectedMode()
         {
+            connectButton.IsEnabled = true;
+            ipBox.IsEnabled = true;
+            portBox.IsEnabled = true;
             throttleSlider.IsEnabled = false;
+            throttleSlider.Value = 0;
             aileronSlider.IsEnabled = false;
+            aileronSlider.Value = 0;
             myJoystick.IsEnabled = false;
             controlsView.Visibility = Visibility.Visible;
         }
@@ -51,6 +56,8 @@ namespace FlightSimulatorApp
         private void connectedMode()
         {
             connectButton.IsEnabled = false;
+            ipBox.IsEnabled = false;
+            portBox.IsEnabled = false;
             throttleSlider.IsEnabled = true;
             aileronSlider.IsEnabled = true;
             myJoystick.IsEnabled = true;
@@ -88,11 +95,10 @@ namespace FlightSimulatorApp
             {
                 connectedMode();
             }
-            if(statusBox.Text == MainWindow.disconnectedStatus)
+            if(statusBox.Text == MainWindow.disconnectedStatus || statusBox.Text == MainWindow.notConnectedStatus)
             {
                 disconnectedMode();
             }
-            Console.WriteLine("statusBox's text has changed");
         }
     }
 }

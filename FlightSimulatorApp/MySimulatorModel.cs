@@ -12,17 +12,23 @@ namespace FlightSimulatorApp
         Queue<string> setMsgs = new Queue<string>();
         ISimulatorClient client;
         private Object myLock;
+        private Object statusLock;
         volatile bool connected;
         System.Timers.Timer myStatusTimer;
-        int statusTimerTime;
 
         public MySimulatorModel(ISimulatorClient c)
         {
             this.client = c;
             myLock = new Object();
+            statusLock = new Object();
             connected = false;
+
+            // set the status timer
             myStatusTimer = new System.Timers.Timer();
-            statusTimerTime = 10000;
+            myStatusTimer.Interval = 5000;
+            myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
+            myStatusTimer.AutoReset = true;
+            myStatusTimer.Enabled = true;
         }
 
         double headingDeg;
@@ -153,6 +159,38 @@ namespace FlightSimulatorApp
                 }
             }
         }
+        double latitude;
+        public double Latitude
+        {
+            get
+            {
+                return latitude;
+            }
+            set
+            {
+                if (latitude != value)
+                {
+                    latitude = value;
+                    NotifyPropertyChanged("Latitude");
+                }
+            }
+        }
+        double longitude;
+        public double Longitude
+        {
+            get
+            {
+                return longitude;
+            }
+            set
+            {
+                if (longitude != value)
+                {
+                    longitude = value;
+                    NotifyPropertyChanged("Longitude");
+                }
+            }
+        }
 
         string status;
         public string Status
@@ -163,13 +201,31 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (value == MainWindow.disconnectedStatus)
+                //lock(statusLock)
+                //{
+                //    if (value == MainWindow.disconnectedStatus || value == MainWindow.notConnectedStatus)
+                //    {
+                //        connected = false;
+                //        resetAllParameters();
+                //    }
+                //    if (!(value == status && (value == MainWindow.notConnectedStatus || value == MainWindow.connectedStatus)))
+                //    {
+                //        status = value;
+                //        NotifyPropertyChanged("Status");
+                //        resetStatusTimer();
+                //    }
+                //}
+                if (value == MainWindow.disconnectedStatus || value == MainWindow.notConnectedStatus)
                 {
                     connected = false;
+                    resetAllParameters();
                 }
-                status = value;
-                NotifyPropertyChanged("Status");
-                resetStatusTimer();
+                if (!(value == status && (value == MainWindow.notConnectedStatus || value == MainWindow.connectedStatus)))
+                {
+                    status = value;
+                    NotifyPropertyChanged("Status");
+                    resetStatusTimer();
+                }
             }
         }
 
@@ -177,9 +233,9 @@ namespace FlightSimulatorApp
 
         public void addSetString(string name, double value)
         {
-            string msg = "set " + name + " " + value.ToString();
-            
-            lock(myLock)
+            string msg = "set " + name + " " + value.ToString() + "\n";
+
+            lock (myLock)
             {
                 setMsgs.Enqueue(msg);
             }
@@ -194,6 +250,7 @@ namespace FlightSimulatorApp
                 start();
             }
             Status = result;
+            
         }
 
 
@@ -208,9 +265,10 @@ namespace FlightSimulatorApp
                     Status = MainWindow.rcvErrorStatus;
                     return;
                 }
-                
-                value = Double.Parse(rcvStatus);
-                
+
+                value = Math.Round(Double.Parse(rcvStatus), 5);
+
+
                 switch (property)
                 {
                     case "HeadingDeg":
@@ -237,6 +295,12 @@ namespace FlightSimulatorApp
                     case "AltimeterIndicatedAltitudeFt":
                         AltimeterIndicatedAltitudeFt = value;
                         break;
+                    case "Latitude":
+                        Latitude = value;
+                        break;
+                    case "Longitude":
+                        Longitude = value;
+                        break;
                 }
             }
             else
@@ -247,11 +311,6 @@ namespace FlightSimulatorApp
 
         public void start()
         {
-            // set the status timer
-            myStatusTimer.Interval = statusTimerTime;
-            myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
-            myStatusTimer.AutoReset = true;
-            myStatusTimer.Enabled = true;
 
             string msg;
 
@@ -267,7 +326,6 @@ namespace FlightSimulatorApp
                             msg = setMsgs.Dequeue();
                             Console.WriteLine(msg);
                             string sendStatus = client.send(msg);
-                            Console.WriteLine("sendStatus is "+ sendStatus);
                             if (sendStatus != MainWindow.okStatus)
                             {
                                 if (sendStatus == "ERR\n")
@@ -282,7 +340,6 @@ namespace FlightSimulatorApp
                             else
                             {
                                 string rcvStatus = client.recieve();
-                                Console.WriteLine("rcvStatus is " + rcvStatus);
                                 if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
                                 {
                                     if (rcvStatus == "ERR\n")
@@ -297,22 +354,27 @@ namespace FlightSimulatorApp
                             }
                         }
                     }
-                    client.send("get /instrumentation/heading-indicator/indicated-heading-deg");
+                    client.send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
                     recvData("HeadingDeg");
-                    client.send("get /instrumentation/gps/indicated-vertical-speed");
+                    client.send("get /instrumentation/gps/indicated-vertical-speed\n");
                     recvData("VerticalSpeed");
-                    client.send("get /instrumentation/gps/indicated-ground-speed-kt");
+                    client.send("get /instrumentation/gps/indicated-ground-speed-kt\n");
                     recvData("GroundSpeedKt");
-                    client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt");
+                    client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
                     recvData("IndicatedSpeedKt");
-                    client.send("get /instrumentation/encoder/indicated-altitude-ft");
+                    client.send("get /instrumentation/gps/indicated-altitude-ft\n");
                     recvData("GpsIndicatedAltitudeFt");
-                    client.send("get /instrumentation/attitude-indicator/internal-roll-deg");
+                    client.send("get /instrumentation/attitude-indicator/internal-roll-deg\n");
                     recvData("RollDeg");
-                    client.send("get /instrumentation/attitude-indicator/internal-pitch-deg");
+                    client.send("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
                     recvData("PitchDeg");
-                    client.send("get /instrumentation/altimeter/indicated-altitude-ft");
+                    client.send("get /instrumentation/altimeter/indicated-altitude-ft\n");
                     recvData("AltimeterIndicatedAltitudeFt");
+
+                    client.send("get /position/latitude-deg\n");
+                    recvData("Latitude");
+                    client.send("get /position/longitude-deg\n");
+                    recvData("Longitude");
 
                     Thread.Sleep(250);
                 }
@@ -329,9 +391,24 @@ namespace FlightSimulatorApp
 
         public void StatusTimerOnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
+            //lock(statusLock)
+            //{
+            //    if (connected)
+            //    {
+            //        Status = MainWindow.connectedStatus;
+            //    }
+            //    else
+            //    {
+            //        Status = MainWindow.notConnectedStatus;
+            //    }
+            //}
             if (connected)
             {
                 Status = MainWindow.connectedStatus;
+            }
+            else
+            {
+                Status = MainWindow.notConnectedStatus;
             }
         }
 
@@ -339,6 +416,19 @@ namespace FlightSimulatorApp
         {
             myStatusTimer.Stop();
             myStatusTimer.Start();
+        }
+        private void resetAllParameters()
+        {
+            HeadingDeg = 0;
+            VerticalSpeed = 0;
+            GroundSpeedKt = 0;
+            IndicatedSpeedKt = 0;
+            GpsIndicatedAltitudeFt = 0;
+            RollDeg = 0;
+            PitchDeg = 0;
+            AltimeterIndicatedAltitudeFt = 0;
+            Latitude = 0;
+            Longitude = 0;
         }
     }
 }
