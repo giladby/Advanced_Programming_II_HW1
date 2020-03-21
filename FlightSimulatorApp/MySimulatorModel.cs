@@ -23,7 +23,7 @@ namespace FlightSimulatorApp
             statusLock = new Object();
             connected = false;
 
-            // set the status timer
+            // set the status timer 
             myStatusTimer = new System.Timers.Timer();
             myStatusTimer.Interval = 5000;
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
