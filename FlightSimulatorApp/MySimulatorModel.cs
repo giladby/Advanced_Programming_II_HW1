@@ -243,14 +243,17 @@ namespace FlightSimulatorApp
 
         public void connect(string ip, int port)
         {
-            string result = client.connect(ip, port);
-            if(result == MainWindow.connectedStatus)
+            Status = MainWindow.tryingToConnectStatus;
+            new Thread(delegate ()
             {
-                connected = true;
-                start();
-            }
-            Status = result;
-            
+                string result = client.connect(ip, port);
+                if (result == MainWindow.connectedStatus)
+                {
+                    connected = true;
+                    start();
+                }
+                Status = result;
+            }).Start();
         }
 
 
