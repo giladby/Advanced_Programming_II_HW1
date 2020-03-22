@@ -62,7 +62,9 @@
     <Compile Include="ISimulatorModel.cs" />
     <Compile Include="MySimulatorModel.cs" />
     <Compile Include="PropertyChangedEventArgs.cs" />
-    <Compile Include="SimulatorViewModel.cs" />
+    <Compile Include="SimulatorControlsViewModel.cs" />
+    <Compile Include="SimulatorDashboardViewModel.cs" />
+    <Compile Include="SimulatorMapViewModel.cs" />
     <Page Include="Controls\Joystick.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

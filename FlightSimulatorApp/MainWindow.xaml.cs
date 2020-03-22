@@ -31,11 +31,23 @@ namespace FlightSimulatorApp
         static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
         static public string okStatus = "OK";
 
-        SimulatorViewModel vm;
+        SimulatorControlsViewModel controlsVM;
+        SimulatorMapViewModel mapVM;
+        //SimulatorDashboardViewModel dashboardVM;
+
         public MainWindow()
         {
-            vm = new SimulatorViewModel(new MySimulatorModel(new MySimulatorClient()));
-            DataContext = vm;
+            ISimulatorClient client = new MySimulatorClient();
+            ISimulatorModel model = new MySimulatorModel(client);
+            controlsVM = new SimulatorControlsViewModel(model);
+            mapVM = new SimulatorMapViewModel(model);
+            //dashboardVM = new SimulatorDashboardViewModel(model);
+            DataContext = new
+            {
+                controlsVM,
+                mapVM
+                //dashboardVM
+            };
             InitializeComponent();
 
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
@@ -92,7 +104,7 @@ namespace FlightSimulatorApp
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            vm.connect(ipBox.Text, int.Parse(portBox.Text));
+            controlsVM.connect(ipBox.Text, int.Parse(portBox.Text));
         }
 
         private void statusBox_TextChanged(object sender, TextChangedEventArgs e)

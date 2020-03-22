@@ -357,22 +357,22 @@ namespace FlightSimulatorApp
                             }
                         }
                     }
-                    client.send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
-                    recvData("HeadingDeg");
-                    client.send("get /instrumentation/gps/indicated-vertical-speed\n");
-                    recvData("VerticalSpeed");
-                    client.send("get /instrumentation/gps/indicated-ground-speed-kt\n");
-                    recvData("GroundSpeedKt");
-                    client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
-                    recvData("IndicatedSpeedKt");
-                    client.send("get /instrumentation/gps/indicated-altitude-ft\n");
-                    recvData("GpsIndicatedAltitudeFt");
-                    client.send("get /instrumentation/attitude-indicator/internal-roll-deg\n");
-                    recvData("RollDeg");
-                    client.send("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
-                    recvData("PitchDeg");
-                    client.send("get /instrumentation/altimeter/indicated-altitude-ft\n");
-                    recvData("AltimeterIndicatedAltitudeFt");
+                    //client.send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
+                    //recvData("HeadingDeg");
+                    //client.send("get /instrumentation/gps/indicated-vertical-speed\n");
+                    //recvData("VerticalSpeed");
+                    //client.send("get /instrumentation/gps/indicated-ground-speed-kt\n");
+                    //recvData("GroundSpeedKt");
+                    //client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
+                    //recvData("IndicatedSpeedKt");
+                    //client.send("get /instrumentation/gps/indicated-altitude-ft\n");
+                    //recvData("GpsIndicatedAltitudeFt");
+                    //client.send("get /instrumentation/attitude-indicator/internal-roll-deg\n");
+                    //recvData("RollDeg");
+                    //client.send("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
+                    //recvData("PitchDeg");
+                    //client.send("get /instrumentation/altimeter/indicated-altitude-ft\n");
+                    //recvData("AltimeterIndicatedAltitudeFt");
 
                     client.send("get /position/latitude-deg\n");
                     recvData("Latitude");
