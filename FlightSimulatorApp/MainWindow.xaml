@@ -54,7 +54,6 @@
         <Label Content="gps__indicated-ground-speed-kt" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="638,89,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
         <Label Content="gps__indicated-vertical-speed" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="638,69,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
         <Label Content="indicated-heading-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="638,49,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-        <!--
         <Label x:Name="altimeter_indicated_altitude_ft" Foreground ="#FF00B200" Content="{Binding dashboardVM.VM_AltimeterIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="936,189,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
         <Label x:Name="attitude_indicator_internal_pitch_deg" Foreground ="#FF00B200" Content="{Binding dashboardVM.VM_PitchDeg}" HorizontalAlignment="Left" Height="40" Margin="936,169,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
         <Label x:Name="attitude_indicator_internal_roll_deg" Foreground ="#FF00B200" Content="{Binding dashboardVM.VM_RollDeg}" HorizontalAlignment="Left" Height="40" Margin="936,149,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
@@ -63,7 +62,6 @@
         <Label x:Name="gps_indicated_ground_speed_kt" Foreground ="#FF00B200" Content="{Binding dashboardVM.VM_GroundSpeedKt}" HorizontalAlignment="Left" Height="40" Margin="936,89,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
         <Label x:Name="gps_indicated_vertical_speed" Foreground ="#FF00B200" Content="{Binding dashboardVM.VM_VerticalSpeed}" HorizontalAlignment="Left" Height="40" Margin="936,69,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
         <Label x:Name="indicated_heading_deg" Foreground ="#FF00B200" Content="{Binding dashboardVM.VM_HeadingDeg}" HorizontalAlignment="Left" Height="40" Margin="936,49,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-        -->
         <MyControls:Joystick x:Name="myJoystick" Margin="757,19,14.4,11" RenderTransformOrigin="0.5,0.5" RudderValue="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" ElevatorValue="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="1">
             <MyControls:Joystick.RenderTransform>
                 <TransformGroup>
@@ -84,7 +82,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="throttleSlider" Maximum="1" Minimum="-1" Value ="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="18" Margin="585,194,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="throttleSlider_PreviewMouseUp" Grid.Row="1">
+        <Slider x:Name="throttleSlider" Maximum="1" Value ="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="18" Margin="585,194,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="throttleSlider_PreviewMouseUp" Grid.Row="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -101,13 +99,13 @@
         <Label Content="IP:" HorizontalAlignment="Left" Height="31" Margin="94,66,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label Content="Port:" HorizontalAlignment="Left" Height="31" Margin="94,92,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label x:Name="controlsView" Content="Controls are disabled. Connect to enable." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="656,11,0,0" VerticalAlignment="Top" Height="31" Width="365" FontSize="18" Background="{x:Null}" Grid.Row="1"/>
-        <TextBox x:Name="statusBox" HorizontalAlignment="Left" Height="31" Margin="116,22,0,0" TextWrapping="Wrap" Text="{Binding mapVM.VM_Status}" VerticalAlignment="Top" Width="406" IsReadOnly="True" TextChanged="statusBox_TextChanged" FontSize="18" FontFamily="Lucida Sans Unicode" />
+        <TextBox x:Name="statusBox" HorizontalAlignment="Left" Height="31" Margin="116,22,0,0" TextWrapping="Wrap" Text="{Binding dashboardVM.VM_Status}" VerticalAlignment="Top" Width="406" IsReadOnly="True" TextChanged="statusBox_TextChanged" FontSize="18" FontFamily="Lucida Sans Unicode" />
         <Label Content="1" HorizontalAlignment="Left" Height="25" Margin="720,76,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
-        <Label Content="0" HorizontalAlignment="Left" Height="25" Margin="720,190,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
-        <Label Content="-1" HorizontalAlignment="Left" Height="25" Margin="720,305,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
-        <Label Content="1" HorizontalAlignment="Left" Height="25" Margin="586,76,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
-        <Label Content="0" HorizontalAlignment="Left" Height="25" Margin="586,190,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
-        <Label Content="-1" HorizontalAlignment="Left" Height="25" Margin="586,305,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
+        <Label Content="0.5" HorizontalAlignment="Left" Height="25" Margin="720,190,0,0" VerticalAlignment="Top" Width="28" Grid.Row="1"/>
+        <Label Content="0" HorizontalAlignment="Left" Height="25" Margin="720,305,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
+        <Label Content="1" HorizontalAlignment="Left" Height="25" Margin="588,76,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
+        <Label Content="0" HorizontalAlignment="Left" Height="25" Margin="588,190,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
+        <Label Content="-1" HorizontalAlignment="Left" Height="25" Margin="588,305,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
         <Label Content="Latitude:" HorizontalAlignment="Left" Height="31" Margin="23,135,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label Content="Longitude:" HorizontalAlignment="Left" Height="31" Margin="23,156,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label x:Name="latitude_deg" Content="{Binding mapVM.VM_Latitude}" HorizontalAlignment="Left" Height="31" Margin="104,135,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="14"/>

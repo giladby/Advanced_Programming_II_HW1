@@ -31,28 +31,9 @@ namespace FlightSimulatorApp
                 case "VM_Longitude":
                     VM_Longitude = model.Longitude;
                     break;
-
-                case "VM_Status":
-                    VM_Status = model.Status;
-                    break;
             }
         }
 
-        public string VM_Status
-        {
-            get { return (string)GetValue(StatusProperty); }
-            set
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    Console.WriteLine("set status");
-                    SetValue(StatusProperty, value);
-                }));
-            }
-        }
-
-        public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorDashboardViewModel));
 
 
         public double VM_Latitude
@@ -62,13 +43,12 @@ namespace FlightSimulatorApp
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Console.WriteLine("set latitude");
                     SetValue(LatitudeProperty, value);
                 }));
             }
         }
         public static readonly DependencyProperty LatitudeProperty =
-            DependencyProperty.Register("VM_Latitude", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_Latitude", typeof(double), typeof(SimulatorMapViewModel));
 
         public double VM_Longitude
         {
@@ -77,13 +57,12 @@ namespace FlightSimulatorApp
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Console.WriteLine("set longitude");
                     SetValue(LongitudeProperty, value);
                 }));
             }
         }
         public static readonly DependencyProperty LongitudeProperty =
-            DependencyProperty.Register("VM_Longitude", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_Longitude", typeof(double), typeof(SimulatorMapViewModel));
 
 
     }

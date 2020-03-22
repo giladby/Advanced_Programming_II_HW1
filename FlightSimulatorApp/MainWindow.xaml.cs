@@ -33,7 +33,7 @@ namespace FlightSimulatorApp
 
         SimulatorControlsViewModel controlsVM;
         SimulatorMapViewModel mapVM;
-        //SimulatorDashboardViewModel dashboardVM;
+        SimulatorDashboardViewModel dashboardVM;
 
         public MainWindow()
         {
@@ -41,12 +41,12 @@ namespace FlightSimulatorApp
             ISimulatorModel model = new MySimulatorModel(client);
             controlsVM = new SimulatorControlsViewModel(model);
             mapVM = new SimulatorMapViewModel(model);
-            //dashboardVM = new SimulatorDashboardViewModel(model);
+            dashboardVM = new SimulatorDashboardViewModel(model);
             DataContext = new
             {
                 controlsVM,
-                mapVM
-                //dashboardVM
+                mapVM,
+                dashboardVM
             };
             InitializeComponent();
 
@@ -64,7 +64,7 @@ namespace FlightSimulatorApp
             ipBox.IsEnabled = true;
             portBox.IsEnabled = true;
             throttleSlider.IsEnabled = false;
-            throttleSlider.Value = 0;
+            throttleSlider.Value = 0.5;
             aileronSlider.IsEnabled = false;
             aileronSlider.Value = 0;
             myJoystick.IsEnabled = false;

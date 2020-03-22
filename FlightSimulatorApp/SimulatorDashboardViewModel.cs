@@ -134,6 +134,21 @@ namespace FlightSimulatorApp
         public static readonly DependencyProperty AltimeterIndicatedAltitudeFtProperty =
             DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
 
+        public string VM_Status
+        {
+            get { return (string)GetValue(StatusProperty); }
+            set
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    SetValue(StatusProperty, value);
+                }));
+            }
+        }
+
+        public static readonly DependencyProperty StatusProperty =
+            DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorDashboardViewModel));
+
 
 
         private void setProperty(string propName)
@@ -164,7 +179,10 @@ namespace FlightSimulatorApp
                 case "VM_AltimeterIndicatedAltitudeFt":
                     VM_AltimeterIndicatedAltitudeFt = model.AltimeterIndicatedAltitudeFt;
                     break;
-                
+                case "VM_Status":
+                    VM_Status = model.Status;
+                    break;
+
             }
         }
 
