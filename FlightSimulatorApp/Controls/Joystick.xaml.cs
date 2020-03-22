@@ -42,6 +42,8 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(RudderValueProperty, value); }
         }
 
+        public AnimationTimeline CenterKnob { get; private set; }
+
         // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RudderValueProperty =
             DependencyProperty.Register("RudderValue", typeof(double), typeof(Joystick));
@@ -56,11 +58,13 @@ namespace FlightSimulatorApp.Controls
         }
         private void centerKnob_Completed(object sender, EventArgs e)
         {
-
+            Console.WriteLine("enter animationnnnnnn");
+            knobPosition.BeginAnimation(OpacityProperty, CenterKnob);
         }
 
         private void setSimulator()
         {
+            /*
             if(RudderValue != Knob.Margin.Left / blackRadius)
             {
                 RudderValue = Knob.Margin.Left / blackRadius;
@@ -69,6 +73,17 @@ namespace FlightSimulatorApp.Controls
             if(ElevatorValue != -1 * (Knob.Margin.Top / blackRadius))
             {
                 ElevatorValue = -1 * (Knob.Margin.Top / blackRadius);
+            }
+            */
+
+            if (RudderValue != knobPosition.X / blackRadius)
+            {
+                RudderValue = knobPosition.X / blackRadius;
+            }
+
+            if (ElevatorValue != -1 * (knobPosition.Y / blackRadius))
+            {
+                ElevatorValue = -1 * (knobPosition.Y / blackRadius);
             }
         }
 
@@ -84,20 +99,33 @@ namespace FlightSimulatorApp.Controls
 
         private void setKnobPosition(double x, double y)
         {
-            double left = Knob.Margin.Left + x;
-            double top = Knob.Margin.Top + y;
+            //double left = Knob.Margin.Left + x;
+            //double top = Knob.Margin.Top + y;
+
+            double left = knobPosition.X + x;
+            double top = knobPosition.Y + y;
+
             double length = Math.Sqrt(left * left + top * top);
             if(length > blackRadius)
             {
                 return;
             }
-            Knob.Margin = new Thickness(left, top, Knob.Margin.Right, Knob.Margin.Bottom);
+
+            knobPosition.X += x;
+            knobPosition.Y += y;
+
+            //Knob.Margin = new Thickness(left, top, Knob.Margin.Right, Knob.Margin.Bottom);
         }
 
         private void releaseMouse()
         {
             mousePressed = false;
-            Knob.Margin = new Thickness(0, 0, 0, 0);
+
+
+            //Knob.Margin = new Thickness(0, 0, 0, 0);
+            knobPosition.X = 0;
+            knobPosition.Y = 0;
+
             setSimulator();
             
         }
@@ -113,7 +141,6 @@ namespace FlightSimulatorApp.Controls
                 currentX = e.GetPosition(this).X;
                 currentY = e.GetPosition(this).Y;
                 
-
                 offsetX = currentX - mouseX;
                 offsetY = currentY - mouseY;
 

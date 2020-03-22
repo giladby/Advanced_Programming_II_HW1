@@ -327,7 +327,7 @@ namespace FlightSimulatorApp
                         while (setMsgs.Count != 0)
                         {
                             msg = setMsgs.Dequeue();
-                            Console.WriteLine(msg);
+                            //Console.WriteLine(msg);
                             string sendStatus = client.send(msg);
                             if (sendStatus != MainWindow.okStatus)
                             {
