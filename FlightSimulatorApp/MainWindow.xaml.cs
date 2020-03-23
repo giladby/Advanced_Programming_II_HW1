@@ -31,10 +31,15 @@ namespace FlightSimulatorApp
         static public string rcvErrorStatus = "Error Trying To Receive Data From Simulator";
         static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
         static public string okStatus = "OK";
+        static public double startLatitude = 32.003657;
+        static public double startLongitude = 34.872770;
 
         SimulatorControlsViewModel controlsVM;
         SimulatorMapViewModel mapVM;
         SimulatorDashboardViewModel dashboardVM;
+
+
+        
 
         public MainWindow()
         {
@@ -50,7 +55,10 @@ namespace FlightSimulatorApp
                 dashboardVM
             };
             InitializeComponent();
+
             myMap.Focus();
+            MapLayer.SetPositionOffset(airplane, new Point(-100, -100));
+
 
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
@@ -71,10 +79,12 @@ namespace FlightSimulatorApp
             aileronSlider.Value = 0;
             myJoystick.IsEnabled = false;
             controlsView.Visibility = Visibility.Visible;
+            
         }
 
         private void connectedMode()
         {
+            MapLayer.SetPositionOffset(airplane, new Point(0, 0));
             connectButton.IsEnabled = false;
             ipBox.IsEnabled = false;
             portBox.IsEnabled = false;
@@ -82,6 +92,8 @@ namespace FlightSimulatorApp
             aileronSlider.IsEnabled = true;
             myJoystick.IsEnabled = true;
             controlsView.Visibility = Visibility.Collapsed;
+            planeBoxView.Visibility = Visibility.Collapsed;
+            planeView.Visibility = Visibility.Collapsed;
         }
 
         private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -121,10 +133,19 @@ namespace FlightSimulatorApp
             }
         }
 
-        private void moveAirplane()
-        {
-            MapLayer.SetPosition(airplane, new Location(Double.Parse(latitude.Content.ToString()), Double.Parse(longitude.Content.ToString())));
-        }
+        //private void moveAirplane()
+        //{
+        //    if (latitude == null || longitude == null)
+        //    {
+        //        return;
+        //    }
+        //    double latitudeValue = Double.Parse(longitude.Text);
+        //    double longitudeValue = Double.Parse(longitude.Text);
+        //    rotateAirplane();
+        //    MapLayer.SetPosition(airplane, new Location(latitudeValue, longitudeValue));
+        //    oldLatitude = latitudeValue;
+        //    oldLongitude = longitudeValue;
+        //}
 
     }
 }

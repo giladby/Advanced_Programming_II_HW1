@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
@@ -30,6 +31,12 @@ namespace FlightSimulatorApp
                     break;
                 case "VM_Longitude":
                     VM_Longitude = model.Longitude;
+                    break;
+                case "VM_Angle":
+                    VM_Angle = model.Angle;
+                    break;
+                case "VM_PlaneLocation":
+                    VM_PlaneLocation = model.PlaneLocation;
                     break;
             }
         }
@@ -63,6 +70,34 @@ namespace FlightSimulatorApp
         }
         public static readonly DependencyProperty LongitudeProperty =
             DependencyProperty.Register("VM_Longitude", typeof(double), typeof(SimulatorMapViewModel));
+
+        public double VM_Angle
+        {
+            get { return (double)GetValue(AngleProperty); }
+            set
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    SetValue(AngleProperty, value);
+                }));
+            }
+        }
+        public static readonly DependencyProperty AngleProperty =
+            DependencyProperty.Register("VM_Angle", typeof(double), typeof(SimulatorMapViewModel));
+
+        public Location VM_PlaneLocation
+        {
+            get { return (Location)GetValue(PlaneLocationProperty); }
+            set
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    SetValue(PlaneLocationProperty, value);
+                }));
+            }
+        }
+        public static readonly DependencyProperty PlaneLocationProperty =
+            DependencyProperty.Register("VM_PlaneLocation", typeof(Location), typeof(SimulatorMapViewModel));
 
 
     }

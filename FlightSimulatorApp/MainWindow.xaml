@@ -9,7 +9,7 @@
         
         mc:Ignorable="d"
         x:Name="mainWindow"
-        Title="FlightSimulatorApp" Height="630" Width="1120">
+        Title="FlightSimulatorApp" Height="630" Width="1120" ResizeMode="NoResize">
 
     <Grid Margin="0,-1,-0.4,0.8">
         <Grid.RowDefinitions>
@@ -83,7 +83,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="throttleSlider" Maximum="1" Value ="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="18" Margin="585,194,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="throttleSlider_PreviewMouseUp" Grid.Row="1">
+        <Slider x:Name="throttleSlider" Maximum="1" Value = "{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="18" Margin="585,194,0,0" VerticalAlignment="Top" Width="239" RenderTransformOrigin="0.5,0.5" PreviewMouseUp="throttleSlider_PreviewMouseUp" Grid.Row="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -99,7 +99,7 @@
         <TextBox x:Name="portBox" HorizontalAlignment="Left" Height="20" Margin="136,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66" TextChanged="portBox_TextChanged"/>
         <Label Content="IP:" HorizontalAlignment="Left" Height="31" Margin="94,66,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
         <Label Content="Port:" HorizontalAlignment="Left" Height="31" Margin="94,92,0,0" VerticalAlignment="Top" Width="74" FontFamily="Lucida Sans Unicode" FontSize="14"/>
-        <Label x:Name="controlsView" Content="Controls are disabled. Connect to enable." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="656,11,0,0" VerticalAlignment="Top" Height="31" Width="365" FontSize="18" Background="{x:Null}" Grid.Row="1"/>
+        <Label x:Name="controlsView" Content="Controls are disabled. Connect to enable." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="656,11,0,0" VerticalAlignment="Top" Height="40" Width="365" FontSize="18" Background="{x:Null}" Grid.Row="1"/>
         <TextBox x:Name="statusBox" HorizontalAlignment="Left" Height="31" Margin="116,22,0,0" TextWrapping="Wrap" Text="{Binding dashboardVM.VM_Status}" VerticalAlignment="Top" Width="406" IsReadOnly="True" TextChanged="statusBox_TextChanged" FontSize="18" FontFamily="Lucida Sans Unicode" />
         <Label Content="1" HorizontalAlignment="Left" Height="25" Margin="720,76,0,0" VerticalAlignment="Top" Width="20" Grid.Row="1"/>
         <Label Content="0.5" HorizontalAlignment="Left" Height="25" Margin="720,190,0,0" VerticalAlignment="Top" Width="28" Grid.Row="1"/>
@@ -110,16 +110,16 @@
         <Rectangle HorizontalAlignment="Left" Height="434" Margin="22,138,0,0" VerticalAlignment="Top" Width="516" Grid.RowSpan="2" Fill="#FF383838"/>
 
 
-        <m:Map x:Name="myMap" Margin="25,142,569.733,23.667" Grid.RowSpan="2" CredentialsProvider="nw9X5t1VORpRClqJavkK~XN8n9COo6PKhDoEQJKEZQA~AtnOCAe8bf0NUKZkOULqwpGPW-7-diFVfJClHL_VUDdmlzB-SYSECuKD1K98KyLS" Center="32.109333,34.855499" ZoomLevel="10" BorderBrush="Black">
-            <Canvas Width="7" Height="8" x:Name="airplane"
-              m:MapLayer.Position="31.783333,35.216667" 
-              m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
-                <Image x:Name="plane" HorizontalAlignment="Left" Height="20" Margin="0,0,0,0" VerticalAlignment="Top" Width="18" Source="Resources/airplane.png">
+        <m:Map x:Name="myMap" Margin="25,142,569.733,23.667" Grid.RowSpan="2" CredentialsProvider="nw9X5t1VORpRClqJavkK~XN8n9COo6PKhDoEQJKEZQA~AtnOCAe8bf0NUKZkOULqwpGPW-7-diFVfJClHL_VUDdmlzB-SYSECuKD1K98KyLS" Center="32.003657, 34.872770" ZoomLevel="10" BorderBrush="Black">
+            <Canvas Height="19" x:Name="airplane"
+              m:MapLayer.Position="{Binding mapVM.VM_PlaneLocation}"
+              m:MapLayer.PositionOrigin="Center" Opacity="1" VerticalAlignment="Top"  Margin="0,0,-19,-11" RenderTransformOrigin="-1.754,-1.933">
+                <Image x:Name="plane" HorizontalAlignment="Left" Height="19" Margin="0,0,0,0" VerticalAlignment="Top" Width="19" Source="Resources/airplane.png" RenderTransformOrigin="0.5,0.5">
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
                             <SkewTransform/>
-                            <RotateTransform x:Name="planeAngle" Angle="0"/>
+                            <RotateTransform x:Name="planeAngle" Angle="{Binding mapVM.VM_Angle}"/>
                             <TranslateTransform/>
                         </TransformGroup>
                     </Image.RenderTransform>
@@ -127,12 +127,13 @@
             </Canvas>
         </m:Map>
 
-        <Rectangle HorizontalAlignment="Left" Height="44" Margin="30,146,0,0" VerticalAlignment="Top" Width="136" Fill="#7FFFFFFF"/>
+        <Rectangle HorizontalAlignment="Left" Height="44" Margin="30,146,0,0" VerticalAlignment="Top" Width="157" Fill="#7FFFFFFF"/>
+        <Rectangle x:Name="planeBoxView" HorizontalAlignment="Left" Height="28" Margin="30,197,0,0" VerticalAlignment="Top" Width="344" Fill="#7FFFFFFF"/>
         <Label Content="Latitude:" HorizontalAlignment="Left" Height="31" Margin="30,144,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label Content="Longitude:" HorizontalAlignment="Left" Height="31" Margin="30,165,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label x:Name="latitude" Content="{Binding mapVM.VM_Latitude}" HorizontalAlignment="Left" Height="31" Margin="98,144,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label x:Name="longitude" Content="{Binding mapVM.VM_Longitude}" HorizontalAlignment="Left" Height="31" Margin="98,165,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
-
+        <Label x:Name="planeView" Content="Airplane icon will appear when connected." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="29,192,0,0" VerticalAlignment="Top" Height="43" Width="365" FontSize="18" Background="{x:Null}" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

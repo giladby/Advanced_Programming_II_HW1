@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
@@ -15,6 +16,9 @@ namespace FlightSimulatorApp
         private Object statusLock;
         volatile bool connected;
         System.Timers.Timer myStatusTimer;
+        double oldLatitude;
+        double oldLongitude;
+        
 
         public MySimulatorModel(ISimulatorClient c)
         {
@@ -29,6 +33,9 @@ namespace FlightSimulatorApp
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
             myStatusTimer.AutoReset = true;
             myStatusTimer.Enabled = true;
+
+            oldLatitude = MainWindow.startLatitude;
+            oldLongitude = MainWindow.startLongitude;
         }
 
         double headingDeg;
@@ -191,6 +198,38 @@ namespace FlightSimulatorApp
                 }
             }
         }
+        double angle;
+        public double Angle
+        {
+            get
+            {
+                return angle;
+            }
+            set
+            {
+                if (angle != value)
+                {
+                    angle = value;
+                    NotifyPropertyChanged("Angle");
+                }
+            }
+        }
+        Location planeLocation;
+        public Location PlaneLocation
+        {
+            get
+            {
+                return planeLocation;
+            }
+            set
+            {
+                if (planeLocation == null || planeLocation.Latitude != value.Latitude || planeLocation.Longitude != value.Longitude)
+                {
+                    planeLocation = value;
+                    NotifyPropertyChanged("PlaneLocation");
+                }
+            }
+        }
 
         string status;
         public string Status
@@ -218,7 +257,6 @@ namespace FlightSimulatorApp
                 if (value == MainWindow.disconnectedStatus || value == MainWindow.notConnectedStatus)
                 {
                     connected = false;
-                    resetAllParameters();
                 }
                 if (!(value == status && (value == MainWindow.notConnectedStatus || value == MainWindow.connectedStatus)))
                 {
@@ -269,8 +307,7 @@ namespace FlightSimulatorApp
                     return;
                 }
 
-                value = Math.Round(Double.Parse(rcvStatus), 5);
-
+                value = Math.Round(Double.Parse(rcvStatus), 6);
 
                 switch (property)
                 {
@@ -379,9 +416,45 @@ namespace FlightSimulatorApp
                     client.send("get /position/longitude-deg\n");
                     recvData("Longitude");
 
+
+                    rotateAirplane();
+                    oldLatitude = Latitude;
+                    oldLongitude = Longitude;
+
+                    PlaneLocation = new Location(Latitude, Longitude);
+
                     Thread.Sleep(250);
                 }
             }).Start();
+        }
+
+        private void rotateAirplane()
+        {
+            double y = Latitude - oldLatitude;
+            double x = Longitude - oldLongitude;
+            double angle;
+
+            if (x == 0)
+            {
+                if (y == 0)
+                {
+                    return;
+                }
+                if (y < 0)
+                {
+                    angle = 270;
+                }
+                else
+                {
+                    angle = 90;
+                }
+            }
+            else
+            {
+                angle = Math.Atan(y / x) * (180 / Math.PI); ;
+            }
+            Angle = angle * -1;
+            Console.WriteLine(angle);
         }
 
         public void NotifyPropertyChanged(string propName)
@@ -419,19 +492,6 @@ namespace FlightSimulatorApp
         {
             myStatusTimer.Stop();
             myStatusTimer.Start();
-        }
-        private void resetAllParameters()
-        {
-            HeadingDeg = 0;
-            VerticalSpeed = 0;
-            GroundSpeedKt = 0;
-            IndicatedSpeedKt = 0;
-            GpsIndicatedAltitudeFt = 0;
-            RollDeg = 0;
-            PitchDeg = 0;
-            AltimeterIndicatedAltitudeFt = 0;
-            Latitude = 0;
-            Longitude = 0;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
@@ -22,6 +23,8 @@ namespace FlightSimulatorApp
         double AltimeterIndicatedAltitudeFt { set; get; }
         double Latitude { set; get; }
         double Longitude { set; get; }
+        double Angle { set; get; }
+        Location PlaneLocation { set; get; }
 
         void addSetString(string name, double value);
     }
