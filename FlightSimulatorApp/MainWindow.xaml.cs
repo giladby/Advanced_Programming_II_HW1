@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using Microsoft.Maps.MapControl.WPF;
 
 
 namespace FlightSimulatorApp
@@ -49,6 +50,7 @@ namespace FlightSimulatorApp
                 dashboardVM
             };
             InitializeComponent();
+            myMap.Focus();
 
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
@@ -118,5 +120,11 @@ namespace FlightSimulatorApp
                 disconnectedMode();
             }
         }
+
+        private void moveAirplane()
+        {
+            MapLayer.SetPosition(airplane, new Location(Double.Parse(latitude.Content.ToString()), Double.Parse(longitude.Content.ToString())));
+        }
+
     }
 }
