@@ -31,8 +31,6 @@ namespace FlightSimulatorApp
         static public string rcvErrorStatus = "Error Trying To Receive Data From Simulator";
         static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
         static public string okStatus = "OK";
-        static public double startLatitude = 32.003657;
-        static public double startLongitude = 34.872770;
 
         SimulatorControlsViewModel controlsVM;
         SimulatorMapViewModel mapVM;
@@ -57,7 +55,6 @@ namespace FlightSimulatorApp
             InitializeComponent();
 
             myMap.Focus();
-            airplane.Visibility = Visibility.Collapsed;
 
 
 
@@ -80,7 +77,9 @@ namespace FlightSimulatorApp
             aileronSlider.Value = 0;
             myJoystick.IsEnabled = false;
             controlsView.Visibility = Visibility.Visible;
-            
+            airplane.Visibility = Visibility.Collapsed;
+            planeViewText.Visibility = Visibility.Visible;
+            planeBoxView.Visibility = Visibility.Visible;
         }
 
         private void connectedMode()
@@ -133,20 +132,6 @@ namespace FlightSimulatorApp
                 disconnectedMode();
             }
         }
-
-        //private void moveAirplane()
-        //{
-        //    if (latitude == null || longitude == null)
-        //    {
-        //        return;
-        //    }
-        //    double latitudeValue = Double.Parse(longitude.Text);
-        //    double longitudeValue = Double.Parse(longitude.Text);
-        //    rotateAirplane();
-        //    MapLayer.SetPosition(airplane, new Location(latitudeValue, longitudeValue));
-        //    oldLatitude = latitudeValue;
-        //    oldLongitude = longitudeValue;
-        //}
 
     }
 }

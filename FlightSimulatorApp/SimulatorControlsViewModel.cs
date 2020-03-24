@@ -76,7 +76,7 @@ namespace FlightSimulatorApp
                 if (VM_throttle != value)
                 {
                     VM_throttle = value;
-                    model.addSetString("/controls/engines/engine/throttle", VM_throttle);
+                    model.addSetString("/controls/engines/current-engine/throttle", VM_throttle);
                 }
             }
         }

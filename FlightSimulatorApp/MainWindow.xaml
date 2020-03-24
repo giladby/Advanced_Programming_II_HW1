@@ -128,7 +128,9 @@
         </m:Map>
 
         <Rectangle HorizontalAlignment="Left" Height="44" Margin="30,146,0,0" VerticalAlignment="Top" Width="157" Fill="#7FFFFFFF"/>
+        
         <Rectangle x:Name="planeBoxView" HorizontalAlignment="Left" Height="22" Margin="30,197,0,0" VerticalAlignment="Top" Width="268" Fill="#7FFFFFFF"/>
+        
         <Label Content="Latitude:" HorizontalAlignment="Left" Height="31" Margin="30,144,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label Content="Longitude:" HorizontalAlignment="Left" Height="31" Margin="30,165,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label x:Name="latitude" Content="{Binding mapVM.VM_Latitude}" HorizontalAlignment="Left" Height="31" Margin="98,144,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>

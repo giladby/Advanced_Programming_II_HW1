@@ -18,6 +18,7 @@ namespace FlightSimulatorApp
         System.Timers.Timer myStatusTimer;
         double oldLatitude;
         double oldLongitude;
+        bool firstRotate;
         
 
         public MySimulatorModel(ISimulatorClient c)
@@ -26,6 +27,7 @@ namespace FlightSimulatorApp
             myLock = new Object();
             statusLock = new Object();
             connected = false;
+            firstRotate = true;
 
             // set the status timer 
             myStatusTimer = new System.Timers.Timer();
@@ -33,9 +35,6 @@ namespace FlightSimulatorApp
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
             myStatusTimer.AutoReset = true;
             myStatusTimer.Enabled = true;
-
-            oldLatitude = MainWindow.startLatitude;
-            oldLongitude = MainWindow.startLongitude;
         }
 
         double headingDeg;
@@ -240,23 +239,10 @@ namespace FlightSimulatorApp
             }
             set
             {
-                //lock(statusLock)
-                //{
-                //    if (value == MainWindow.disconnectedStatus || value == MainWindow.notConnectedStatus)
-                //    {
-                //        connected = false;
-                //        resetAllParameters();
-                //    }
-                //    if (!(value == status && (value == MainWindow.notConnectedStatus || value == MainWindow.connectedStatus)))
-                //    {
-                //        status = value;
-                //        NotifyPropertyChanged("Status");
-                //        resetStatusTimer();
-                //    }
-                //}
                 if (value == MainWindow.disconnectedStatus || value == MainWindow.notConnectedStatus)
                 {
                     connected = false;
+                    firstRotate = true;
                 }
                 if (!(value == status && (value == MainWindow.notConnectedStatus || value == MainWindow.connectedStatus)))
                 {
@@ -430,6 +416,12 @@ namespace FlightSimulatorApp
 
         private void rotateAirplane()
         {
+            if(firstRotate)
+            {
+                Angle = 0;
+                firstRotate = false;
+                return;
+            }
             double y = Latitude - oldLatitude;
             double x = Longitude - oldLongitude;
             double angle;
@@ -470,17 +462,6 @@ namespace FlightSimulatorApp
 
         public void StatusTimerOnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            //lock(statusLock)
-            //{
-            //    if (connected)
-            //    {
-            //        Status = MainWindow.connectedStatus;
-            //    }
-            //    else
-            //    {
-            //        Status = MainWindow.notConnectedStatus;
-            //    }
-            //}
             if (connected)
             {
                 Status = MainWindow.connectedStatus;
