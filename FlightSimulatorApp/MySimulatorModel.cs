@@ -451,10 +451,13 @@ namespace FlightSimulatorApp
             }
             else
             {
-                angle = Math.Atan(y / x) * (180 / Math.PI); ;
+                angle = Math.Atan(y / x) * (180 / Math.PI);
+                if (x < 0)
+                {
+                    angle += 180;
+                }
             }
             Angle = angle * -1;
-            Console.WriteLine(angle);
         }
 
         public void NotifyPropertyChanged(string propName)

@@ -128,12 +128,12 @@
         </m:Map>
 
         <Rectangle HorizontalAlignment="Left" Height="44" Margin="30,146,0,0" VerticalAlignment="Top" Width="157" Fill="#7FFFFFFF"/>
-        <Rectangle x:Name="planeBoxView" HorizontalAlignment="Left" Height="28" Margin="30,197,0,0" VerticalAlignment="Top" Width="344" Fill="#7FFFFFFF"/>
+        <Rectangle x:Name="planeBoxView" HorizontalAlignment="Left" Height="22" Margin="30,197,0,0" VerticalAlignment="Top" Width="268" Fill="#7FFFFFFF"/>
         <Label Content="Latitude:" HorizontalAlignment="Left" Height="31" Margin="30,144,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label Content="Longitude:" HorizontalAlignment="Left" Height="31" Margin="30,165,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label x:Name="latitude" Content="{Binding mapVM.VM_Latitude}" HorizontalAlignment="Left" Height="31" Margin="98,144,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
         <Label x:Name="longitude" Content="{Binding mapVM.VM_Longitude}" HorizontalAlignment="Left" Height="31" Margin="98,165,0,0" VerticalAlignment="Top" Width="93" FontFamily="Lucida Sans Unicode" FontSize="12"/>
-        <Label x:Name="planeView" Content="Airplane icon will appear when connected." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="29,192,0,0" VerticalAlignment="Top" Height="43" Width="365" FontSize="18" Background="{x:Null}" Grid.RowSpan="2"/>
+        <Label x:Name="planeViewText" Content="Airplane icon will appear when connected." Foreground ="#FFFF3232" HorizontalAlignment="Left" Margin="29,192,0,0" VerticalAlignment="Top" Height="43" Width="321" FontSize="14" Background="{x:Null}" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

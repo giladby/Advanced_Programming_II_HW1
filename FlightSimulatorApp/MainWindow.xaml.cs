@@ -60,6 +60,8 @@ namespace FlightSimulatorApp
             MapLayer.SetPositionOffset(airplane, new Point(-100, -100));
 
 
+
+
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
 
@@ -74,7 +76,7 @@ namespace FlightSimulatorApp
             ipBox.IsEnabled = true;
             portBox.IsEnabled = true;
             throttleSlider.IsEnabled = false;
-            throttleSlider.Value = 0.5;
+            throttleSlider.Value = 0;
             aileronSlider.IsEnabled = false;
             aileronSlider.Value = 0;
             myJoystick.IsEnabled = false;
@@ -93,7 +95,7 @@ namespace FlightSimulatorApp
             myJoystick.IsEnabled = true;
             controlsView.Visibility = Visibility.Collapsed;
             planeBoxView.Visibility = Visibility.Collapsed;
-            planeView.Visibility = Visibility.Collapsed;
+            planeViewText.Visibility = Visibility.Collapsed;
         }
 
         private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
