@@ -57,8 +57,7 @@ namespace FlightSimulatorApp
             InitializeComponent();
 
             myMap.Focus();
-            MapLayer.SetPositionOffset(airplane, new Point(-100, -100));
-
+            airplane.Visibility = Visibility.Collapsed;
 
 
 
@@ -86,7 +85,7 @@ namespace FlightSimulatorApp
 
         private void connectedMode()
         {
-            MapLayer.SetPositionOffset(airplane, new Point(0, 0));
+            airplane.Visibility = Visibility.Visible;
             connectButton.IsEnabled = false;
             ipBox.IsEnabled = false;
             portBox.IsEnabled = false;
