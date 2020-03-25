@@ -23,18 +23,6 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        static public string connectedStatus = "Connected";
-        static public string notConnectedStatus = "Not Connected";
-        static public string tryingToConnectStatus = "Trying To Connect...";
-        static public string connectionFailedStatus = "Failed Connecting To Simulator";
-        static public string disconnectedStatus = "The Simulator Disconnected";
-        static public string rcvErrorStatus = "Error Trying To Receive Data From Simulator";
-        static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
-        static public string okStatus = "OK";
-        static public string latitudeErrorStatus = "Received Invalid Latitude Value";
-        static public string longitudeErrorStatus = "Received Invalid Longitude Value";
-        static public string startLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
-        static public string startLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
 
         SimulatorControlsViewModel controlsVM;
         SimulatorMapViewModel mapVM;
@@ -61,7 +49,7 @@ namespace FlightSimulatorApp
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
 
             disconnectedMode();
-            statusBox.Text = MainWindow.notConnectedStatus;
+            statusBox.Text = MyStatus.notConnectedStatus;
         }
 
         private void disconnectedMode()
@@ -121,22 +109,20 @@ namespace FlightSimulatorApp
 
         private void statusBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(statusBox.Text == connectedStatus)
+            if(statusBox.Text == MyStatus.connectedStatus)
             {
                 connectedMode();
                 return;
             }
-            if(statusBox.Text == disconnectedStatus || statusBox.Text == notConnectedStatus)
+            if(statusBox.Text == MyStatus.disconnectedStatus || statusBox.Text == MyStatus.notConnectedStatus)
             {
                 disconnectedMode();
                 return;
             }
-            if (statusBox.Text == startLatitudeErrorStatus || statusBox.Text == startLongitudeErrorStatus)
+            if (statusBox.Text == MyStatus.startLatitudeErrorStatus || statusBox.Text == MyStatus.startLongitudeErrorStatus)
             {
                 airplane.Visibility = Visibility.Collapsed;
-            } else
-            {
-                airplane.Visibility = Visibility.Visible;
+                return;
             }
         }
 

@@ -110,7 +110,7 @@
         <Rectangle HorizontalAlignment="Left" Height="434" Margin="22,138,0,0" VerticalAlignment="Top" Width="516" Grid.RowSpan="2" Fill="#FF383838"/>
 
 
-        <m:Map x:Name="myMap" Margin="25,142,569.733,23.667" Grid.RowSpan="2" CredentialsProvider="nw9X5t1VORpRClqJavkK~XN8n9COo6PKhDoEQJKEZQA~AtnOCAe8bf0NUKZkOULqwpGPW-7-diFVfJClHL_VUDdmlzB-SYSECuKD1K98KyLS" Center="32.003657, 34.872770" ZoomLevel="6" BorderBrush="Black">
+        <m:Map x:Name="myMap" Margin="25,142,569.733,23.667" Grid.RowSpan="2" CredentialsProvider="nw9X5t1VORpRClqJavkK~XN8n9COo6PKhDoEQJKEZQA~AtnOCAe8bf0NUKZkOULqwpGPW-7-diFVfJClHL_VUDdmlzB-SYSECuKD1K98KyLS" Center="32.003657, 34.872770" ZoomLevel="0" BorderBrush="Black">
             <Canvas Height="19" x:Name="airplane"
               m:MapLayer.Position="{Binding mapVM.VM_PlaneLocation}"
               m:MapLayer.PositionOrigin="Center" Opacity="1" VerticalAlignment="Top"  Margin="0,0,-19,-11" RenderTransformOrigin="-1.754,-1.933">

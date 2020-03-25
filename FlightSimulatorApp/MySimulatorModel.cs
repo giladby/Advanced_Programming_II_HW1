@@ -19,6 +19,9 @@ namespace FlightSimulatorApp
         private double oldLatitude;
         private double oldLongitude;
         private bool firstRotate;
+        private bool firstValidLatitude;
+        private bool firstValidLongitude;
+        private bool firstPlaneAppearance;
 
         public MySimulatorModel(ISimulatorClient c)
         {
@@ -26,6 +29,9 @@ namespace FlightSimulatorApp
             myLock = new Object();
             connected = false;
             firstRotate = true;
+            firstValidLatitude = false;
+            firstValidLongitude = false;
+            firstPlaneAppearance = false;
 
             // set the status timer 
             myStatusTimer = new System.Timers.Timer();
@@ -176,10 +182,19 @@ namespace FlightSimulatorApp
                 {
                     if (value > 90 || value < -90)
                     {
-                        Status = MainWindow.latitudeErrorStatus;
+                        if (firstValidLatitude && firstValidLongitude)
+                        {
+                            Status = MyStatus.latitudeErrorStatus;
+                        } else
+                        {
+                            Status = MyStatus.startLatitudeErrorStatus;
+                        }
+                    } else
+                    {
+                        latitude = value;
+                        NotifyPropertyChanged("Latitude");
+                        firstValidLatitude = true;
                     }
-                    latitude = value;
-                    NotifyPropertyChanged("Latitude");
                 }
             }
         }
@@ -196,10 +211,21 @@ namespace FlightSimulatorApp
                 {
                     if (value > 180 || value < -180)
                     {
-                        Status = MainWindow.longitudeErrorStatus;
+                        if (firstValidLatitude && firstValidLongitude)
+                        {
+                            Status = MyStatus.longitudeErrorStatus;
+                        }
+                        else
+                        {
+                            Status = MyStatus.startLongitudeErrorStatus;
+
+                        }
+                    } else
+                    {
+                        longitude = value;
+                        NotifyPropertyChanged("Longitude");
+                        firstValidLongitude = true;
                     }
-                    longitude = value;
-                    NotifyPropertyChanged("Longitude");
                 }
             }
         }
@@ -245,12 +271,12 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (value == MainWindow.disconnectedStatus || value == MainWindow.notConnectedStatus)
+                if (value == MyStatus.disconnectedStatus || value == MyStatus.notConnectedStatus)
                 {
                     connected = false;
                     firstRotate = true;
                 }
-                if (!(value == status && (value == MainWindow.notConnectedStatus || value == MainWindow.connectedStatus)))
+                if (!(value == status && (value == MyStatus.notConnectedStatus || value == MyStatus.connectedStatus)))
                 {
                     status = value;
                     NotifyPropertyChanged("Status");
@@ -271,11 +297,11 @@ namespace FlightSimulatorApp
 
         public void connect(string ip, int port)
         {
-            Status = MainWindow.tryingToConnectStatus;
+            Status = MyStatus.tryingToConnectStatus;
             new Thread(delegate ()
             {
                 string result = client.connect(ip, port);
-                if (result == MainWindow.connectedStatus)
+                if (result == MyStatus.connectedStatus)
                 {
                     connected = true;
                     start();
@@ -289,11 +315,11 @@ namespace FlightSimulatorApp
         {
             double value;
             string rcvStatus = client.recieve();
-            if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
+            if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.disconnectedStatus)
             {
                 if(rcvStatus == "ERR\n")
                 {
-                    Status = MainWindow.rcvErrorStatus;
+                    Status = MyStatus.rcvErrorStatus;
                     return;
                 }
 
@@ -356,11 +382,11 @@ namespace FlightSimulatorApp
                             msg = setMsgs.Dequeue();
                             Console.WriteLine(msg);
                             string sendStatus = client.send(msg);
-                            if (sendStatus != MainWindow.okStatus)
+                            if (sendStatus != MyStatus.okStatus)
                             {
                                 if (sendStatus == "ERR\n")
                                 {
-                                    Status = MainWindow.sendErrorStatus;
+                                    Status = MyStatus.sendErrorStatus;
                                 }
                                 else
                                 {
@@ -370,11 +396,11 @@ namespace FlightSimulatorApp
                             else
                             {
                                 string rcvStatus = client.recieve();
-                                if (rcvStatus != MainWindow.rcvErrorStatus && rcvStatus != MainWindow.disconnectedStatus)
+                                if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.disconnectedStatus)
                                 {
                                     if (rcvStatus == "ERR\n")
                                     {
-                                        Status = MainWindow.sendErrorStatus;
+                                        Status = MyStatus.sendErrorStatus;
                                     }
                                 }
                                 else
@@ -406,6 +432,17 @@ namespace FlightSimulatorApp
                     client.send("get /position/longitude-deg\n");
                     recvData("Longitude");
 
+                    if (!firstPlaneAppearance)
+                    {
+                        if (firstValidLatitude && firstValidLongitude)
+                        {
+                            if (connected)
+                            {
+                                Status = MyStatus.connectedStatus;
+                            }
+                            firstPlaneAppearance = true;
+                        }
+                    }
 
                     rotateAirplane();
                     oldLatitude = Latitude;
@@ -468,11 +505,11 @@ namespace FlightSimulatorApp
         {
             if (connected)
             {
-                Status = MainWindow.connectedStatus;
+                Status = MyStatus.connectedStatus;
             }
             else
             {
-                Status = MainWindow.notConnectedStatus;
+                Status = MyStatus.notConnectedStatus;
             }
         }
 

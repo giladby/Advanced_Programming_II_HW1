@@ -18,11 +18,11 @@ namespace FlightSimulatorApp
             try
             {
                 mySocket.Connect(ip, port);
-                return MainWindow.connectedStatus;
+                return MyStatus.connectedStatus;
             } 
             catch
             {
-                return MainWindow.connectionFailedStatus;
+                return MyStatus.connectionFailedStatus;
             }
         }
 
@@ -37,9 +37,9 @@ namespace FlightSimulatorApp
             {
                 if(!mySocket.Connected)
                 {
-                    return MainWindow.disconnectedStatus;
+                    return MyStatus.disconnectedStatus;
                 }
-                return MainWindow.rcvErrorStatus;
+                return MyStatus.rcvErrorStatus;
             }
         }
 
@@ -49,15 +49,15 @@ namespace FlightSimulatorApp
             try
             {
                 mySocket.Send(msgToSend);
-                return MainWindow.okStatus;
+                return MyStatus.okStatus;
             }
             catch
             {
                 if (!mySocket.Connected)
                 {
-                    return MainWindow.disconnectedStatus;
+                    return MyStatus.disconnectedStatus;
                 }
-                return MainWindow.sendErrorStatus;
+                return MyStatus.sendErrorStatus;
             }
         }
     }
