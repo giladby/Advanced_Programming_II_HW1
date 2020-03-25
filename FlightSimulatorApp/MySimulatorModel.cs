@@ -10,22 +10,20 @@ namespace FlightSimulatorApp
 {
     class MySimulatorModel : ISimulatorModel
     {
-        Queue<string> setMsgs = new Queue<string>();
-        ISimulatorClient client;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private Queue<string> setMsgs = new Queue<string>();
+        private ISimulatorClient client;
         private Object myLock;
-        private Object statusLock;
-        volatile bool connected;
-        System.Timers.Timer myStatusTimer;
-        double oldLatitude;
-        double oldLongitude;
-        bool firstRotate;
-        
+        private volatile bool connected;
+        private System.Timers.Timer myStatusTimer;
+        private double oldLatitude;
+        private double oldLongitude;
+        private bool firstRotate;
 
         public MySimulatorModel(ISimulatorClient c)
         {
-            this.client = c;
+            client = c;
             myLock = new Object();
-            statusLock = new Object();
             connected = false;
             firstRotate = true;
 
@@ -176,6 +174,10 @@ namespace FlightSimulatorApp
             {
                 if (latitude != value)
                 {
+                    if (value > 90 || value < -90)
+                    {
+                        Status = MainWindow.latitudeErrorStatus;
+                    }
                     latitude = value;
                     NotifyPropertyChanged("Latitude");
                 }
@@ -192,6 +194,10 @@ namespace FlightSimulatorApp
             {
                 if (longitude != value)
                 {
+                    if (value > 180 || value < -180)
+                    {
+                        Status = MainWindow.longitudeErrorStatus;
+                    }
                     longitude = value;
                     NotifyPropertyChanged("Longitude");
                 }
@@ -252,8 +258,6 @@ namespace FlightSimulatorApp
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void addSetString(string name, double value)
         {
@@ -454,9 +458,9 @@ namespace FlightSimulatorApp
 
         public void NotifyPropertyChanged(string propName)
         {
-            if (this.PropertyChanged != null)
+            if (PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
 

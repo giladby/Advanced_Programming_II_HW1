@@ -31,13 +31,14 @@ namespace FlightSimulatorApp
         static public string rcvErrorStatus = "Error Trying To Receive Data From Simulator";
         static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
         static public string okStatus = "OK";
+        static public string latitudeErrorStatus = "Received Invalid Latitude Value";
+        static public string longitudeErrorStatus = "Received Invalid Longitude Value";
+        static public string startLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
+        static public string startLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
 
         SimulatorControlsViewModel controlsVM;
         SimulatorMapViewModel mapVM;
         SimulatorDashboardViewModel dashboardVM;
-
-
-        
 
         public MainWindow()
         {
@@ -56,8 +57,6 @@ namespace FlightSimulatorApp
 
             myMap.Focus();
 
-
-
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
 
@@ -67,7 +66,6 @@ namespace FlightSimulatorApp
 
         private void disconnectedMode()
         {
-            
             connectButton.IsEnabled = true;
             ipBox.IsEnabled = true;
             portBox.IsEnabled = true;
@@ -123,13 +121,22 @@ namespace FlightSimulatorApp
 
         private void statusBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(statusBox.Text == MainWindow.connectedStatus)
+            if(statusBox.Text == connectedStatus)
             {
                 connectedMode();
+                return;
             }
-            if(statusBox.Text == MainWindow.disconnectedStatus || statusBox.Text == MainWindow.notConnectedStatus)
+            if(statusBox.Text == disconnectedStatus || statusBox.Text == notConnectedStatus)
             {
                 disconnectedMode();
+                return;
+            }
+            if (statusBox.Text == startLatitudeErrorStatus || statusBox.Text == startLongitudeErrorStatus)
+            {
+                airplane.Visibility = Visibility.Collapsed;
+            } else
+            {
+                airplane.Visibility = Visibility.Visible;
             }
         }
 

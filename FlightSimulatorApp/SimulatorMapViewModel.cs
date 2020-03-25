@@ -19,7 +19,6 @@ namespace FlightSimulatorApp
             {
                 setProperty("VM_" + e.getPropName());
             };
-
         }
 
         private void setProperty(string propName)
@@ -40,8 +39,6 @@ namespace FlightSimulatorApp
                     break;
             }
         }
-
-
 
         public double VM_Latitude
         {

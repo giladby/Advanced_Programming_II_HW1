@@ -13,7 +13,8 @@ namespace FlightSimulatorApp
         private ISimulatorModel model;
         public SimulatorDashboardViewModel(ISimulatorModel m)
         {
-            this.model = m;
+            model = m;
+            VM_status = "";
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
                 setProperty("VM_" + e.getPropName());
@@ -21,7 +22,6 @@ namespace FlightSimulatorApp
 
         }
 
-        
         public double VM_HeadingDeg
         {
             get { return (double)GetValue(HeadingDegProperty); }
@@ -134,18 +134,22 @@ namespace FlightSimulatorApp
         public static readonly DependencyProperty AltimeterIndicatedAltitudeFtProperty =
             DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
 
+        private string VM_status;
         public string VM_Status
         {
             get { return (string)GetValue(StatusProperty); }
             set
             {
-                this.Dispatcher.Invoke((Action)(() =>
+                if (VM_status != value)
                 {
-                    SetValue(StatusProperty, value);
-                }));
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        SetValue(StatusProperty, value);
+                    }));
+                    VM_status = value;
+                }
             }
         }
-
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorDashboardViewModel));
 
