@@ -29,9 +29,7 @@ namespace FlightSimulatorApp
             myLock = new Object();
             connected = false;
             firstRotate = true;
-            firstValidLatitude = false;
-            firstValidLongitude = false;
-            firstPlaneAppearance = false;
+            turnOffLocationFlags();
 
             // set the status timer 
             myStatusTimer = new System.Timers.Timer();
@@ -275,6 +273,7 @@ namespace FlightSimulatorApp
                 {
                     connected = false;
                     firstRotate = true;
+                    clearAllParameters();
                 }
                 if (!(value == status && (value == MyStatus.notConnectedStatus || value == MyStatus.connectedStatus)))
                 {
@@ -297,6 +296,7 @@ namespace FlightSimulatorApp
 
         public void connect(string ip, int port)
         {
+            turnOffLocationFlags();
             Status = MyStatus.tryingToConnectStatus;
             new Thread(delegate ()
             {
@@ -517,6 +517,26 @@ namespace FlightSimulatorApp
         {
             myStatusTimer.Stop();
             myStatusTimer.Start();
+        }
+
+        private void turnOffLocationFlags()
+        {
+            firstValidLatitude = false;
+            firstValidLongitude = false;
+            firstPlaneAppearance = false;
+        }
+        private void clearAllParameters()
+        {
+            HeadingDeg = 0;
+            VerticalSpeed = 0;
+            GroundSpeedKt = 0;
+            IndicatedSpeedKt = 0;
+            GpsIndicatedAltitudeFt = 0;
+            RollDeg = 0;
+            PitchDeg = 0;
+            AltimeterIndicatedAltitudeFt = 0;
+            Latitude = 0;
+            Longitude = 0;
         }
     }
 }
