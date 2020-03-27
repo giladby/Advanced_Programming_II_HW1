@@ -22,6 +22,7 @@ namespace FlightSimulatorApp.Controls
         private double blackRadius;
         private double mouseX;
         private double mouseY;
+        private Storyboard myStoryboard;
 
         public double ElevatorValue
         {
@@ -55,11 +56,12 @@ namespace FlightSimulatorApp.Controls
             InitializeComponent();
             mousePressed = false;
             blackRadius = 60;
+
+            myStoryboard = (Storyboard)Knob.FindResource("CenterKnob");
         }
         private void centerKnob_Completed(object sender, EventArgs e)
         {
-            Console.WriteLine("enter animationnnnnnn");
-            knobPosition.BeginAnimation(OpacityProperty, CenterKnob);
+            myStoryboard.Stop();
         }
 
         private void setSimulator()
@@ -121,6 +123,7 @@ namespace FlightSimulatorApp.Controls
         {
             mousePressed = false;
 
+            myStoryboard.Begin();
 
             //Knob.Margin = new Thickness(0, 0, 0, 0);
             knobPosition.X = 0;
