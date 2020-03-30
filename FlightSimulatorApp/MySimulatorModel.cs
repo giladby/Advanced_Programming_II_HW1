@@ -37,6 +37,7 @@ namespace FlightSimulatorApp
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
             myStatusTimer.AutoReset = true;
             myStatusTimer.Enabled = true;
+
         }
 
         double headingDeg;

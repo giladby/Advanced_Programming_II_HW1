@@ -24,30 +24,28 @@ namespace FlightSimulatorApp.Controls
         private double mouseY;
         private Storyboard myStoryboard;
 
-        public double ElevatorValue
+        public double yValue
         {
-            get { return (double)GetValue(ElevatorValueProperty); }
-            set { SetValue(ElevatorValueProperty, value); }
+            get { return (double)GetValue(yValueProperty); }
+            set { SetValue(yValueProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ElevatorValueProperty =
-            DependencyProperty.Register("ElevatorValue", typeof(double), typeof(Joystick));
+        public static readonly DependencyProperty yValueProperty =
+            DependencyProperty.Register("yValue", typeof(double), typeof(Joystick));
 
 
-
-
-        public double RudderValue
+        public double xValue
         {
-            get { return (double)GetValue(RudderValueProperty); }
-            set { SetValue(RudderValueProperty, value); }
+            get { return (double)GetValue(xValueProperty); }
+            set { SetValue(xValueProperty, value); }
         }
 
-        public AnimationTimeline CenterKnob { get; private set; }
+        //public AnimationTimeline CenterKnob { get; private set; }
 
         // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RudderValueProperty =
-            DependencyProperty.Register("RudderValue", typeof(double), typeof(Joystick));
+        public static readonly DependencyProperty xValueProperty =
+            DependencyProperty.Register("xValue", typeof(double), typeof(Joystick));
 
 
         
@@ -62,6 +60,9 @@ namespace FlightSimulatorApp.Controls
         private void centerKnob_Completed(object sender, EventArgs e)
         {
             myStoryboard.Stop();
+            knobPosition.X = 0;
+            knobPosition.Y = 0;
+            setSimulator();
         }
 
         private void setSimulator()
@@ -78,14 +79,17 @@ namespace FlightSimulatorApp.Controls
             }
             */
 
-            if (RudderValue != knobPosition.X / blackRadius)
+            double x = knobPosition.X / blackRadius;
+            double y = -1 * (knobPosition.Y / blackRadius);
+
+            if (xValue != x)
             {
-                RudderValue = knobPosition.X / blackRadius;
+                xValue = x;
             }
 
-            if (ElevatorValue != -1 * (knobPosition.Y / blackRadius))
+            if (yValue != y)
             {
-                ElevatorValue = -1 * (knobPosition.Y / blackRadius);
+                yValue = y;
             }
         }
 
@@ -126,10 +130,6 @@ namespace FlightSimulatorApp.Controls
             myStoryboard.Begin();
 
             //Knob.Margin = new Thickness(0, 0, 0, 0);
-            knobPosition.X = 0;
-            knobPosition.Y = 0;
-
-            setSimulator();
             
         }
 

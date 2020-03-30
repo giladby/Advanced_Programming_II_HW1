@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="FlightSimulatorApp.Controls.myControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:MyControls="clr-namespace:FlightSimulatorApp.Controls"
+             xmlns:local="clr-namespace:FlightSimulatorApp.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" MouseUp="UserControl_MouseUp" MouseDown="UserControl_MouseDown">
+    <Grid>
+        <Rectangle HorizontalAlignment="Right" Height="450" Stroke="Black" VerticalAlignment="Top" Width="654" Margin="0,0,55,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF939393" Offset="0.3"/>
+                    <GradientStop Color="#FF404040" Offset="1"/>
+                    <GradientStop Color="#FF404040" Offset="0"/>
+                    <GradientStop Color="#FF939393" Offset="0.7"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <MyControls:Joystick x:Name="myJoystick" Margin="0,14,308,80" RenderTransformOrigin="0.5,0.5" xValue="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" yValue="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="myJoystick_MouseMove">
+            <MyControls:Joystick.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-2"/>
+                </TransformGroup>
+            </MyControls:Joystick.RenderTransform>
+        </MyControls:Joystick>
+        <Label Content="Rudder" HorizontalAlignment="Left" Margin="245,359,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Elevator" HorizontalAlignment="Left" Margin="245,389,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="rudderLabel" Content="0" HorizontalAlignment="Left" Margin="331,359,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="elevatorLabel" Content="0" HorizontalAlignment="Left" Margin="331,389,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Slider x:Name="throttleSlider" Maximum="1" Value="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="26" Margin="403,211,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="throttleSlider_ValueChanged">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1.4"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Slider x:Name="aileronSlider" Maximum="1" Value="{Binding controlsVM.VM_Aileron}" HorizontalAlignment="Left" Height="26" Margin="503,208,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="aileronSlider_ValueChanged" Minimum="-1">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1.4"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Label Content="Throttle" HorizontalAlignment="Left" Margin="504,39,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Aileron" HorizontalAlignment="Left" Margin="608,40,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="throttleLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="492,365,0,0" VerticalAlignment="Top" FontSize="20" Width="100"/>
+        <Label x:Name="aileronLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="582,365,0,0" VerticalAlignment="Top" FontSize="20" Width="121"/>
+
+    </Grid>
+</UserControl>

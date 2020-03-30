@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Configuration;
 using Microsoft.Maps.MapControl.WPF;
+using System.Windows.Shell;
 
 
 namespace FlightSimulatorApp
@@ -23,92 +23,68 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        SimulatorControlsViewModel controlsVM;
-        SimulatorMapViewModel mapVM;
-        SimulatorDashboardViewModel dashboardVM;
-
+        private bool roadViewFlag;
         public MainWindow()
         {
-            ISimulatorClient client = new MySimulatorClient();
-            ISimulatorModel model = new MySimulatorModel(client);
-            controlsVM = new SimulatorControlsViewModel(model);
-            mapVM = new SimulatorMapViewModel(model);
-            dashboardVM = new SimulatorDashboardViewModel(model);
-            DataContext = new
-            {
-                controlsVM,
-                mapVM,
-                dashboardVM
-            };
             InitializeComponent();
 
+            DataContext = new
+            {
+                (Application.Current as App).controlsVM,
+                (Application.Current as App).mapVM,
+                (Application.Current as App).dashboardVM
+            };
+            
             myMap.Focus();
 
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
 
-            disconnectedMode();
-            statusBox.Text = MyStatus.notConnectedStatus;
-        }
+            (Application.Current as App).dashboardVM.VM_Status = MyStatus.notConnectedStatus;
 
-        private void disconnectedMode()
-        {
-            connectButton.IsEnabled = true;
-            ipBox.IsEnabled = true;
-            portBox.IsEnabled = true;
-            throttleSlider.IsEnabled = false;
-            throttleSlider.Value = 0;
-            aileronSlider.IsEnabled = false;
-            aileronSlider.Value = 0;
-            myJoystick.IsEnabled = false;
-            controlsView.Visibility = Visibility.Visible;
-            airplane.Visibility = Visibility.Collapsed;
-            planeViewText.Visibility = Visibility.Visible;
-            planeBoxView.Visibility = Visibility.Visible;
+            roadViewFlag = true;
         }
 
         private void connectedMode()
         {
-            airplane.Visibility = Visibility.Visible;
+            myControls.connectedMode();
             connectButton.IsEnabled = false;
             ipBox.IsEnabled = false;
             portBox.IsEnabled = false;
-            throttleSlider.IsEnabled = true;
-            aileronSlider.IsEnabled = true;
-            myJoystick.IsEnabled = true;
             controlsView.Visibility = Visibility.Collapsed;
+            controlsTextBox.Visibility = Visibility.Collapsed;
+            airplane.Visibility = Visibility.Visible;
             planeBoxView.Visibility = Visibility.Collapsed;
             planeViewText.Visibility = Visibility.Collapsed;
+            centerButton.IsEnabled = true;
+            planeColorBox.IsEnabled = true;
+            planeColorBox.SelectedItem = blackColor;
         }
 
-        private void throttleSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void disconnectedMode()
         {
-            //Console.WriteLine(throttleSlider.Value);
-        }
-
-        private void ipBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //Console.WriteLine(ipBox.Text);
-        }
-
-        private void portBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //Console.WriteLine(portBox.Text);
-        }
-
-        private void aileronSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //Console.WriteLine(aileronSlider.Value);
+            myControls.disconnectedMode();
+            connectButton.IsEnabled = true;
+            ipBox.IsEnabled = true;
+            portBox.IsEnabled = true;
+            controlsView.Visibility = Visibility.Visible;
+            controlsTextBox.Visibility = Visibility.Visible;
+            airplane.Visibility = Visibility.Collapsed;
+            planeViewText.Visibility = Visibility.Visible;
+            planeBoxView.Visibility = Visibility.Visible;
+            centerButton.IsEnabled = false;
+            planeColorBox.IsEnabled = false;
+            planeColorBox.SelectedItem = null;
         }
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            controlsVM.connect(ipBox.Text, int.Parse(portBox.Text));
+            (Application.Current as App).controlsVM.connect(ipBox.Text, int.Parse(portBox.Text));
         }
 
         private void statusBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
             if(statusBox.Text == MyStatus.connectedStatus)
             {
                 connectedMode();
@@ -126,5 +102,35 @@ namespace FlightSimulatorApp
             }
         }
 
+        private void mapViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (roadViewFlag)
+            {
+                mapViewButton.Content = "Change To Road View";
+                myMap.Mode = new AerialMode(true);
+                roadViewFlag = false;
+            } else
+            {
+                mapViewButton.Content = "Change To Aerial View";
+                myMap.Mode = new RoadMode();
+                roadViewFlag = true;
+            }
+        }
+
+        private void centerButton_Click(object sender, RoutedEventArgs e)
+        {
+            myMap.ZoomLevel = 6;
+            myMap.Center = MapLayer.GetPosition(airplane);
+        }
+
+        private void planeColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (planeColorBox.SelectedItem != null)
+            {
+                string color = planeColorBox.SelectedItem.ToString().Split(' ').Last();
+                string imagePath = "Resources/" + color + "_airplane.png";
+                plane.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+            }
+        }
     }
 }

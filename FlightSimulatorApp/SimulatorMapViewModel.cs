@@ -9,7 +9,7 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
-    class SimulatorMapViewModel : UserControl
+    public class SimulatorMapViewModel : UserControl
     {
         private ISimulatorModel model;
         public SimulatorMapViewModel(ISimulatorModel m)

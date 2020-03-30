@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace FlightSimulatorApp
 {
-    class SimulatorDashboardViewModel : UserControl
+    public class SimulatorDashboardViewModel : UserControl
     {
         private ISimulatorModel model;
         public SimulatorDashboardViewModel(ISimulatorModel m)
@@ -19,7 +19,6 @@ namespace FlightSimulatorApp
             {
                 setProperty("VM_" + e.getPropName());
             };
-
         }
 
         public double VM_HeadingDeg

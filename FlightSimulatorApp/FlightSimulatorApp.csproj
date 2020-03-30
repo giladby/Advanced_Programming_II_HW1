@@ -63,6 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\myControls.xaml.cs">
+      <DependentUpon>myControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ISimulatorModel.cs" />
     <Compile Include="MySimulatorModel.cs" />
     <Compile Include="PropertyChangedEventArgs.cs" />
@@ -73,6 +76,10 @@
     <Page Include="Controls\Joystick.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\myControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -120,7 +127,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\airplane.png" />
+    <Resource Include="Resources\Black_airplane.png" />
+    <Resource Include="Resources\Blue_airplane.png" />
+    <Resource Include="Resources\Green_airplane.png" />
+    <Resource Include="Resources\Red_airplane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Purple_airplane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Yellow_airplane.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

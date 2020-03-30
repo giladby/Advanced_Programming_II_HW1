@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace FlightSimulatorApp
 {
-    class SimulatorControlsViewModel : UserControl
+    public class SimulatorControlsViewModel : UserControl
     {
         private ISimulatorModel model;
         public SimulatorControlsViewModel(ISimulatorModel m)
