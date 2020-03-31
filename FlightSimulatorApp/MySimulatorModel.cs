@@ -270,7 +270,7 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (value == MyStatus.disconnectedStatus || value == MyStatus.notConnectedStatus)
+                if (value == MyStatus.disconnectedStatus || value == MyStatus.simulatorDisconnectedStatus || value == MyStatus.notConnectedStatus)
                 {
                     connected = false;
                     firstRotate = true;
@@ -311,12 +311,18 @@ namespace FlightSimulatorApp
             }).Start();
         }
 
+        public void disconnect()
+        {
+            connected = false;
+            client.disconnect();
+            Status = MyStatus.disconnectedStatus;
+        }
 
         private void recvData(string property)
         {
             double value;
             string rcvStatus = client.recieve();
-            if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.disconnectedStatus)
+            if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.simulatorDisconnectedStatus)
             {
                 if(rcvStatus == "ERR\n")
                 {
@@ -396,7 +402,7 @@ namespace FlightSimulatorApp
                             else
                             {
                                 string rcvStatus = client.recieve();
-                                if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.disconnectedStatus)
+                                if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.simulatorDisconnectedStatus)
                                 {
                                     if (rcvStatus == "ERR\n")
                                     {

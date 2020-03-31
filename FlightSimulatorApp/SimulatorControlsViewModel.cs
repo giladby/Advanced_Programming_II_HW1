@@ -85,5 +85,10 @@ namespace FlightSimulatorApp
         {
             model.connect(ip, port);
         }
+
+        public void disconnect()
+        {
+            model.disconnect();
+        }
     }
 }

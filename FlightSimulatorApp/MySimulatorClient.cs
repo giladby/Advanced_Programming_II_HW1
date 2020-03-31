@@ -25,6 +25,17 @@ namespace FlightSimulatorApp
                 return MyStatus.connectionFailedStatus;
             }
         }
+        public void disconnect()
+        {
+            try
+            {
+                mySocket.Shutdown(SocketShutdown.Both);
+            }
+            finally
+            {
+                mySocket.Close();
+            }
+        }
 
         public string recieve()
         {
@@ -37,7 +48,7 @@ namespace FlightSimulatorApp
             {
                 if(!mySocket.Connected)
                 {
-                    return MyStatus.disconnectedStatus;
+                    return MyStatus.simulatorDisconnectedStatus;
                 }
                 return MyStatus.rcvErrorStatus;
             }
@@ -55,7 +66,7 @@ namespace FlightSimulatorApp
             {
                 if (!mySocket.Connected)
                 {
-                    return MyStatus.disconnectedStatus;
+                    return MyStatus.simulatorDisconnectedStatus;
                 }
                 return MyStatus.sendErrorStatus;
             }

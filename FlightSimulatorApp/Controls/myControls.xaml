@@ -8,17 +8,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" MouseUp="UserControl_MouseUp" MouseDown="UserControl_MouseDown">
     <Grid>
-        <Rectangle HorizontalAlignment="Right" Height="450" Stroke="Black" VerticalAlignment="Top" Width="654" Margin="0,0,55,0">
+        <Rectangle HorizontalAlignment="Right" Height="440" Stroke="Black" VerticalAlignment="Top" Width="617" Margin="0,0,82,0">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF939393" Offset="0.3"/>
-                    <GradientStop Color="#FF404040" Offset="1"/>
-                    <GradientStop Color="#FF404040" Offset="0"/>
-                    <GradientStop Color="#FF939393" Offset="0.7"/>
+                    <GradientStop Color="#FFBDBDBD" Offset="0.3"/>
+                    <GradientStop Color="#FF5F5F5F" Offset="1"/>
+                    <GradientStop Color="#FF5F5F5F" Offset="0"/>
+                    <GradientStop Color="#FFBDBDBD" Offset="0.7"/>
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <MyControls:Joystick x:Name="myJoystick" Margin="0,14,308,80" RenderTransformOrigin="0.5,0.5" xValue="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" yValue="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="myJoystick_MouseMove">
+        <MyControls:Joystick x:Name="myJoystick" Margin="0,18,310,76" RenderTransformOrigin="0.5,0.5" xValue="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" yValue="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="myJoystick_MouseMove">
             <MyControls:Joystick.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -28,11 +28,11 @@
                 </TransformGroup>
             </MyControls:Joystick.RenderTransform>
         </MyControls:Joystick>
-        <Label Content="Rudder" HorizontalAlignment="Left" Margin="245,359,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Elevator" HorizontalAlignment="Left" Margin="245,389,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="rudderLabel" Content="0" HorizontalAlignment="Left" Margin="331,359,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="elevatorLabel" Content="0" HorizontalAlignment="Left" Margin="331,389,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Slider x:Name="throttleSlider" Maximum="1" Value="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="26" Margin="403,211,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="throttleSlider_ValueChanged">
+        <Label Content="Rudder" HorizontalAlignment="Left" Margin="243,363,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Elevator" HorizontalAlignment="Left" Margin="243,393,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="rudderLabel" Content="0" HorizontalAlignment="Left" Margin="329,363,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="elevatorLabel" Content="0" HorizontalAlignment="Left" Margin="329,393,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Slider x:Name="throttleSlider" Maximum="1" Value="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="26" Margin="401,215,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="throttleSlider_ValueChanged">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -42,7 +42,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="aileronSlider" Maximum="1" Value="{Binding controlsVM.VM_Aileron}" HorizontalAlignment="Left" Height="26" Margin="503,208,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="aileronSlider_ValueChanged" Minimum="-1">
+        <Slider x:Name="aileronSlider" Maximum="1" Value="{Binding controlsVM.VM_Aileron}" HorizontalAlignment="Left" Height="26" Margin="501,212,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="aileronSlider_ValueChanged" Minimum="-1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -52,10 +52,10 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Label Content="Throttle" HorizontalAlignment="Left" Margin="504,39,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Aileron" HorizontalAlignment="Left" Margin="608,40,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="throttleLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="492,365,0,0" VerticalAlignment="Top" FontSize="20" Width="100"/>
-        <Label x:Name="aileronLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="582,365,0,0" VerticalAlignment="Top" FontSize="20" Width="121"/>
+        <Label Content="Throttle" HorizontalAlignment="Left" Margin="502,43,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Aileron" HorizontalAlignment="Left" Margin="606,44,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="throttleLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="490,369,0,0" VerticalAlignment="Top" FontSize="20" Width="100"/>
+        <Label x:Name="aileronLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="580,369,0,0" VerticalAlignment="Top" FontSize="20" Width="121"/>
 
     </Grid>
 </UserControl>
