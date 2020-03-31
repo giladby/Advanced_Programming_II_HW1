@@ -9,7 +9,7 @@
         
         mc:Ignorable="d"
         x:Name="mainWindow"
-        Title="FlightSimulatorApp" Height="675" Width="1200">
+        Title="FlightSimulatorApp" Height="630" Width="1120">
 
 
     <Viewbox Stretch="Fill">
