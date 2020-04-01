@@ -180,10 +180,6 @@ namespace FlightSimulatorApp
             flightRoute.Opacity = 1;
             myMap.Children.Add(flightRoute);
             Panel.SetZIndex(airplane, Panel.GetZIndex(flightRoute) + 1);
-            if (connected && MapLayer.GetPosition(airplane) != null)
-            {
-                flightRoute.Locations.Add(MapLayer.GetPosition(airplane));
-            }
         }
 
         private void routeCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -210,14 +206,10 @@ namespace FlightSimulatorApp
         }
         private void deleteFlightRoute()
         {
-            myMap.Children.Remove(flightRoute);
-            initFlightRoute();
-            if (!isFlightRoute)
+            flightRoute.Locations.Clear();
+            if (connected && MapLayer.GetPosition(airplane) != null)
             {
-                if (flightRoute != null)
-                {
-                    flightRoute.Visibility = Visibility.Collapsed;
-                }
+                flightRoute.Locations.Add(MapLayer.GetPosition(airplane));
             }
         }
     }
