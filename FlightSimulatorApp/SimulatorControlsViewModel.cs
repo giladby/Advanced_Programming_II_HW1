@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace FlightSimulatorApp
 {
     public class SimulatorControlsViewModel : UserControl
     {
         private ISimulatorModel model;
+       
         public SimulatorControlsViewModel(ISimulatorModel m)
         {
-            this.model = m;
+            model = m;
         }
 
         double VM_elevator;
+
         public double VM_Elevator
         {
             get
@@ -28,11 +24,13 @@ namespace FlightSimulatorApp
                 if (VM_elevator != value)
                 {
                     VM_elevator = value;
-                    model.addSetString("/controls/flight/elevator", VM_elevator);
+                    model.AddSetString("/controls/flight/elevator", VM_elevator);
                 }
             }
         }
+
         double VM_rudder;
+
         public double VM_Rudder
         {
             get
@@ -44,11 +42,13 @@ namespace FlightSimulatorApp
                 if (VM_rudder != value)
                 {
                     VM_rudder = value;
-                    model.addSetString("/controls/flight/rudder", VM_rudder);
+                    model.AddSetString("/controls/flight/rudder", VM_rudder);
                 }
             }
         }
+
         double VM_aileron;
+
         public double VM_Aileron
         {
             get
@@ -60,11 +60,13 @@ namespace FlightSimulatorApp
                 if (VM_aileron != value)
                 {
                     VM_aileron = value;
-                    model.addSetString("/controls/flight/aileron", VM_aileron);
+                    model.AddSetString("/controls/flight/aileron", VM_aileron);
                 }
             }
         }
+
         double VM_throttle;
+
         public double VM_Throttle
         {
             get
@@ -76,19 +78,19 @@ namespace FlightSimulatorApp
                 if (VM_throttle != value)
                 {
                     VM_throttle = value;
-                    model.addSetString("/controls/engines/current-engine/throttle", VM_throttle);
+                    model.AddSetString("/controls/engines/current-engine/throttle", VM_throttle);
                 }
             }
         }
 
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
-            model.connect(ip, port);
+            model.Connect(ip, port);
         }
 
-        public void disconnect()
+        public void Disconnect()
         {
-            model.disconnect();
+            model.Disconnect();
         }
     }
 }

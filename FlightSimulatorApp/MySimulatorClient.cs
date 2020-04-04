@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Net.Sockets;
 
 namespace FlightSimulatorApp
@@ -11,10 +7,9 @@ namespace FlightSimulatorApp
     {
         Socket mySocket;
 
-        public string connect(string ip, int port)
+        public string Connect(string ip, int port)
         {
-            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            mySocket.ReceiveTimeout = 10000;
+            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ReceiveTimeout = 10000 };
             try
             {
                 mySocket.Connect(ip, port);
@@ -25,7 +20,8 @@ namespace FlightSimulatorApp
                 return MyStatus.connectionFailedStatus;
             }
         }
-        public void disconnect()
+
+        public void Disconnect()
         {
             try
             {
@@ -37,16 +33,17 @@ namespace FlightSimulatorApp
             }
         }
 
-        public string recieve()
+        public string Recieve()
         {
             byte[] rcvBuffer = new byte[1024];
             try
             {
                 int numberOfBytes = mySocket.Receive(rcvBuffer);
                 return Encoding.ASCII.GetString(rcvBuffer, 0, numberOfBytes);
-            } catch
+            } 
+            catch
             {
-                if(!mySocket.Connected)
+                if (!mySocket.Connected)
                 {
                     return MyStatus.simulatorDisconnectedStatus;
                 }
@@ -54,7 +51,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        public string send(string data)
+        public string Send(string data)
         {
             byte[] msgToSend = Encoding.ASCII.GetBytes(data);
             try

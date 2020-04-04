@@ -18,7 +18,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <MyControls:Joystick x:Name="myJoystick" Margin="0,18,310,76" RenderTransformOrigin="0.5,0.5" xValue="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" yValue="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="myJoystick_MouseMove">
+        <MyControls:Joystick x:Name="myJoystick" Margin="0,18,310,76" RenderTransformOrigin="0.5,0.5" X="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Y="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="myJoystick_MouseMove">
             <MyControls:Joystick.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

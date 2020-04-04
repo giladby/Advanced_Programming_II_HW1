@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FlightSimulatorApp
 {
@@ -16,6 +10,7 @@ namespace FlightSimulatorApp
         public SimulatorControlsViewModel controlsVM { get; internal set; }
         public SimulatorDashboardViewModel dashboardVM { get; internal set; }
         public SimulatorMapViewModel mapVM { get; internal set; }
+        
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             ISimulatorClient client = new MySimulatorClient();

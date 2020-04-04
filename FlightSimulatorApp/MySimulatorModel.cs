@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
@@ -29,18 +26,14 @@ namespace FlightSimulatorApp
             myLock = new Object();
             connected = false;
             firstRotate = true;
-            turnOffLocationFlags();
-
+            TurnOffLocationFlags();
             // set the status timer 
-            myStatusTimer = new System.Timers.Timer();
-            myStatusTimer.Interval = 5000;
+            myStatusTimer = new System.Timers.Timer { Interval = 5000, AutoReset = true, Enabled = true };
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
-            myStatusTimer.AutoReset = true;
-            myStatusTimer.Enabled = true;
-
         }
 
         double headingDeg;
+
         public double HeadingDeg
         {
             get
@@ -49,14 +42,16 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if(headingDeg != value)
+                if (headingDeg != value)
                 {
                     headingDeg = value;
                     NotifyPropertyChanged("HeadingDeg");
                 }
             }
         }
+
         double verticalSpeed;
+
         public double VerticalSpeed
         {
             get
@@ -72,7 +67,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double groundSpeedKt;
+
         public double GroundSpeedKt
         {
             get
@@ -88,7 +85,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double indicatedSpeedKt;
+
         public double IndicatedSpeedKt
         {
             get
@@ -104,7 +103,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double gpsIndicatedAltitudeFt;
+
         public double GpsIndicatedAltitudeFt
         {
             get
@@ -120,7 +121,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double rollDeg;
+
         public double RollDeg
         {
             get
@@ -136,7 +139,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double pitchDeg;
+
         public double PitchDeg
         {
             get
@@ -152,7 +157,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double altimeterIndicatedAltitudeFt;
+
         public double AltimeterIndicatedAltitudeFt
         {
             get
@@ -168,7 +175,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double latitude;
+
         public double Latitude
         {
             get
@@ -179,16 +188,18 @@ namespace FlightSimulatorApp
             {
                 if (latitude != value)
                 {
-                    if (value > 90 || value < -90)
+                    if ((value > 90) || (value < -90))
                     {
                         if (firstValidLatitude && firstValidLongitude)
                         {
                             Status = MyStatus.latitudeErrorStatus;
-                        } else
+                        } 
+                        else
                         {
                             Status = MyStatus.startLatitudeErrorStatus;
                         }
-                    } else
+                    }
+                    else
                     {
                         latitude = value;
                         NotifyPropertyChanged("Latitude");
@@ -197,7 +208,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double longitude;
+
         public double Longitude
         {
             get
@@ -208,7 +221,7 @@ namespace FlightSimulatorApp
             {
                 if (longitude != value)
                 {
-                    if (value > 180 || value < -180)
+                    if ((value > 180) || (value < -180))
                     {
                         if (firstValidLatitude && firstValidLongitude)
                         {
@@ -217,9 +230,9 @@ namespace FlightSimulatorApp
                         else
                         {
                             Status = MyStatus.startLongitudeErrorStatus;
-
                         }
-                    } else
+                    }
+                    else
                     {
                         longitude = value;
                         NotifyPropertyChanged("Longitude");
@@ -228,7 +241,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         double angle;
+
         public double Angle
         {
             get
@@ -244,7 +259,9 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         Location planeLocation;
+
         public Location PlaneLocation
         {
             get
@@ -253,7 +270,7 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (planeLocation == null || planeLocation.Latitude != value.Latitude || planeLocation.Longitude != value.Longitude)
+                if ((planeLocation == null) || (planeLocation.Latitude != value.Latitude) || (planeLocation.Longitude != value.Longitude))
                 {
                     planeLocation = value;
                     NotifyPropertyChanged("PlaneLocation");
@@ -262,6 +279,7 @@ namespace FlightSimulatorApp
         }
 
         string status;
+
         public string Status
         {
             get
@@ -270,68 +288,65 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (value == MyStatus.disconnectedStatus || value == MyStatus.simulatorDisconnectedStatus || value == MyStatus.notConnectedStatus)
+                if ((value == MyStatus.disconnectedStatus) || (value == MyStatus.simulatorDisconnectedStatus) || (value == MyStatus.notConnectedStatus))
                 {
                     connected = false;
                     firstRotate = true;
-                    clearAllParameters();
+                    ClearAllParameters();
                 }
-                if (!(value == status && (value == MyStatus.notConnectedStatus || value == MyStatus.connectedStatus)))
+                if (!((value == status) && ((value == MyStatus.notConnectedStatus) || (value == MyStatus.connectedStatus))))
                 {
                     status = value;
                     NotifyPropertyChanged("Status");
-                    resetStatusTimer();
+                    ResetStatusTimer();
                 }
             }
         }
 
-        public void addSetString(string name, double value)
+        public void AddSetString(string name, double value)
         {
-            string msg = "set " + name + " " + value.ToString() + "\n";
-
+            string msg = $"set {name} {value.ToString()}\n";
             lock (myLock)
             {
                 setMsgs.Enqueue(msg);
             }
         }
 
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
-            turnOffLocationFlags();
+            TurnOffLocationFlags();
             Status = MyStatus.tryingToConnectStatus;
             new Thread(delegate ()
             {
-                string result = client.connect(ip, port);
+                string result = client.Connect(ip, port);
                 if (result == MyStatus.connectedStatus)
                 {
                     connected = true;
-                    start();
+                    Start();
                 }
                 Status = result;
             }).Start();
         }
 
-        public void disconnect()
+        public void Disconnect()
         {
             connected = false;
-            client.disconnect();
+            client.Disconnect();
             Status = MyStatus.disconnectedStatus;
         }
 
-        private void recvData(string property)
+        private void RecvData(string property)
         {
             double value;
-            string rcvStatus = client.recieve();
-            if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.simulatorDisconnectedStatus)
+            string rcvStatus = client.Recieve();
+            if ((rcvStatus != MyStatus.rcvErrorStatus) && (rcvStatus != MyStatus.simulatorDisconnectedStatus))
             {
-                if(rcvStatus == "ERR\n")
+                if (rcvStatus == "ERR\n")
                 {
                     Status = MyStatus.rcvErrorStatus;
                     return;
                 }
-
                 value = Math.Round(Double.Parse(rcvStatus), 6);
-
                 switch (property)
                 {
                     case "HeadingDeg":
@@ -372,10 +387,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        public void start()
+        public void Start()
         {
             string msg;
-
             // set and get thread
             new Thread(delegate ()
             {
@@ -386,8 +400,7 @@ namespace FlightSimulatorApp
                         while (setMsgs.Count != 0)
                         {
                             msg = setMsgs.Dequeue();
-                            //Console.WriteLine(msg);
-                            string sendStatus = client.send(msg);
+                            string sendStatus = client.Send(msg);
                             if (sendStatus != MyStatus.okStatus)
                             {
                                 if (sendStatus == "ERR\n")
@@ -401,8 +414,8 @@ namespace FlightSimulatorApp
                             }
                             else
                             {
-                                string rcvStatus = client.recieve();
-                                if (rcvStatus != MyStatus.rcvErrorStatus && rcvStatus != MyStatus.simulatorDisconnectedStatus)
+                                string rcvStatus = client.Recieve();
+                                if ((rcvStatus != MyStatus.rcvErrorStatus) && (rcvStatus != MyStatus.simulatorDisconnectedStatus))
                                 {
                                     if (rcvStatus == "ERR\n")
                                     {
@@ -416,28 +429,26 @@ namespace FlightSimulatorApp
                             }
                         }
                     }
-                    client.send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
-                    recvData("HeadingDeg");
-                    client.send("get /instrumentation/gps/indicated-vertical-speed\n");
-                    recvData("VerticalSpeed");
-                    client.send("get /instrumentation/gps/indicated-ground-speed-kt\n");
-                    recvData("GroundSpeedKt");
-                    client.send("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
-                    recvData("IndicatedSpeedKt");
-                    client.send("get /instrumentation/gps/indicated-altitude-ft\n");
-                    recvData("GpsIndicatedAltitudeFt");
-                    client.send("get /instrumentation/attitude-indicator/internal-roll-deg\n");
-                    recvData("RollDeg");
-                    client.send("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
-                    recvData("PitchDeg");
-                    client.send("get /instrumentation/altimeter/indicated-altitude-ft\n");
-                    recvData("AltimeterIndicatedAltitudeFt");
-
-                    client.send("get /position/latitude-deg\n");
-                    recvData("Latitude");
-                    client.send("get /position/longitude-deg\n");
-                    recvData("Longitude");
-
+                    client.Send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
+                    RecvData("HeadingDeg");
+                    client.Send("get /instrumentation/gps/indicated-vertical-speed\n");
+                    RecvData("VerticalSpeed");
+                    client.Send("get /instrumentation/gps/indicated-ground-speed-kt\n");
+                    RecvData("GroundSpeedKt");
+                    client.Send("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
+                    RecvData("IndicatedSpeedKt");
+                    client.Send("get /instrumentation/gps/indicated-altitude-ft\n");
+                    RecvData("GpsIndicatedAltitudeFt");
+                    client.Send("get /instrumentation/attitude-indicator/internal-roll-deg\n");
+                    RecvData("RollDeg");
+                    client.Send("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
+                    RecvData("PitchDeg");
+                    client.Send("get /instrumentation/altimeter/indicated-altitude-ft\n");
+                    RecvData("AltimeterIndicatedAltitudeFt");
+                    client.Send("get /position/latitude-deg\n");
+                    RecvData("Latitude");
+                    client.Send("get /position/longitude-deg\n");
+                    RecvData("Longitude");
                     if (!firstPlaneAppearance)
                     {
                         if (firstValidLatitude && firstValidLongitude)
@@ -449,21 +460,18 @@ namespace FlightSimulatorApp
                             firstPlaneAppearance = true;
                         }
                     }
-
-                    rotateAirplane();
+                    RotateAirplane();
                     oldLatitude = Latitude;
                     oldLongitude = Longitude;
-
                     PlaneLocation = new Location(Latitude, Longitude);
-
                     Thread.Sleep(250);
                 }
             }).Start();
         }
 
-        private void rotateAirplane()
+        private void RotateAirplane()
         {
-            if(firstRotate)
+            if (firstRotate)
             {
                 Angle = 0;
                 firstRotate = false;
@@ -472,7 +480,6 @@ namespace FlightSimulatorApp
             double y = Latitude - oldLatitude;
             double x = Longitude - oldLongitude;
             double angle;
-
             if (x == 0)
             {
                 if (y == 0)
@@ -519,19 +526,20 @@ namespace FlightSimulatorApp
             }
         }
 
-        private void resetStatusTimer()
+        private void ResetStatusTimer()
         {
             myStatusTimer.Stop();
             myStatusTimer.Start();
         }
 
-        private void turnOffLocationFlags()
+        private void TurnOffLocationFlags()
         {
             firstValidLatitude = false;
             firstValidLongitude = false;
             firstPlaneAppearance = false;
         }
-        private void clearAllParameters()
+
+        private void ClearAllParameters()
         {
             HeadingDeg = 0;
             VerticalSpeed = 0;

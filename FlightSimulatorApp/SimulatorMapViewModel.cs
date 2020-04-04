@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Maps.MapControl.WPF;
@@ -12,16 +8,17 @@ namespace FlightSimulatorApp
     public class SimulatorMapViewModel : UserControl
     {
         private ISimulatorModel model;
+
         public SimulatorMapViewModel(ISimulatorModel m)
         {
-            this.model = m;
+            model = m;
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
-                setProperty("VM_" + e.getPropName());
+                SetProperty("VM_" + e.GetPropName());
             };
         }
 
-        private void setProperty(string propName)
+        private void SetProperty(string propName)
         {
             switch (propName)
             {
@@ -51,6 +48,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty LatitudeProperty =
             DependencyProperty.Register("VM_Latitude", typeof(double), typeof(SimulatorMapViewModel));
 
@@ -65,6 +63,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty LongitudeProperty =
             DependencyProperty.Register("VM_Longitude", typeof(double), typeof(SimulatorMapViewModel));
 
@@ -79,6 +78,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty AngleProperty =
             DependencyProperty.Register("VM_Angle", typeof(double), typeof(SimulatorMapViewModel));
 
@@ -93,9 +93,8 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty PlaneLocationProperty =
             DependencyProperty.Register("VM_PlaneLocation", typeof(Location), typeof(SimulatorMapViewModel));
-
-
     }
 }

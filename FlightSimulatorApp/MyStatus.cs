@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace FlightSimulatorApp
 {
     class MyStatus
@@ -22,11 +17,11 @@ namespace FlightSimulatorApp
         static public string startLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
         static public string startLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
 
-        static public bool isErrorStatus(string status)
+        static public bool IsErrorStatus(string status)
         {
-            return ((status == connectionFailedStatus) || (status == simulatorDisconnectedStatus) || (status == rcvErrorStatus) || (status == sendErrorStatus)
-                || (status == latitudeErrorStatus) || (status == longitudeErrorStatus) || (status == startLatitudeErrorStatus)
-                || (status == startLongitudeErrorStatus));
+            return ((status == connectionFailedStatus) || (status == simulatorDisconnectedStatus) || (status == rcvErrorStatus)
+                || (status == sendErrorStatus) || (status == latitudeErrorStatus) || (status == longitudeErrorStatus)
+                || (status == startLatitudeErrorStatus) || (status == startLongitudeErrorStatus));
         }
     }
 }

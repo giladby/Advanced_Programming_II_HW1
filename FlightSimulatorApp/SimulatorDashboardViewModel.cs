@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,13 +7,14 @@ namespace FlightSimulatorApp
     public class SimulatorDashboardViewModel : UserControl
     {
         private ISimulatorModel model;
+
         public SimulatorDashboardViewModel(ISimulatorModel m)
         {
             model = m;
             VM_status = "";
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
-                setProperty("VM_" + e.getPropName());
+                SetProperty("VM_" + e.GetPropName());
             };
         }
 
@@ -32,6 +29,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty HeadingDegProperty =
             DependencyProperty.Register("VM_HeadingDeg", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -46,6 +44,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty VerticalSpeedProperty =
             DependencyProperty.Register("VM_VerticalSpeed", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -60,6 +59,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty GroundSpeedKtProperty =
             DependencyProperty.Register("VM_GroundSpeedKt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -74,6 +74,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty IndicatedSpeedKtProperty =
             DependencyProperty.Register("VM_IndicatedSpeedKt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -88,6 +89,7 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty GpsIndicatedAltitudeFtProperty =
             DependencyProperty.Register("VM_GpsIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -130,10 +132,12 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
         public static readonly DependencyProperty AltimeterIndicatedAltitudeFtProperty =
             DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
 
         private string VM_status;
+
         public string VM_Status
         {
             get { return (string)GetValue(StatusProperty); }
@@ -149,12 +153,11 @@ namespace FlightSimulatorApp
                 }
             }
         }
+
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorDashboardViewModel));
 
-
-
-        private void setProperty(string propName)
+        private void SetProperty(string propName)
         {
             switch(propName)
             {
@@ -185,9 +188,7 @@ namespace FlightSimulatorApp
                 case "VM_Status":
                     VM_Status = model.Status;
                     break;
-
             }
         }
-
     }
 }

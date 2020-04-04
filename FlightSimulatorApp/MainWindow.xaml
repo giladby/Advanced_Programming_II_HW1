@@ -122,7 +122,7 @@
             <Rectangle HorizontalAlignment="Left" Height="409" Margin="20,123,0,0" VerticalAlignment="Top" Width="543" Grid.RowSpan="2" Fill="#FF383838"/>
 
 
-            <m:Map x:Name="myMap" Margin="23,0,0,68" Grid.RowSpan="2" Mode="Road" CredentialsProvider="nw9X5t1VORpRClqJavkK~XN8n9COo6PKhDoEQJKEZQA~AtnOCAe8bf0NUKZkOULqwpGPW-7-diFVfJClHL_VUDdmlzB-SYSECuKD1K98KyLS" Center="32.003657, 34.872770" ZoomLevel="6" BorderBrush="Black" HorizontalAlignment="Left" Width="537" Height="403" VerticalAlignment="Bottom">
+            <m:Map x:Name="myMap" Margin="23,0,0,68" Grid.RowSpan="2" Mode="Road" CredentialsProvider="nw9X5t1VORpRClqJavkK~XN8n9COo6PKhDoEQJKEZQA~AtnOCAe8bf0NUKZkOULqwpGPW-7-diFVfJClHL_VUDdmlzB-SYSECuKD1K98KyLS" Center="32.003657, 34.872770" ZoomLevel="4" BorderBrush="Black" HorizontalAlignment="Left" Width="537" Height="403" VerticalAlignment="Bottom">
                 <Canvas Height="19" x:Name="airplane"
               m:MapLayer.Position="{Binding mapVM.VM_PlaneLocation}"
               m:MapLayer.PositionOrigin="Center" Opacity="1" VerticalAlignment="Top" Margin="0,0,-19,-11" RenderTransformOrigin="-1.754,-1.933">

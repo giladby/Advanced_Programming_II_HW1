@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FlightSimulatorApp.Controls
 {
@@ -21,11 +11,11 @@ namespace FlightSimulatorApp.Controls
     public partial class myControls : UserControl
     {
         private bool clicked;
+
         public myControls()
         {
             InitializeComponent();
             clicked = false;
-            //DataContext = (Application.Current as App).controlsVM;
         }
 
         public double ElevatorValue
@@ -37,7 +27,6 @@ namespace FlightSimulatorApp.Controls
         // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ElevatorValueProperty =
             DependencyProperty.Register("ElevatorValue", typeof(double), typeof(myControls));
-
 
         public double RudderValue
         {
@@ -59,7 +48,6 @@ namespace FlightSimulatorApp.Controls
         public static readonly DependencyProperty ThrottleValueProperty =
             DependencyProperty.Register("ThrottleValue", typeof(double), typeof(myControls));
 
-
         public double AileronValue
         {
             get { return (double)GetValue(AileronValueProperty); }
@@ -69,70 +57,6 @@ namespace FlightSimulatorApp.Controls
         // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AileronValueProperty =
             DependencyProperty.Register("AileronValue", typeof(double), typeof(myControls));
-
-
-
-
-
-        //double aileron;
-        //public double Aileron
-        //{
-        //    get
-        //    {
-        //        return aileron;
-        //    }
-        //    set
-        //    {
-        //        if (aileron != value)
-        //        {
-        //            aileron = value;
-        //        }
-        //    }
-        //}
-        //double throttle;
-        //public double Throttle
-        //{
-        //    get
-        //    {
-        //        return throttle;
-        //    }
-        //    set
-        //    {
-        //        if (throttle != value)
-        //        {
-        //            throttle = value;
-        //        }
-        //    }
-        //}
-
-
-
-
-        //public double Elevator
-        //{
-        //    get { return (double)GetValue(ElevatorProperty); }
-        //    set { ElevatorValue = value; }
-        //}
-
-        //// Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty ElevatorProperty =
-        //    DependencyProperty.Register("Elevator", typeof(double), typeof(myControls));
-
-
-        //public double Rudder
-        //{
-        //    get { return (double)GetValue(RudderProperty); }
-        //    set { RudderValue = value; }
-        //}
-
-        //// Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty RudderProperty =
-        //    DependencyProperty.Register("Rudder", typeof(double), typeof(myControls));
-
-
-
-
-
 
         public double Rudder
         {
@@ -144,11 +68,11 @@ namespace FlightSimulatorApp.Controls
             {
                 if (RudderValue != value)
                 {
-                    //rudder = value;
                     RudderValue = value;
                 }
             }
         }
+
         public double Elevator
         {
             get
@@ -159,7 +83,6 @@ namespace FlightSimulatorApp.Controls
             {
                 if (ElevatorValue != value)
                 {
-                    //elevator = value;
                     ElevatorValue = value;
                 }
             }
@@ -181,9 +104,9 @@ namespace FlightSimulatorApp.Controls
         {
             if (clicked)
             {
-                double x = Math.Round(myJoystick.xValue, 5);
+                double x = Math.Round(myJoystick.X, 5);
                 rudderLabel.Content = x.ToString();
-                double y = Math.Round(myJoystick.yValue, 5);
+                double y = Math.Round(myJoystick.Y, 5);
                 elevatorLabel.Content = y.ToString();
             }
         }
@@ -200,14 +123,14 @@ namespace FlightSimulatorApp.Controls
             clicked = true;
         }
 
-        public void connectedMode()
+        public void ConnectedMode()
         {
             throttleSlider.IsEnabled = true;
             aileronSlider.IsEnabled = true;
             myJoystick.IsEnabled = true;
         }
         
-        public void disconnectedMode()
+        public void DisconnectedMode()
         {
             throttleSlider.Value = 0;
             throttleSlider.IsEnabled = false;
