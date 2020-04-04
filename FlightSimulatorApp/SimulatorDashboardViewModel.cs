@@ -30,6 +30,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_HeadingDeg in order to bind with the XAML.
         public static readonly DependencyProperty HeadingDegProperty =
             DependencyProperty.Register("VM_HeadingDeg", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -45,6 +46,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_VerticalSpeed in order to bind with the XAML.
         public static readonly DependencyProperty VerticalSpeedProperty =
             DependencyProperty.Register("VM_VerticalSpeed", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -60,6 +62,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_GroundSpeedKt in order to bind with the XAML.
         public static readonly DependencyProperty GroundSpeedKtProperty =
             DependencyProperty.Register("VM_GroundSpeedKt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -75,6 +78,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_IndicatedSpeedKt in order to bind with the XAML.
         public static readonly DependencyProperty IndicatedSpeedKtProperty =
             DependencyProperty.Register("VM_IndicatedSpeedKt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -90,6 +94,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_GpsIndicatedAltitudeFt in order to bind with the XAML.
         public static readonly DependencyProperty GpsIndicatedAltitudeFtProperty =
             DependencyProperty.Register("VM_GpsIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -104,6 +109,8 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
+        // Using a DependencyProperty for VM_RollDeg in order to bind with the XAML.
         public static readonly DependencyProperty RollDegProperty =
             DependencyProperty.Register("VM_RollDeg", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -118,6 +125,8 @@ namespace FlightSimulatorApp
                 }));
             }
         }
+
+        // Using a DependencyProperty for VM_PitchDeg in order to bind with the XAML.
         public static readonly DependencyProperty PitchDegProperty =
             DependencyProperty.Register("VM_PitchDeg", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -133,6 +142,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_AltimeterIndicatedAltitudeFt in order to bind with the XAML.
         public static readonly DependencyProperty AltimeterIndicatedAltitudeFtProperty =
             DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
 
@@ -154,6 +164,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Using a DependencyProperty for VM_Status in order to bind with the XAML.
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorDashboardViewModel));
 

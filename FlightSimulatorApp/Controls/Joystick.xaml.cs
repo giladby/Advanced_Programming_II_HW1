@@ -6,6 +6,9 @@ using System.Windows.Media.Animation;
 
 namespace FlightSimulatorApp.Controls
 {
+    /// <summary>
+    /// Interaction logic for Joystick.xaml
+    /// </summary>
     public partial class Joystick : UserControl
     {
         private bool mousePressed;
@@ -18,6 +21,7 @@ namespace FlightSimulatorApp.Controls
         {
             InitializeComponent();
             mousePressed = false;
+            // Set the radius of the black inner circle.
             blackRadius = 60;
             myStoryboard = (Storyboard)Knob.FindResource("CenterKnob");
         }
@@ -28,7 +32,7 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(YProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty for Y in order to bind with the XAML.
         public static readonly DependencyProperty YProperty =
             DependencyProperty.Register("Y", typeof(double), typeof(Joystick));
 
@@ -38,7 +42,7 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(XProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty for X in order to bind with the XAML.
         public static readonly DependencyProperty XProperty =
             DependencyProperty.Register("X", typeof(double), typeof(Joystick));
 
@@ -47,10 +51,11 @@ namespace FlightSimulatorApp.Controls
             myStoryboard.Stop();
             knobPosition.X = 0;
             knobPosition.Y = 0;
-            SetSimulator();
+            SetValues();
         }
 
-        private void SetSimulator()
+        // Set the X and Y values according to the Knob position.
+        private void SetValues()
         {
             double x = knobPosition.X / blackRadius;
             double y = -1 * (knobPosition.Y / blackRadius);
@@ -74,6 +79,7 @@ namespace FlightSimulatorApp.Controls
             }
         }
 
+        // Move the Knob inside the inner circle according to the given x and y.
         private void SetKnobPosition(double x, double y)
         {
             double left = knobPosition.X + x;
@@ -95,11 +101,10 @@ namespace FlightSimulatorApp.Controls
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
-
             double currentX, offsetX, offsetY, currentY;
             if (mousePressed)
             {
-                SetSimulator();
+                SetValues();
                 currentX = e.GetPosition(this).X;
                 currentY = e.GetPosition(this).Y;
                 offsetX = currentX - mouseX;

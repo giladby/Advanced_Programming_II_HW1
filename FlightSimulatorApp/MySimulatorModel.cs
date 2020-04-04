@@ -23,11 +23,12 @@ namespace FlightSimulatorApp
         public MySimulatorModel(ISimulatorClient c)
         {
             client = c;
+            // Make a lock object.
             myLock = new Object();
             connected = false;
             firstRotate = true;
             TurnOffLocationFlags();
-            // set the status timer 
+            // Set the status timer to act every 5 seconds.
             myStatusTimer = new System.Timers.Timer { Interval = 5000, AutoReset = true, Enabled = true };
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
         }
@@ -188,8 +189,10 @@ namespace FlightSimulatorApp
             {
                 if (latitude != value)
                 {
+                    // Valid latitude values are between -90 and 90.
                     if ((value > 90) || (value < -90))
                     {
+                        // If already got the first valid latitude and longitude values.
                         if (firstValidLatitude && firstValidLongitude)
                         {
                             Status = MyStatus.latitudeErrorStatus;
@@ -221,8 +224,10 @@ namespace FlightSimulatorApp
             {
                 if (longitude != value)
                 {
+                    // Valid longitude values are between -180 and 180.
                     if ((value > 180) || (value < -180))
                     {
+                        // If already got the first valid latitude and longitude values.
                         if (firstValidLatitude && firstValidLongitude)
                         {
                             Status = MyStatus.longitudeErrorStatus;
@@ -270,6 +275,7 @@ namespace FlightSimulatorApp
             }
             set
             {
+                // If this is a new location.
                 if ((planeLocation == null) || (planeLocation.Latitude != value.Latitude) || (planeLocation.Longitude != value.Longitude))
                 {
                     planeLocation = value;
@@ -288,12 +294,14 @@ namespace FlightSimulatorApp
             }
             set
             {
+                // If this is a status of no connection.
                 if ((value == MyStatus.disconnectedStatus) || (value == MyStatus.simulatorDisconnectedStatus) || (value == MyStatus.notConnectedStatus))
                 {
                     connected = false;
                     firstRotate = true;
                     ClearAllParameters();
                 }
+                // If this is not a "Connected" or "Not Connected" status when the current status is already one of those.
                 if (!((value == status) && ((value == MyStatus.notConnectedStatus) || (value == MyStatus.connectedStatus))))
                 {
                     status = value;
@@ -303,6 +311,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Make a message to add to the messages queue.
         public void AddSetString(string name, double value)
         {
             string msg = $"set {name} {value.ToString()}\n";
@@ -316,6 +325,7 @@ namespace FlightSimulatorApp
         {
             TurnOffLocationFlags();
             Status = MyStatus.tryingToConnectStatus;
+            // Trying to connect to the given IP and port on a thread so the application won't stuck.
             new Thread(delegate ()
             {
                 string result = client.Connect(ip, port);
@@ -338,7 +348,8 @@ namespace FlightSimulatorApp
         private void RecvData(string property)
         {
             double value;
-            string rcvStatus = client.Recieve();
+            string rcvStatus = client.Receive();
+            // If this is not an error or a disconnection.
             if ((rcvStatus != MyStatus.rcvErrorStatus) && (rcvStatus != MyStatus.simulatorDisconnectedStatus))
             {
                 if (rcvStatus == "ERR\n")
@@ -347,6 +358,7 @@ namespace FlightSimulatorApp
                     return;
                 }
                 value = Math.Round(Double.Parse(rcvStatus), 6);
+                // Set the right property with the received value.
                 switch (property)
                 {
                     case "HeadingDeg":
@@ -390,13 +402,14 @@ namespace FlightSimulatorApp
         public void Start()
         {
             string msg;
-            // set and get thread
+            // Send messages to the simulator on a thread so the application won't stuck.
             new Thread(delegate ()
             {
                 while (connected)
                 {
                     lock (myLock)
                     {
+                        // While there are still messages to send to the simulator.
                         while (setMsgs.Count != 0)
                         {
                             msg = setMsgs.Dequeue();
@@ -414,7 +427,8 @@ namespace FlightSimulatorApp
                             }
                             else
                             {
-                                string rcvStatus = client.Recieve();
+                                // Receive the coming back message from the simulator.
+                                string rcvStatus = client.Receive();
                                 if ((rcvStatus != MyStatus.rcvErrorStatus) && (rcvStatus != MyStatus.simulatorDisconnectedStatus))
                                 {
                                     if (rcvStatus == "ERR\n")
@@ -429,6 +443,7 @@ namespace FlightSimulatorApp
                             }
                         }
                     }
+                    // Send all the parameters getters to the simulator and receive the response.
                     client.Send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
                     RecvData("HeadingDeg");
                     client.Send("get /instrumentation/gps/indicated-vertical-speed\n");
@@ -449,6 +464,7 @@ namespace FlightSimulatorApp
                     RecvData("Latitude");
                     client.Send("get /position/longitude-deg\n");
                     RecvData("Longitude");
+                    // If this is before the airplane has appeared.
                     if (!firstPlaneAppearance)
                     {
                         if (firstValidLatitude && firstValidLongitude)
@@ -460,15 +476,18 @@ namespace FlightSimulatorApp
                             firstPlaneAppearance = true;
                         }
                     }
+                    // Rotate the airplane and set a new location for it.
                     RotateAirplane();
                     oldLatitude = Latitude;
                     oldLongitude = Longitude;
                     PlaneLocation = new Location(Latitude, Longitude);
+                    // Does this method 4 times in a second.
                     Thread.Sleep(250);
                 }
             }).Start();
         }
 
+        // Rotates the aiplane angle according to the new location he goes to.
         private void RotateAirplane()
         {
             if (firstRotate)
@@ -480,6 +499,7 @@ namespace FlightSimulatorApp
             double y = Latitude - oldLatitude;
             double x = Longitude - oldLongitude;
             double angle;
+            // If the airplane goes up.
             if (x == 0)
             {
                 if (y == 0)
@@ -497,6 +517,7 @@ namespace FlightSimulatorApp
             }
             else
             {
+                // Calculates the angle and set it to degrees.
                 angle = Math.Atan(y / x) * (180 / Math.PI);
                 if (x < 0)
                 {
@@ -514,6 +535,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Set the status to "Connected" or "Not Connected" with the timer.
         public void StatusTimerOnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
             if (connected)

@@ -9,6 +9,7 @@ namespace FlightSimulatorApp
 
         public string Connect(string ip, int port)
         {
+            // Make a new socket with a 10 seconds timeout.
             mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ReceiveTimeout = 10000 };
             try
             {
@@ -33,9 +34,10 @@ namespace FlightSimulatorApp
             }
         }
 
-        public string Recieve()
+        public string Receive()
         {
             byte[] rcvBuffer = new byte[1024];
+            // Trying to receive data.
             try
             {
                 int numberOfBytes = mySocket.Receive(rcvBuffer);
@@ -54,6 +56,7 @@ namespace FlightSimulatorApp
         public string Send(string data)
         {
             byte[] msgToSend = Encoding.ASCII.GetBytes(data);
+            // Trying to send data.
             try
             {
                 mySocket.Send(msgToSend);

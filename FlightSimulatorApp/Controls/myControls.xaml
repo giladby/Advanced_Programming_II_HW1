@@ -56,6 +56,5 @@
         <Label Content="Aileron" HorizontalAlignment="Left" Margin="606,44,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label x:Name="throttleLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="490,369,0,0" VerticalAlignment="Top" FontSize="20" Width="100"/>
         <Label x:Name="aileronLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="580,369,0,0" VerticalAlignment="Top" FontSize="20" Width="121"/>
-
     </Grid>
 </UserControl>

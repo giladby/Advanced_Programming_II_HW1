@@ -3,6 +3,7 @@ namespace FlightSimulatorApp
 {
     class MyStatus
     {
+        // All the possible statuses of this program.
         static public string okStatus = "OK";
         static public string connectedStatus = "Connected";
         static public string notConnectedStatus = "Not Connected";

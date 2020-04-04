@@ -6,6 +6,6 @@ namespace FlightSimulatorApp
         string Connect(string ip, int port);
         void Disconnect();
         string Send(string data);
-        string Recieve();
+        string Receive();
     }
 }

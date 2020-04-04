@@ -24,7 +24,7 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(ElevatorValueProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty for ElevatorValue in order to bind with the XAML.
         public static readonly DependencyProperty ElevatorValueProperty =
             DependencyProperty.Register("ElevatorValue", typeof(double), typeof(myControls));
 
@@ -34,7 +34,7 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(RudderValueProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty for RudderValue in order to bind with the XAML.
         public static readonly DependencyProperty RudderValueProperty =
             DependencyProperty.Register("RudderValue", typeof(double), typeof(myControls));
 
@@ -44,7 +44,7 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(ThrottleValueProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ElevatorValue.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty for ThrottleValue in order to bind with the XAML.
         public static readonly DependencyProperty ThrottleValueProperty =
             DependencyProperty.Register("ThrottleValue", typeof(double), typeof(myControls));
 
@@ -54,7 +54,7 @@ namespace FlightSimulatorApp.Controls
             set { SetValue(AileronValueProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for RudderValue.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty for AileronValue in order to bind with the XAML.
         public static readonly DependencyProperty AileronValueProperty =
             DependencyProperty.Register("AileronValue", typeof(double), typeof(myControls));
 
@@ -125,6 +125,7 @@ namespace FlightSimulatorApp.Controls
 
         public void ConnectedMode()
         {
+            // Unlock the controls.
             throttleSlider.IsEnabled = true;
             aileronSlider.IsEnabled = true;
             myJoystick.IsEnabled = true;
@@ -132,6 +133,7 @@ namespace FlightSimulatorApp.Controls
         
         public void DisconnectedMode()
         {
+            // Set the throttle and aileron values to 0 as default, and lock the controls.
             throttleSlider.Value = 0;
             throttleSlider.IsEnabled = false;
             aileronSlider.Value = 0;
