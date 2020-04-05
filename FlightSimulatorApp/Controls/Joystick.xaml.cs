@@ -22,7 +22,7 @@ namespace FlightSimulatorApp.Controls
             InitializeComponent();
             mousePressed = false;
             // Set the radius of the black inner circle.
-            blackRadius = 60;
+            blackRadius = 130;
             myStoryboard = (Storyboard)Knob.FindResource("CenterKnob");
         }
 
