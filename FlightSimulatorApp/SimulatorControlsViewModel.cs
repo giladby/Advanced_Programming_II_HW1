@@ -11,9 +11,9 @@ namespace FlightSimulatorApp
             model = m;
         }
 
-        double VM_elevator;
+        string VM_elevator;
 
-        public double VM_Elevator
+        public string VM_Elevator
         {
             get
             {
@@ -29,9 +29,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double VM_rudder;
+        string VM_rudder;
 
-        public double VM_Rudder
+        public string VM_Rudder
         {
             get
             {
@@ -47,9 +47,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double VM_aileron;
+        string VM_aileron;
 
-        public double VM_Aileron
+        public string VM_Aileron
         {
             get
             {
@@ -65,9 +65,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double VM_throttle;
+        string VM_throttle;
 
-        public double VM_Throttle
+        public string VM_Throttle
         {
             get
             {

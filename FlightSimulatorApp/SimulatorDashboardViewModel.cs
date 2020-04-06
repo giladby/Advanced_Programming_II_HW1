@@ -18,9 +18,9 @@ namespace FlightSimulatorApp
             };
         }
 
-        public double VM_HeadingDeg
+        public string VM_HeadingDeg
         {
-            get { return (double)GetValue(HeadingDegProperty); }
+            get { return (string)GetValue(HeadingDegProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -32,11 +32,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_HeadingDeg in order to bind with the XAML.
         public static readonly DependencyProperty HeadingDegProperty =
-            DependencyProperty.Register("VM_HeadingDeg", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_HeadingDeg", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_VerticalSpeed
+        public string VM_VerticalSpeed
         {
-            get { return (double)GetValue(VerticalSpeedProperty); }
+            get { return (string)GetValue(VerticalSpeedProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -48,11 +48,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_VerticalSpeed in order to bind with the XAML.
         public static readonly DependencyProperty VerticalSpeedProperty =
-            DependencyProperty.Register("VM_VerticalSpeed", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_VerticalSpeed", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_GroundSpeedKt
+        public string VM_GroundSpeedKt
         {
-            get { return (double)GetValue(GroundSpeedKtProperty); }
+            get { return (string)GetValue(GroundSpeedKtProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -64,11 +64,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_GroundSpeedKt in order to bind with the XAML.
         public static readonly DependencyProperty GroundSpeedKtProperty =
-            DependencyProperty.Register("VM_GroundSpeedKt", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_GroundSpeedKt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_IndicatedSpeedKt
+        public string VM_IndicatedSpeedKt
         {
-            get { return (double)GetValue(IndicatedSpeedKtProperty); }
+            get { return (string)GetValue(IndicatedSpeedKtProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -80,11 +80,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_IndicatedSpeedKt in order to bind with the XAML.
         public static readonly DependencyProperty IndicatedSpeedKtProperty =
-            DependencyProperty.Register("VM_IndicatedSpeedKt", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_IndicatedSpeedKt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_GpsIndicatedAltitudeFt
+        public string VM_GpsIndicatedAltitudeFt
         {
-            get { return (double)GetValue(GpsIndicatedAltitudeFtProperty); }
+            get { return (string)GetValue(GpsIndicatedAltitudeFtProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -96,11 +96,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_GpsIndicatedAltitudeFt in order to bind with the XAML.
         public static readonly DependencyProperty GpsIndicatedAltitudeFtProperty =
-            DependencyProperty.Register("VM_GpsIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_GpsIndicatedAltitudeFt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_RollDeg
+        public string VM_RollDeg
         {
-            get { return (double)GetValue(RollDegProperty); }
+            get { return (string)GetValue(RollDegProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -112,11 +112,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_RollDeg in order to bind with the XAML.
         public static readonly DependencyProperty RollDegProperty =
-            DependencyProperty.Register("VM_RollDeg", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_RollDeg", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_PitchDeg
+        public string VM_PitchDeg
         {
-            get { return (double)GetValue(PitchDegProperty); }
+            get { return (string)GetValue(PitchDegProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -128,11 +128,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_PitchDeg in order to bind with the XAML.
         public static readonly DependencyProperty PitchDegProperty =
-            DependencyProperty.Register("VM_PitchDeg", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_PitchDeg", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public double VM_AltimeterIndicatedAltitudeFt
+        public string VM_AltimeterIndicatedAltitudeFt
         {
-            get { return (double)GetValue(AltimeterIndicatedAltitudeFtProperty); }
+            get { return (string)GetValue(AltimeterIndicatedAltitudeFtProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -144,7 +144,7 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_AltimeterIndicatedAltitudeFt in order to bind with the XAML.
         public static readonly DependencyProperty AltimeterIndicatedAltitudeFtProperty =
-            DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(double), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(string), typeof(SimulatorDashboardViewModel));
 
         private string VM_status;
 

@@ -7,30 +7,30 @@ namespace FlightSimulatorApp
         void Connect(string ip, int port);
         void Disconnect();
         void Start();
-        void AddSetString(string name, double value);
+        void AddSetString(string name, string value);
 
         string Status { set; get; }
 
-        double HeadingDeg { set; get; }
-        
-        double VerticalSpeed{ set; get; }
-        
-        double GroundSpeedKt{ set; get; }
-        
-        double IndicatedSpeedKt { set; get; }
-        
-        double GpsIndicatedAltitudeFt { set; get; }
-        
-        double RollDeg { set; get; }
-        
-        double PitchDeg { set; get; }
-        
-        double AltimeterIndicatedAltitudeFt { set; get; }
-        
-        double Latitude { set; get; }
-        
-        double Longitude { set; get; }
-        
+        string HeadingDeg { set; get; }
+
+        string VerticalSpeed { set; get; }
+
+        string GroundSpeedKt { set; get; }
+
+        string IndicatedSpeedKt { set; get; }
+
+        string GpsIndicatedAltitudeFt { set; get; }
+
+        string RollDeg { set; get; }
+
+        string PitchDeg { set; get; }
+
+        string AltimeterIndicatedAltitudeFt { set; get; }
+
+        string Latitude { set; get; }
+
+        string Longitude { set; get; }
+
         double Angle { set; get; }
         
         Location PlaneLocation { set; get; }

@@ -37,9 +37,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        public double VM_Latitude
+        public string VM_Latitude
         {
-            get { return (double)GetValue(LatitudeProperty); }
+            get { return (string)GetValue(LatitudeProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -51,11 +51,11 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_Latitude in order to bind with the XAML.
         public static readonly DependencyProperty LatitudeProperty =
-            DependencyProperty.Register("VM_Latitude", typeof(double), typeof(SimulatorMapViewModel));
+            DependencyProperty.Register("VM_Latitude", typeof(string), typeof(SimulatorMapViewModel));
 
-        public double VM_Longitude
+        public string VM_Longitude
         {
-            get { return (double)GetValue(LongitudeProperty); }
+            get { return (string)GetValue(LongitudeProperty); }
             set
             {
                 this.Dispatcher.Invoke((Action)(() =>
@@ -67,7 +67,7 @@ namespace FlightSimulatorApp
 
         // Using a DependencyProperty for VM_Longitude in order to bind with the XAML.
         public static readonly DependencyProperty LongitudeProperty =
-            DependencyProperty.Register("VM_Longitude", typeof(double), typeof(SimulatorMapViewModel));
+            DependencyProperty.Register("VM_Longitude", typeof(string), typeof(SimulatorMapViewModel));
 
         public double VM_Angle
         {

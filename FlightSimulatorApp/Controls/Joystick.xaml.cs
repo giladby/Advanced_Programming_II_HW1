@@ -26,25 +26,25 @@ namespace FlightSimulatorApp.Controls
             myStoryboard = (Storyboard)Knob.FindResource("CenterKnob");
         }
 
-        public double Y
+        public string Y
         {
-            get { return (double)GetValue(YProperty); }
+            get { return (string)GetValue(YProperty); }
             set { SetValue(YProperty, value); }
         }
 
         // Using a DependencyProperty for Y in order to bind with the XAML.
         public static readonly DependencyProperty YProperty =
-            DependencyProperty.Register("Y", typeof(double), typeof(Joystick));
+            DependencyProperty.Register("Y", typeof(string), typeof(Joystick));
 
-        public double X
+        public string X
         {
-            get { return (double)GetValue(XProperty); }
+            get { return (string)GetValue(XProperty); }
             set { SetValue(XProperty, value); }
         }
 
         // Using a DependencyProperty for X in order to bind with the XAML.
         public static readonly DependencyProperty XProperty =
-            DependencyProperty.Register("X", typeof(double), typeof(Joystick));
+            DependencyProperty.Register("X", typeof(string), typeof(Joystick));
 
         private void centerKnob_Completed(object sender, EventArgs e)
         {
@@ -59,13 +59,13 @@ namespace FlightSimulatorApp.Controls
         {
             double x = knobPosition.X / blackRadius;
             double y = -1 * (knobPosition.Y / blackRadius);
-            if (X != x)
+            if (X != x.ToString())
             {
-                X = x;
+                X = x.ToString();
             }
-            if (Y != y)
+            if (Y != y.ToString())
             {
-                Y = y;
+                Y = y.ToString();
             }
         }
 

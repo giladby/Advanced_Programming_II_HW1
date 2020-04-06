@@ -33,9 +33,9 @@ namespace FlightSimulatorApp
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
         }
 
-        double headingDeg;
+        string headingDeg;
 
-        public double HeadingDeg
+        public string HeadingDeg
         {
             get
             {
@@ -51,9 +51,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double verticalSpeed;
+        string verticalSpeed;
 
-        public double VerticalSpeed
+        public string VerticalSpeed
         {
             get
             {
@@ -69,9 +69,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double groundSpeedKt;
+        string groundSpeedKt;
 
-        public double GroundSpeedKt
+        public string GroundSpeedKt
         {
             get
             {
@@ -87,9 +87,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double indicatedSpeedKt;
+        string indicatedSpeedKt;
 
-        public double IndicatedSpeedKt
+        public string IndicatedSpeedKt
         {
             get
             {
@@ -105,9 +105,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double gpsIndicatedAltitudeFt;
+        string gpsIndicatedAltitudeFt;
 
-        public double GpsIndicatedAltitudeFt
+        public string GpsIndicatedAltitudeFt
         {
             get
             {
@@ -123,9 +123,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double rollDeg;
+        string rollDeg;
 
-        public double RollDeg
+        public string RollDeg
         {
             get
             {
@@ -141,9 +141,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double pitchDeg;
+        string pitchDeg;
 
-        public double PitchDeg
+        public string PitchDeg
         {
             get
             {
@@ -159,9 +159,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double altimeterIndicatedAltitudeFt;
+        string altimeterIndicatedAltitudeFt;
 
-        public double AltimeterIndicatedAltitudeFt
+        public string AltimeterIndicatedAltitudeFt
         {
             get
             {
@@ -177,9 +177,9 @@ namespace FlightSimulatorApp
             }
         }
 
-        double latitude;
+        string latitude;
 
-        public double Latitude
+        public string Latitude
         {
             get
             {
@@ -187,16 +187,17 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (latitude != value)
+                double doubleValue;
+                if (Double.TryParse(value, out doubleValue))
                 {
                     // Valid latitude values are between -90 and 90.
-                    if ((value > 90) || (value < -90))
+                    if ((doubleValue > 90) || (doubleValue < -90))
                     {
                         // If already got the first valid latitude and longitude values.
                         if (firstValidLatitude && firstValidLongitude)
                         {
                             Status = MyStatus.latitudeErrorStatus;
-                        } 
+                        }
                         else
                         {
                             Status = MyStatus.startLatitudeErrorStatus;
@@ -209,12 +210,25 @@ namespace FlightSimulatorApp
                         firstValidLatitude = true;
                     }
                 }
+                else
+                {
+                    if (firstValidLatitude && firstValidLongitude)
+                    {
+                        Status = MyStatus.latitudeErrorStatus;
+                    }
+                    else
+                    {
+                        Status = MyStatus.startLatitudeErrorStatus;
+                    }
+                    latitude = value;
+                    NotifyPropertyChanged("Latitude");
+                }
             }
         }
 
-        double longitude;
+        string longitude;
 
-        public double Longitude
+        public string Longitude
         {
             get
             {
@@ -222,10 +236,11 @@ namespace FlightSimulatorApp
             }
             set
             {
-                if (longitude != value)
+                double doubleValue;
+                if (Double.TryParse(value, out doubleValue))
                 {
                     // Valid longitude values are between -180 and 180.
-                    if ((value > 180) || (value < -180))
+                    if ((doubleValue > 180) || (doubleValue < -180))
                     {
                         // If already got the first valid latitude and longitude values.
                         if (firstValidLatitude && firstValidLongitude)
@@ -243,6 +258,19 @@ namespace FlightSimulatorApp
                         NotifyPropertyChanged("Longitude");
                         firstValidLongitude = true;
                     }
+                }
+                else
+                {
+                    if (firstValidLatitude && firstValidLongitude)
+                    {
+                        Status = MyStatus.longitudeErrorStatus;
+                    }
+                    else
+                    {
+                        Status = MyStatus.startLongitudeErrorStatus;
+                    }
+                    longitude = value;
+                    NotifyPropertyChanged("Longitude");
                 }
             }
         }
@@ -312,9 +340,9 @@ namespace FlightSimulatorApp
         }
 
         // Make a message to add to the messages queue.
-        public void AddSetString(string name, double value)
+        public void AddSetString(string name, string value)
         {
-            string msg = $"set {name} {value.ToString()}\n";
+            string msg = $"set {name} {value}\n";
             lock (myLock)
             {
                 setMsgs.Enqueue(msg);
@@ -355,49 +383,23 @@ namespace FlightSimulatorApp
                 if (rcvStatus == "ERR\n")
                 {
                     Status = MyStatus.rcvErrorStatus;
-
+                    switchValues(property, "ERR");
                     return;
                 }
+                // If the value is not a number.
                 if (!Double.TryParse(rcvStatus, out value))
                 {
-                    Status = MyStatus.invalidValueErrorStatus;
+                    // Latitude and longitude has their own error status.
+                    if ((property != "Latitude") && (property != "Longitude"))
+                    {
+                        Status = MyStatus.invalidValueErrorStatus;
+                    }
+                    switchValues(property, "ERR");
                     return;
                 }
                 value = Math.Round(value, 6);
                 // Set the right property with the received value.
-                switch (property)
-                {
-                    case "HeadingDeg":
-                        HeadingDeg = value;
-                        break;
-                    case "VerticalSpeed":
-                        VerticalSpeed = value;
-                        break;
-                    case "GroundSpeedKt":
-                        GroundSpeedKt = value;
-                        break;
-                    case "IndicatedSpeedKt":
-                        IndicatedSpeedKt = value;
-                        break;
-                    case "GpsIndicatedAltitudeFt":
-                        GpsIndicatedAltitudeFt = value;
-                        break;
-                    case "RollDeg":
-                        RollDeg = value;
-                        break;
-                    case "PitchDeg":
-                        PitchDeg = value;
-                        break;
-                    case "AltimeterIndicatedAltitudeFt":
-                        AltimeterIndicatedAltitudeFt = value;
-                        break;
-                    case "Latitude":
-                        Latitude = value;
-                        break;
-                    case "Longitude":
-                        Longitude = value;
-                        break;
-                }
+                switchValues(property, value.ToString());
             }
             else
             {
@@ -405,9 +407,50 @@ namespace FlightSimulatorApp
             }
         }
 
+        private void switchValues(string property, string value)
+        {
+            switch (property)
+            {
+                case "HeadingDeg":
+                    HeadingDeg = value;
+                    break;
+                case "VerticalSpeed":
+                    VerticalSpeed = value;
+                    break;
+                case "GroundSpeedKt":
+                    GroundSpeedKt = value;
+                    break;
+                case "IndicatedSpeedKt":
+                    IndicatedSpeedKt = value;
+                    break;
+                case "GpsIndicatedAltitudeFt":
+                    GpsIndicatedAltitudeFt = value;
+                    break;
+                case "RollDeg":
+                    RollDeg = value;
+                    break;
+                case "PitchDeg":
+                    PitchDeg = value;
+                    break;
+                case "AltimeterIndicatedAltitudeFt":
+                    AltimeterIndicatedAltitudeFt = value;
+                    break;
+                case "Latitude":
+                    Latitude = value;
+                    break;
+                case "Longitude":
+                    Longitude = value;
+                    break;
+            }
+        }
+
         public void Start()
         {
             string msg;
+            double doubleLat;
+            double doubleLong;
+            bool validLat = false;
+            bool validLong = false;
             // Send messages to the simulator on a thread so the application won't stuck.
             new Thread(delegate ()
             {
@@ -484,11 +527,27 @@ namespace FlightSimulatorApp
                     }
                     // Rotate the airplane and set a new location for it.
                     RotateAirplane();
-                    oldLatitude = Latitude;
-                    oldLongitude = Longitude;
-                    if (firstPlaneAppearance)
+                    // If the latitude and longitude are valid.
+                    if (Double.TryParse(Latitude, out doubleLat))
                     {
-                        PlaneLocation = new Location(Latitude, Longitude);
+                        oldLatitude = doubleLat;
+                        validLat = true;
+                    } else
+                    {
+                        validLat = false;
+                    }
+                    if (Double.TryParse(Longitude, out doubleLong))
+                    {
+                        oldLongitude = doubleLong;
+                        validLong = true;
+                    } else
+                    {
+                        validLong = false;
+                    }
+                    // If the new location is valid.
+                    if (firstPlaneAppearance && validLat && validLong)
+                    {
+                        PlaneLocation = new Location(doubleLat, doubleLong);
                     }
                     // Does this method 4 times in a second.
                     Thread.Sleep(250);
@@ -499,14 +558,24 @@ namespace FlightSimulatorApp
         // Rotates the aiplane angle according to the new location he goes to.
         private void RotateAirplane()
         {
+            double doubleLat;
+            double doubleLong;
+            if (!(Double.TryParse(Latitude, out doubleLat) && Double.TryParse(Longitude, out doubleLong)))
+            {
+                if (firstRotate)
+                {
+                    Angle = 0;
+                }
+                return;
+            }
             if (firstRotate)
             {
                 Angle = 0;
                 firstRotate = false;
                 return;
             }
-            double y = Latitude - oldLatitude;
-            double x = Longitude - oldLongitude;
+            double y = doubleLat - oldLatitude;
+            double x = doubleLong - oldLongitude;
             double angle;
             // If the airplane goes up.
             if (x == 0)
@@ -572,16 +641,16 @@ namespace FlightSimulatorApp
 
         private void ClearAllParameters()
         {
-            HeadingDeg = 0;
-            VerticalSpeed = 0;
-            GroundSpeedKt = 0;
-            IndicatedSpeedKt = 0;
-            GpsIndicatedAltitudeFt = 0;
-            RollDeg = 0;
-            PitchDeg = 0;
-            AltimeterIndicatedAltitudeFt = 0;
-            Latitude = 0;
-            Longitude = 0;
+            HeadingDeg = "";
+            VerticalSpeed = "";
+            GroundSpeedKt = "";
+            IndicatedSpeedKt = "";
+            GpsIndicatedAltitudeFt = "";
+            RollDeg = "";
+            PitchDeg = "";
+            AltimeterIndicatedAltitudeFt = "";
+            Latitude = "";
+            Longitude = "";
         }
     }
 }
