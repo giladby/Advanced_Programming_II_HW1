@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9FDA672C-8C37-4011-B55B-931D14D56CF4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>FlightSimulatorApp</RootNamespace>
     <AssemblyName>FlightSimulatorApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -66,12 +66,11 @@
     <Compile Include="Controls\myControls.xaml.cs">
       <DependentUpon>myControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ISimulatorModel.cs" />
-    <Compile Include="MySimulatorModel.cs" />
-    <Compile Include="PropertyChangedEventArgs.cs" />
-    <Compile Include="SimulatorControlsViewModel.cs" />
-    <Compile Include="SimulatorDashboardViewModel.cs" />
-    <Compile Include="SimulatorMapViewModel.cs" />
+    <Compile Include="Model\ISimulatorModel.cs" />
+    <Compile Include="Model\MySimulatorModel.cs" />
+    <Compile Include="ViewModels\SimulatorControlsViewModel.cs" />
+    <Compile Include="ViewModels\SimulatorDashboardViewModel.cs" />
+    <Compile Include="ViewModels\SimulatorMapViewModel.cs" />
     <Compile Include="MyStatus.cs" />
     <Page Include="Controls\Joystick.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -92,15 +91,14 @@
     <Compile Include="Controls\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>
     </Compile>
-    <Compile Include="INotifyPropertyChanged.cs" />
-    <Compile Include="ISimulatorClient.cs" />
+    <Compile Include="Model\ISimulatorClient.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MySimulatorClient.cs" />
+    <Compile Include="Model\MySimulatorClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

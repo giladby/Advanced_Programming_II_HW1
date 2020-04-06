@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {
@@ -14,7 +15,7 @@ namespace FlightSimulatorApp
             VM_status = "";
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
-                SetProperty("VM_" + e.GetPropName());
+                SetProperty("VM_" + e.PropertyName);
             };
         }
 

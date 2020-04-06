@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Collections.Generic;
 using Microsoft.Maps.MapControl.WPF;
+using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {

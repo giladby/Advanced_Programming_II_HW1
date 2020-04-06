@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
+using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {

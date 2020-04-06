@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Maps.MapControl.WPF;
+using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {
@@ -14,7 +15,7 @@ namespace FlightSimulatorApp
             model = m;
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
-                SetProperty("VM_" + e.GetPropName());
+                SetProperty("VM_" + e.PropertyName);
             };
         }
 
