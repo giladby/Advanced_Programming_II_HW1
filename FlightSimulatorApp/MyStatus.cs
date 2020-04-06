@@ -17,12 +17,13 @@ namespace FlightSimulatorApp
         static public string longitudeErrorStatus = "Received Invalid Longitude Value";
         static public string startLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
         static public string startLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
+        static public string invalidValueErrorStatus = "Got Invalid Value From Simulator";
 
         static public bool IsErrorStatus(string status)
         {
             return ((status == connectionFailedStatus) || (status == simulatorDisconnectedStatus) || (status == rcvErrorStatus)
                 || (status == sendErrorStatus) || (status == latitudeErrorStatus) || (status == longitudeErrorStatus)
-                || (status == startLatitudeErrorStatus) || (status == startLongitudeErrorStatus));
+                || (status == startLatitudeErrorStatus) || (status == startLongitudeErrorStatus) || (status == invalidValueErrorStatus));
         }
     }
 }

@@ -355,9 +355,15 @@ namespace FlightSimulatorApp
                 if (rcvStatus == "ERR\n")
                 {
                     Status = MyStatus.rcvErrorStatus;
+
                     return;
                 }
-                value = Math.Round(Double.Parse(rcvStatus), 6);
+                if (!Double.TryParse(rcvStatus, out value))
+                {
+                    Status = MyStatus.invalidValueErrorStatus;
+                    return;
+                }
+                value = Math.Round(value, 6);
                 // Set the right property with the received value.
                 switch (property)
                 {
@@ -480,7 +486,10 @@ namespace FlightSimulatorApp
                     RotateAirplane();
                     oldLatitude = Latitude;
                     oldLongitude = Longitude;
-                    PlaneLocation = new Location(Latitude, Longitude);
+                    if (firstPlaneAppearance)
+                    {
+                        PlaneLocation = new Location(Latitude, Longitude);
+                    }
                     // Does this method 4 times in a second.
                     Thread.Sleep(250);
                 }
