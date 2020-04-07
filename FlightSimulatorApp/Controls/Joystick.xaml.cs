@@ -16,6 +16,7 @@ namespace FlightSimulatorApp.Controls
         private double mouseX;
         private double mouseY;
         private Storyboard myStoryboard;
+        UIElement el;
 
         public Joystick()
         {
@@ -71,8 +72,13 @@ namespace FlightSimulatorApp.Controls
 
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            
+
+            
             if (!mousePressed)
             {
+                el = (UIElement)sender;
+                el.CaptureMouse();
                 mousePressed = true;
                 mouseX = e.GetPosition(this).X;
                 mouseY = e.GetPosition(this).Y;
@@ -84,19 +90,13 @@ namespace FlightSimulatorApp.Controls
         {
             double left = knobPosition.X + x;
             double top = knobPosition.Y + y;
-            double length = Math.Sqrt(left * left + top * top);
+            double length = Math.Sqrt((left * left) + (top * top));
             if (length > blackRadius)
             {
                 return;
             }
             knobPosition.X += x;
             knobPosition.Y += y;
-        }
-
-        private void ReleaseMouse()
-        {
-            mousePressed = false;
-            myStoryboard.Begin();
         }
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
@@ -117,14 +117,11 @@ namespace FlightSimulatorApp.Controls
 
         private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ReleaseMouse();
-        }
-
-        private void Knob_MouseLeave(object sender, MouseEventArgs e)
-        {
             if (mousePressed)
             {
-                ReleaseMouse();
+                el.ReleaseMouseCapture();
+                mousePressed = false;
+                myStoryboard.Begin();
             }
         }
     }
