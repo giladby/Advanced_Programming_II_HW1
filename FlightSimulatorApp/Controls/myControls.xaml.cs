@@ -8,29 +8,29 @@ namespace FlightSimulatorApp.Controls
     /// <summary>
     /// Interaction logic for myControls.xaml
     /// </summary>
-    public partial class myControls : UserControl
+    public partial class MyControls : UserControl
     {
         private bool clicked;
 
-        public myControls()
+        public MyControls()
         {
             InitializeComponent();
             clicked = false;
         }
 
-        private void throttleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double value = Math.Round(throttleSlider.Value, 5);
             throttleLabel.Content = value.ToString();
         }
 
-        private void aileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double value = Math.Round(aileronSlider.Value, 5);
             aileronLabel.Content = value.ToString();
         }
 
-        private void myJoystick_MouseMove(object sender, MouseEventArgs e)
+        private void MyJoystick_MouseMove(object sender, MouseEventArgs e)
         {
             if (clicked)
             {

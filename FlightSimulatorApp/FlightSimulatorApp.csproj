@@ -63,8 +63,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\myControls.xaml.cs">
-      <DependentUpon>myControls.xaml</DependentUpon>
+    <Compile Include="Controls\MyControls.xaml.cs">
+      <DependentUpon>MyControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ISimulatorModel.cs" />
     <Compile Include="Model\MySimulatorModel.cs" />
@@ -76,7 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\myControls.xaml">
+    <Page Include="Controls\MyControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,26 +4,26 @@ namespace FlightSimulatorApp
     class MyStatus
     {
         // All the possible statuses of this program.
-        static public string okStatus = "OK";
-        static public string connectedStatus = "Connected";
-        static public string notConnectedStatus = "Not Connected";
-        static public string tryingToConnectStatus = "Trying To Connect...";
-        static public string disconnectedStatus = "Disconnected From Simulator";
-        static public string connectionFailedStatus = "Failed Connecting To Simulator";
-        static public string simulatorDisconnectedStatus = "The Simulator Disconnected";
-        static public string rcvErrorStatus = "Error Trying To Receive Data From Simulator";
-        static public string sendErrorStatus = "Error Trying To Send Data To Simulator";
-        static public string latitudeErrorStatus = "Received Invalid Latitude Value";
-        static public string longitudeErrorStatus = "Received Invalid Longitude Value";
-        static public string startLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
-        static public string startLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
-        static public string invalidValueErrorStatus = "Got Invalid Value From Simulator";
+        static public string OkStatus = "OK";
+        static public string ConnectedStatus = "Connected";
+        static public string NotConnectedStatus = "Not Connected";
+        static public string TryingToConnectStatus = "Trying To Connect...";
+        static public string DisconnectedStatus = "Disconnected From Simulator";
+        static public string ConnectionFailedStatus = "Failed Connecting To Simulator";
+        static public string SimulatorDisconnectedStatus = "The Simulator Disconnected";
+        static public string RcvErrorStatus = "Error Trying To Receive Data From Simulator";
+        static public string SendErrorStatus = "Error Trying To Send Data To Simulator";
+        static public string LatitudeErrorStatus = "Received Invalid Latitude Value";
+        static public string LongitudeErrorStatus = "Received Invalid Longitude Value";
+        static public string StartLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
+        static public string StartLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
+        static public string InvalidValueErrorStatus = "Got Invalid Value From Simulator";
 
         static public bool IsErrorStatus(string status)
         {
-            return ((status == connectionFailedStatus) || (status == simulatorDisconnectedStatus) || (status == rcvErrorStatus)
-                || (status == sendErrorStatus) || (status == latitudeErrorStatus) || (status == longitudeErrorStatus)
-                || (status == startLatitudeErrorStatus) || (status == startLongitudeErrorStatus) || (status == invalidValueErrorStatus));
+            return ((status == ConnectionFailedStatus) || (status == SimulatorDisconnectedStatus) || (status == RcvErrorStatus)
+                || (status == SendErrorStatus) || (status == LatitudeErrorStatus) || (status == LongitudeErrorStatus)
+                || (status == StartLatitudeErrorStatus) || (status == StartLongitudeErrorStatus) || (status == InvalidValueErrorStatus));
         }
     }
 }

@@ -7,17 +7,17 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class App : Application
     {
-        public SimulatorControlsViewModel controlsVM { get; internal set; }
-        public SimulatorDashboardViewModel dashboardVM { get; internal set; }
-        public SimulatorMapViewModel mapVM { get; internal set; }
+        public SimulatorControlsViewModel ControlsVM { get; internal set; }
+        public SimulatorDashboardViewModel DashboardVM { get; internal set; }
+        public SimulatorMapViewModel MapVM { get; internal set; }
         
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             ISimulatorClient client = new MySimulatorClient();
             ISimulatorModel model = new MySimulatorModel(client);
-            controlsVM = new SimulatorControlsViewModel(model);
-            dashboardVM = new SimulatorDashboardViewModel(model);
-            mapVM = new SimulatorMapViewModel(model);
+            ControlsVM = new SimulatorControlsViewModel(model);
+            DashboardVM = new SimulatorDashboardViewModel(model);
+            MapVM = new SimulatorMapViewModel(model);
         }
     }
 }

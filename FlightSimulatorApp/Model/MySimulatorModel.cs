@@ -34,7 +34,7 @@ namespace FlightSimulatorApp
             myStatusTimer.Elapsed += StatusTimerOnTimedEvent;
         }
 
-        string headingDeg;
+        private string headingDeg;
 
         public string HeadingDeg
         {
@@ -52,7 +52,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string verticalSpeed;
+        private string verticalSpeed;
 
         public string VerticalSpeed
         {
@@ -70,7 +70,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string groundSpeedKt;
+        private string groundSpeedKt;
 
         public string GroundSpeedKt
         {
@@ -88,7 +88,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string indicatedSpeedKt;
+        private string indicatedSpeedKt;
 
         public string IndicatedSpeedKt
         {
@@ -106,7 +106,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string gpsIndicatedAltitudeFt;
+        private string gpsIndicatedAltitudeFt;
 
         public string GpsIndicatedAltitudeFt
         {
@@ -124,7 +124,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string rollDeg;
+        private string rollDeg;
 
         public string RollDeg
         {
@@ -142,7 +142,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string pitchDeg;
+        private string pitchDeg;
 
         public string PitchDeg
         {
@@ -160,7 +160,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string altimeterIndicatedAltitudeFt;
+        private string altimeterIndicatedAltitudeFt;
 
         public string AltimeterIndicatedAltitudeFt
         {
@@ -178,7 +178,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string latitude;
+        private string latitude;
 
         public string Latitude
         {
@@ -197,11 +197,11 @@ namespace FlightSimulatorApp
                         // If already got the first valid latitude and longitude values.
                         if (firstValidLatitude && firstValidLongitude)
                         {
-                            Status = MyStatus.latitudeErrorStatus;
+                            Status = MyStatus.LatitudeErrorStatus;
                         }
                         else
                         {
-                            Status = MyStatus.startLatitudeErrorStatus;
+                            Status = MyStatus.StartLatitudeErrorStatus;
                         }
                     }
                     else
@@ -215,11 +215,11 @@ namespace FlightSimulatorApp
                 {
                     if (firstValidLatitude && firstValidLongitude)
                     {
-                        Status = MyStatus.latitudeErrorStatus;
+                        Status = MyStatus.LatitudeErrorStatus;
                     }
                     else
                     {
-                        Status = MyStatus.startLatitudeErrorStatus;
+                        Status = MyStatus.StartLatitudeErrorStatus;
                     }
                     latitude = value;
                     NotifyPropertyChanged("Latitude");
@@ -227,7 +227,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string longitude;
+        private string longitude;
 
         public string Longitude
         {
@@ -246,11 +246,11 @@ namespace FlightSimulatorApp
                         // If already got the first valid latitude and longitude values.
                         if (firstValidLatitude && firstValidLongitude)
                         {
-                            Status = MyStatus.longitudeErrorStatus;
+                            Status = MyStatus.LongitudeErrorStatus;
                         }
                         else
                         {
-                            Status = MyStatus.startLongitudeErrorStatus;
+                            Status = MyStatus.StartLongitudeErrorStatus;
                         }
                     }
                     else
@@ -264,11 +264,11 @@ namespace FlightSimulatorApp
                 {
                     if (firstValidLatitude && firstValidLongitude)
                     {
-                        Status = MyStatus.longitudeErrorStatus;
+                        Status = MyStatus.LongitudeErrorStatus;
                     }
                     else
                     {
-                        Status = MyStatus.startLongitudeErrorStatus;
+                        Status = MyStatus.StartLongitudeErrorStatus;
                     }
                     longitude = value;
                     NotifyPropertyChanged("Longitude");
@@ -276,7 +276,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        double angle;
+        private double angle;
 
         public double Angle
         {
@@ -294,7 +294,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        Location planeLocation;
+        private Location planeLocation;
 
         public Location PlaneLocation
         {
@@ -313,7 +313,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        string status;
+        private string status;
 
         public string Status
         {
@@ -324,14 +324,14 @@ namespace FlightSimulatorApp
             set
             {
                 // If this is a status of no connection.
-                if ((value == MyStatus.disconnectedStatus) || (value == MyStatus.simulatorDisconnectedStatus) || (value == MyStatus.notConnectedStatus))
+                if ((value == MyStatus.DisconnectedStatus) || (value == MyStatus.SimulatorDisconnectedStatus) || (value == MyStatus.NotConnectedStatus))
                 {
                     connected = false;
                     firstRotate = true;
                     ClearAllParameters();
                 }
                 // If this is not a "Connected" or "Not Connected" status when the current status is already one of those.
-                if (!((value == status) && ((value == MyStatus.notConnectedStatus) || (value == MyStatus.connectedStatus))))
+                if (!((value == status) && ((value == MyStatus.NotConnectedStatus) || (value == MyStatus.ConnectedStatus))))
                 {
                     status = value;
                     NotifyPropertyChanged("Status");
@@ -353,12 +353,12 @@ namespace FlightSimulatorApp
         public void Connect(string ip, int port)
         {
             TurnOffLocationFlags();
-            Status = MyStatus.tryingToConnectStatus;
+            Status = MyStatus.TryingToConnectStatus;
             // Trying to connect to the given IP and port on a thread so the application won't stuck.
             new Thread(delegate ()
             {
                 string result = client.Connect(ip, port);
-                if (result == MyStatus.connectedStatus)
+                if (result == MyStatus.ConnectedStatus)
                 {
                     connected = true;
                     Start();
@@ -371,7 +371,7 @@ namespace FlightSimulatorApp
         {
             connected = false;
             client.Disconnect();
-            Status = MyStatus.disconnectedStatus;
+            Status = MyStatus.DisconnectedStatus;
         }
 
         private void RecvData(string property)
@@ -379,11 +379,11 @@ namespace FlightSimulatorApp
             double value;
             string rcvStatus = client.Receive();
             // If this is not an error or a disconnection.
-            if ((rcvStatus != MyStatus.rcvErrorStatus) && (rcvStatus != MyStatus.simulatorDisconnectedStatus))
+            if ((rcvStatus != MyStatus.RcvErrorStatus) && (rcvStatus != MyStatus.SimulatorDisconnectedStatus))
             {
                 if (rcvStatus == "ERR\n")
                 {
-                    Status = MyStatus.rcvErrorStatus;
+                    Status = MyStatus.RcvErrorStatus;
                     switchValues(property, "ERR");
                     return;
                 }
@@ -393,7 +393,7 @@ namespace FlightSimulatorApp
                     // Latitude and longitude has their own error status.
                     if ((property != "Latitude") && (property != "Longitude"))
                     {
-                        Status = MyStatus.invalidValueErrorStatus;
+                        Status = MyStatus.InvalidValueErrorStatus;
                     }
                     switchValues(property, "ERR");
                     return;
@@ -464,11 +464,11 @@ namespace FlightSimulatorApp
                         {
                             msg = setMsgs.Dequeue();
                             string sendStatus = client.Send(msg);
-                            if (sendStatus != MyStatus.okStatus)
+                            if (sendStatus != MyStatus.OkStatus)
                             {
                                 if (sendStatus == "ERR\n")
                                 {
-                                    Status = MyStatus.sendErrorStatus;
+                                    Status = MyStatus.SendErrorStatus;
                                 }
                                 else
                                 {
@@ -479,11 +479,11 @@ namespace FlightSimulatorApp
                             {
                                 // Receive the coming back message from the simulator.
                                 string rcvStatus = client.Receive();
-                                if ((rcvStatus != MyStatus.rcvErrorStatus) && (rcvStatus != MyStatus.simulatorDisconnectedStatus))
+                                if ((rcvStatus != MyStatus.RcvErrorStatus) && (rcvStatus != MyStatus.SimulatorDisconnectedStatus))
                                 {
                                     if (rcvStatus == "ERR\n")
                                     {
-                                        Status = MyStatus.sendErrorStatus;
+                                        Status = MyStatus.SendErrorStatus;
                                     }
                                 }
                                 else
@@ -521,7 +521,7 @@ namespace FlightSimulatorApp
                         {
                             if (connected)
                             {
-                                Status = MyStatus.connectedStatus;
+                                Status = MyStatus.ConnectedStatus;
                             }
                             firstPlaneAppearance = true;
                         }
@@ -619,11 +619,11 @@ namespace FlightSimulatorApp
         {
             if (connected)
             {
-                Status = MyStatus.connectedStatus;
+                Status = MyStatus.ConnectedStatus;
             }
             else
             {
-                Status = MyStatus.notConnectedStatus;
+                Status = MyStatus.NotConnectedStatus;
             }
         }
 

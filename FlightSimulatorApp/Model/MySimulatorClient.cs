@@ -5,7 +5,7 @@ namespace FlightSimulatorApp
 {
     class MySimulatorClient : ISimulatorClient
     {
-        Socket mySocket;
+        private Socket mySocket;
 
         public string Connect(string ip, int port)
         {
@@ -14,11 +14,11 @@ namespace FlightSimulatorApp
             try
             {
                 mySocket.Connect(ip, port);
-                return MyStatus.connectedStatus;
+                return MyStatus.ConnectedStatus;
             } 
             catch
             {
-                return MyStatus.connectionFailedStatus;
+                return MyStatus.ConnectionFailedStatus;
             }
         }
 
@@ -47,9 +47,9 @@ namespace FlightSimulatorApp
             {
                 if (!mySocket.Connected)
                 {
-                    return MyStatus.simulatorDisconnectedStatus;
+                    return MyStatus.SimulatorDisconnectedStatus;
                 }
-                return MyStatus.rcvErrorStatus;
+                return MyStatus.RcvErrorStatus;
             }
         }
 
@@ -60,15 +60,15 @@ namespace FlightSimulatorApp
             try
             {
                 mySocket.Send(msgToSend);
-                return MyStatus.okStatus;
+                return MyStatus.OkStatus;
             }
             catch
             {
                 if (!mySocket.Connected)
                 {
-                    return MyStatus.simulatorDisconnectedStatus;
+                    return MyStatus.SimulatorDisconnectedStatus;
                 }
-                return MyStatus.sendErrorStatus;
+                return MyStatus.SendErrorStatus;
             }
         }
     }

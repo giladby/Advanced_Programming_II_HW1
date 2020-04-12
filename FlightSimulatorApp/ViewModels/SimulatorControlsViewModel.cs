@@ -11,74 +11,74 @@ namespace FlightSimulatorApp
             model = m;
         }
 
-        string VM_elevator;
+        private string vmElevator;
 
-        public string VM_Elevator
+        public string VmElevator
         {
             get
             {
-                return VM_elevator;
+                return vmElevator;
             }
             set
             {
-                if (VM_elevator != value)
+                if (vmElevator != value)
                 {
-                    VM_elevator = value;
-                    model.AddSetString("/controls/flight/elevator", VM_elevator);
+                    vmElevator = value;
+                    model.AddSetString("/controls/flight/elevator", vmElevator);
                 }
             }
         }
 
-        string VM_rudder;
+        private string vmRudder;
 
-        public string VM_Rudder
+        public string VmRudder
         {
             get
             {
-                return VM_rudder;
+                return vmRudder;
             }
             set
             {
-                if (VM_rudder != value)
+                if (vmRudder != value)
                 {
-                    VM_rudder = value;
-                    model.AddSetString("/controls/flight/rudder", VM_rudder);
+                    vmRudder = value;
+                    model.AddSetString("/controls/flight/rudder", vmRudder);
                 }
             }
         }
 
-        string VM_aileron;
+        private string vmAileron;
 
-        public string VM_Aileron
+        public string VmAileron
         {
             get
             {
-                return VM_aileron;
+                return vmAileron;
             }
             set
             {
-                if (VM_aileron != value)
+                if (vmAileron != value)
                 {
-                    VM_aileron = value;
-                    model.AddSetString("/controls/flight/aileron", VM_aileron);
+                    vmAileron = value;
+                    model.AddSetString("/controls/flight/aileron", vmAileron);
                 }
             }
         }
 
-        string VM_throttle;
+        private string vmThrottle;
 
-        public string VM_Throttle
+        public string VmThrottle
         {
             get
             {
-                return VM_throttle;
+                return vmThrottle;
             }
             set
             {
-                if (VM_throttle != value)
+                if (vmThrottle != value)
                 {
-                    VM_throttle = value;
-                    model.AddSetString("/controls/engines/current-engine/throttle", VM_throttle);
+                    vmThrottle = value;
+                    model.AddSetString("/controls/engines/current-engine/throttle", vmThrottle);
                 }
             }
         }

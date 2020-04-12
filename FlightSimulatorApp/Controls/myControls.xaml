@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FlightSimulatorApp.Controls.myControls"
+﻿<UserControl x:Class="FlightSimulatorApp.Controls.MyControls"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,7 +18,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <MyControls:Joystick x:Name="myJoystick" Margin="0,18,310,76" RenderTransformOrigin="0.5,0.5" X="{Binding controlsVM.VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Y="{Binding controlsVM.VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="myJoystick_MouseMove">
+        <MyControls:Joystick x:Name="myJoystick" Margin="0,18,310,76" RenderTransformOrigin="0.5,0.5" X="{Binding ControlsVM.VmRudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Y="{Binding ControlsVM.VmElevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" HorizontalAlignment="Right" Width="358" MouseMove="MyJoystick_MouseMove">
             <MyControls:Joystick.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -32,7 +32,7 @@
         <Label Content="Elevator" HorizontalAlignment="Left" Margin="243,393,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label x:Name="rudderLabel" Content="0" HorizontalAlignment="Left" Margin="329,363,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label x:Name="elevatorLabel" Content="0" HorizontalAlignment="Left" Margin="329,393,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Slider x:Name="throttleSlider" Maximum="1" Value="{Binding controlsVM.VM_Throttle}" HorizontalAlignment="Left" Height="26" Margin="401,215,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="throttleSlider_ValueChanged">
+        <Slider x:Name="throttleSlider" Maximum="1" Value="{Binding ControlsVM.VmThrottle}" HorizontalAlignment="Left" Height="26" Margin="401,215,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="ThrottleSlider_ValueChanged">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>
@@ -42,7 +42,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="aileronSlider" Maximum="1" Value="{Binding controlsVM.VM_Aileron}" HorizontalAlignment="Left" Height="26" Margin="501,212,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="aileronSlider_ValueChanged" Minimum="-1">
+        <Slider x:Name="aileronSlider" Maximum="1" Value="{Binding ControlsVM.VmAileron}" HorizontalAlignment="Left" Height="26" Margin="501,212,0,0" VerticalAlignment="Top" Width="287" RenderTransformOrigin="0.5,0.5" ValueChanged="AileronSlider_ValueChanged" Minimum="-1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.4"/>

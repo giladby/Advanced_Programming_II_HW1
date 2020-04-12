@@ -15,7 +15,7 @@ namespace FlightSimulatorApp
             model = m;
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
-                SetProperty("VM_" + e.PropertyName);
+                SetProperty("Vm" + e.PropertyName);
             };
         }
 
@@ -23,22 +23,22 @@ namespace FlightSimulatorApp
         {
             switch (propName)
             {
-                case "VM_Latitude":
-                    VM_Latitude = model.Latitude;
+                case "VmLatitude":
+                    VmLatitude = model.Latitude;
                     break;
-                case "VM_Longitude":
-                    VM_Longitude = model.Longitude;
+                case "VmLongitude":
+                    VmLongitude = model.Longitude;
                     break;
-                case "VM_Angle":
-                    VM_Angle = model.Angle;
+                case "VmAngle":
+                    VmAngle = model.Angle;
                     break;
-                case "VM_PlaneLocation":
-                    VM_PlaneLocation = model.PlaneLocation;
+                case "VmPlaneLocation":
+                    VmPlaneLocation = model.PlaneLocation;
                     break;
             }
         }
 
-        public string VM_Latitude
+        public string VmLatitude
         {
             get { return (string)GetValue(LatitudeProperty); }
             set
@@ -50,11 +50,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_Latitude in order to bind with the XAML.
+        // Using a DependencyProperty for VmLatitude in order to bind with the XAML.
         public static readonly DependencyProperty LatitudeProperty =
-            DependencyProperty.Register("VM_Latitude", typeof(string), typeof(SimulatorMapViewModel));
+            DependencyProperty.Register("VmLatitude", typeof(string), typeof(SimulatorMapViewModel));
 
-        public string VM_Longitude
+        public string VmLongitude
         {
             get { return (string)GetValue(LongitudeProperty); }
             set
@@ -66,11 +66,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_Longitude in order to bind with the XAML.
+        // Using a DependencyProperty for VmLongitude in order to bind with the XAML.
         public static readonly DependencyProperty LongitudeProperty =
-            DependencyProperty.Register("VM_Longitude", typeof(string), typeof(SimulatorMapViewModel));
+            DependencyProperty.Register("VmLongitude", typeof(string), typeof(SimulatorMapViewModel));
 
-        public double VM_Angle
+        public double VmAngle
         {
             get { return (double)GetValue(AngleProperty); }
             set
@@ -82,11 +82,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_Angle in order to bind with the XAML.
+        // Using a DependencyProperty for VmAngle in order to bind with the XAML.
         public static readonly DependencyProperty AngleProperty =
-            DependencyProperty.Register("VM_Angle", typeof(double), typeof(SimulatorMapViewModel));
+            DependencyProperty.Register("VmAngle", typeof(double), typeof(SimulatorMapViewModel));
 
-        public Location VM_PlaneLocation
+        public Location VmPlaneLocation
         {
             get { return (Location)GetValue(PlaneLocationProperty); }
             set
@@ -98,8 +98,8 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_PlaneLocation in order to bind with the XAML.
+        // Using a DependencyProperty for VmPlaneLocation in order to bind with the XAML.
         public static readonly DependencyProperty PlaneLocationProperty =
-            DependencyProperty.Register("VM_PlaneLocation", typeof(Location), typeof(SimulatorMapViewModel));
+            DependencyProperty.Register("VmPlaneLocation", typeof(Location), typeof(SimulatorMapViewModel));
     }
 }

@@ -16,7 +16,7 @@ namespace FlightSimulatorApp
     {
         private bool connected;
         private bool roadViewFlag;
-        MapPolyline flightRoute;
+        private MapPolyline flightRoute;
 
         public MainWindow()
         {
@@ -24,16 +24,16 @@ namespace FlightSimulatorApp
             // Set the DataContext to the 3 ViewModels.
             DataContext = new
             {
-                (Application.Current as App).controlsVM,
-                (Application.Current as App).mapVM,
-                (Application.Current as App).dashboardVM
+                (Application.Current as App).ControlsVM,
+                (Application.Current as App).MapVM,
+                (Application.Current as App).DashboardVM
             };
             myMap.Focus();
             // Get the IP and port from the App.config file.
             ipBox.Text = ConfigurationManager.AppSettings.Get("ip");
             portBox.Text = ConfigurationManager.AppSettings.Get("port");
             // Set the status to "Not Connected" as a start.
-            (Application.Current as App).dashboardVM.VM_Status = MyStatus.notConnectedStatus;
+            (Application.Current as App).DashboardVM.VmStatus = MyStatus.NotConnectedStatus;
             connected = false;
             roadViewFlag = true;
             InitFlightRoute();
@@ -80,21 +80,21 @@ namespace FlightSimulatorApp
             deleteRouteButton.IsEnabled = false;
         }
 
-        private void connectDisconnectButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectDisconnectButton_Click(object sender, RoutedEventArgs e)
         {
             // Deletes the old flight route when a simulator is connected or disconnected.
             DeleteFlightRoute();
             if (connected)
             {
-                (Application.Current as App).controlsVM.Disconnect();
+                (Application.Current as App).ControlsVM.Disconnect();
             }
             else
             {
-                (Application.Current as App).controlsVM.Connect(ipBox.Text, int.Parse(portBox.Text));
+                (Application.Current as App).ControlsVM.Connect(ipBox.Text, int.Parse(portBox.Text));
             }
         }
 
-        private void statusBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void StatusBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string status = statusBox.Text;
             // Set the status color to red if this is an error, set to orange otherwise.
@@ -107,21 +107,21 @@ namespace FlightSimulatorApp
                 statusBox.Foreground = new SolidColorBrush(Colors.DarkOrange);
             }
             // Set the status color to green if connected.
-            if (status == MyStatus.connectedStatus)
+            if (status == MyStatus.ConnectedStatus)
             {
                 statusBox.Foreground = new SolidColorBrush(Colors.LimeGreen);
                 ConnectedMode();
                 return;
             }
             // If disconnected.
-            if ((status == MyStatus.disconnectedStatus) || (status == MyStatus.simulatorDisconnectedStatus)
-                || (status == MyStatus.notConnectedStatus))
+            if ((status == MyStatus.DisconnectedStatus) || (status == MyStatus.SimulatorDisconnectedStatus)
+                || (status == MyStatus.NotConnectedStatus))
             {
                 DisconnectedMode();
                 return;
             }
             // If got bad latitude or longitude values at the start.
-            if ((status == MyStatus.startLatitudeErrorStatus) || (status == MyStatus.startLongitudeErrorStatus))
+            if ((status == MyStatus.StartLatitudeErrorStatus) || (status == MyStatus.StartLongitudeErrorStatus))
             {
                 airplane.Visibility = Visibility.Collapsed;
                 return;
@@ -129,7 +129,7 @@ namespace FlightSimulatorApp
         }
 
         // Change the map appearance.
-        private void mapViewButton_Click(object sender, RoutedEventArgs e)
+        private void MapViewButton_Click(object sender, RoutedEventArgs e)
         {
             if (roadViewFlag)
             {
@@ -146,14 +146,14 @@ namespace FlightSimulatorApp
         }
 
         // Center and zoom on the airplane.
-        private void centerButton_Click(object sender, RoutedEventArgs e)
+        private void CenterButton_Click(object sender, RoutedEventArgs e)
         {
             myMap.ZoomLevel = 6;
             myMap.Center = MapLayer.GetPosition(airplane);
         }
 
         // Set the airplane color according to the user selection, by changing the airplane image.
-        private void planeColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PlaneColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (planeColorBox.SelectedItem != null)
             {
@@ -164,7 +164,7 @@ namespace FlightSimulatorApp
         }
 
         // Add a new point to the flight route line.
-        private void locationBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void LocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             flightRoute.Locations.Add(MapLayer.GetPosition(airplane));
         }
@@ -179,7 +179,7 @@ namespace FlightSimulatorApp
             Panel.SetZIndex(airplane, Panel.GetZIndex(flightRoute) + 1);
         }
 
-        private void routeCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void RouteCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if (flightRoute != null)
             {
@@ -187,7 +187,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        private void routeCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void RouteCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             if (flightRoute != null)
             {
@@ -195,7 +195,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        private void deleteRouteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteRouteButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteFlightRoute();
         }

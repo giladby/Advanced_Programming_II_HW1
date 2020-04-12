@@ -12,14 +12,14 @@ namespace FlightSimulatorApp
         public SimulatorDashboardViewModel(ISimulatorModel m)
         {
             model = m;
-            VM_status = "";
+            vmStatus = "";
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
-                SetProperty("VM_" + e.PropertyName);
+                SetProperty("Vm" + e.PropertyName);
             };
         }
 
-        public string VM_HeadingDeg
+        public string VmHeadingDeg
         {
             get { return (string)GetValue(HeadingDegProperty); }
             set
@@ -31,11 +31,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_HeadingDeg in order to bind with the XAML.
+        // Using a DependencyProperty for VmHeadingDeg in order to bind with the XAML.
         public static readonly DependencyProperty HeadingDegProperty =
-            DependencyProperty.Register("VM_HeadingDeg", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmHeadingDeg", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_VerticalSpeed
+        public string VmVerticalSpeed
         {
             get { return (string)GetValue(VerticalSpeedProperty); }
             set
@@ -47,11 +47,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_VerticalSpeed in order to bind with the XAML.
+        // Using a DependencyProperty for VmVerticalSpeed in order to bind with the XAML.
         public static readonly DependencyProperty VerticalSpeedProperty =
-            DependencyProperty.Register("VM_VerticalSpeed", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmVerticalSpeed", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_GroundSpeedKt
+        public string VmGroundSpeedKt
         {
             get { return (string)GetValue(GroundSpeedKtProperty); }
             set
@@ -63,11 +63,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_GroundSpeedKt in order to bind with the XAML.
+        // Using a DependencyProperty for VmGroundSpeedKt in order to bind with the XAML.
         public static readonly DependencyProperty GroundSpeedKtProperty =
-            DependencyProperty.Register("VM_GroundSpeedKt", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmGroundSpeedKt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_IndicatedSpeedKt
+        public string VmIndicatedSpeedKt
         {
             get { return (string)GetValue(IndicatedSpeedKtProperty); }
             set
@@ -79,11 +79,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_IndicatedSpeedKt in order to bind with the XAML.
+        // Using a DependencyProperty for VmIndicatedSpeedKt in order to bind with the XAML.
         public static readonly DependencyProperty IndicatedSpeedKtProperty =
-            DependencyProperty.Register("VM_IndicatedSpeedKt", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmIndicatedSpeedKt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_GpsIndicatedAltitudeFt
+        public string VmGpsIndicatedAltitudeFt
         {
             get { return (string)GetValue(GpsIndicatedAltitudeFtProperty); }
             set
@@ -95,11 +95,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_GpsIndicatedAltitudeFt in order to bind with the XAML.
+        // Using a DependencyProperty for VmGpsIndicatedAltitudeFt in order to bind with the XAML.
         public static readonly DependencyProperty GpsIndicatedAltitudeFtProperty =
-            DependencyProperty.Register("VM_GpsIndicatedAltitudeFt", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmGpsIndicatedAltitudeFt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_RollDeg
+        public string VmRollDeg
         {
             get { return (string)GetValue(RollDegProperty); }
             set
@@ -111,11 +111,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_RollDeg in order to bind with the XAML.
+        // Using a DependencyProperty for VmRollDeg in order to bind with the XAML.
         public static readonly DependencyProperty RollDegProperty =
-            DependencyProperty.Register("VM_RollDeg", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmRollDeg", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_PitchDeg
+        public string VmPitchDeg
         {
             get { return (string)GetValue(PitchDegProperty); }
             set
@@ -127,11 +127,11 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_PitchDeg in order to bind with the XAML.
+        // Using a DependencyProperty for VmPitchDeg in order to bind with the XAML.
         public static readonly DependencyProperty PitchDegProperty =
-            DependencyProperty.Register("VM_PitchDeg", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmPitchDeg", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        public string VM_AltimeterIndicatedAltitudeFt
+        public string VmAltimeterIndicatedAltitudeFt
         {
             get { return (string)GetValue(AltimeterIndicatedAltitudeFtProperty); }
             set
@@ -143,62 +143,62 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Using a DependencyProperty for VM_AltimeterIndicatedAltitudeFt in order to bind with the XAML.
+        // Using a DependencyProperty for VmAltimeterIndicatedAltitudeFt in order to bind with the XAML.
         public static readonly DependencyProperty AltimeterIndicatedAltitudeFtProperty =
-            DependencyProperty.Register("VM_AltimeterIndicatedAltitudeFt", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmAltimeterIndicatedAltitudeFt", typeof(string), typeof(SimulatorDashboardViewModel));
 
-        private string VM_status;
+        private string vmStatus;
 
-        public string VM_Status
+        public string VmStatus
         {
             get { return (string)GetValue(StatusProperty); }
             set
             {
-                if (VM_status != value)
+                if (vmStatus != value)
                 {
                     this.Dispatcher.Invoke((Action)(() =>
                     {
                         SetValue(StatusProperty, value);
                     }));
-                    VM_status = value;
+                    vmStatus = value;
                 }
             }
         }
 
-        // Using a DependencyProperty for VM_Status in order to bind with the XAML.
+        // Using a DependencyProperty for VmStatus in order to bind with the XAML.
         public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("VM_Status", typeof(string), typeof(SimulatorDashboardViewModel));
+            DependencyProperty.Register("VmStatus", typeof(string), typeof(SimulatorDashboardViewModel));
 
         private void SetProperty(string propName)
         {
             switch(propName)
             {
-                case "VM_HeadingDeg":
-                    VM_HeadingDeg = model.HeadingDeg;
+                case "VmHeadingDeg":
+                    VmHeadingDeg = model.HeadingDeg;
                     break;
-                case "VM_VerticalSpeed":
-                    VM_VerticalSpeed = model.VerticalSpeed;
+                case "VmVerticalSpeed":
+                    VmVerticalSpeed = model.VerticalSpeed;
                     break;
-                case "VM_GroundSpeedKt":
-                    VM_GroundSpeedKt = model.GroundSpeedKt;
+                case "VmGroundSpeedKt":
+                    VmGroundSpeedKt = model.GroundSpeedKt;
                     break;
-                case "VM_IndicatedSpeedKt":
-                    VM_IndicatedSpeedKt = model.IndicatedSpeedKt;
+                case "VmIndicatedSpeedKt":
+                    VmIndicatedSpeedKt = model.IndicatedSpeedKt;
                     break;
-                case "VM_GpsIndicatedAltitudeFt":
-                    VM_GpsIndicatedAltitudeFt = model.GpsIndicatedAltitudeFt;
+                case "VmGpsIndicatedAltitudeFt":
+                    VmGpsIndicatedAltitudeFt = model.GpsIndicatedAltitudeFt;
                     break;
-                case "VM_RollDeg":
-                    VM_RollDeg = model.RollDeg;
+                case "VmRollDeg":
+                    VmRollDeg = model.RollDeg;
                     break;
-                case "VM_PitchDeg":
-                    VM_PitchDeg = model.PitchDeg;
+                case "VmPitchDeg":
+                    VmPitchDeg = model.PitchDeg;
                     break;
-                case "VM_AltimeterIndicatedAltitudeFt":
-                    VM_AltimeterIndicatedAltitudeFt = model.AltimeterIndicatedAltitudeFt;
+                case "VmAltimeterIndicatedAltitudeFt":
+                    VmAltimeterIndicatedAltitudeFt = model.AltimeterIndicatedAltitudeFt;
                     break;
-                case "VM_Status":
-                    VM_Status = model.Status;
+                case "VmStatus":
+                    VmStatus = model.Status;
                     break;
             }
         }

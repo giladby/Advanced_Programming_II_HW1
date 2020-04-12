@@ -16,7 +16,7 @@ namespace FlightSimulatorApp.Controls
         private double mouseX;
         private double mouseY;
         private Storyboard myStoryboard;
-        UIElement el;
+        private UIElement el;
 
         public Joystick()
         {
@@ -47,7 +47,7 @@ namespace FlightSimulatorApp.Controls
         public static readonly DependencyProperty XProperty =
             DependencyProperty.Register("X", typeof(string), typeof(Joystick));
 
-        private void centerKnob_Completed(object sender, EventArgs e)
+        private void CenterKnob_Completed(object sender, EventArgs e)
         {
             myStoryboard.Stop();
             knobPosition.X = 0;
