@@ -304,12 +304,8 @@ namespace FlightSimulatorApp
             }
             set
             {
-                // If this is a new location.
-                if ((planeLocation == null) || (planeLocation.Latitude != value.Latitude) || (planeLocation.Longitude != value.Longitude))
-                {
-                    planeLocation = value;
-                    NotifyPropertyChanged("PlaneLocation");
-                }
+                planeLocation = value;
+                NotifyPropertyChanged("PlaneLocation");
             }
         }
 
@@ -378,6 +374,12 @@ namespace FlightSimulatorApp
         {
             double value;
             string rcvStatus = client.Receive();
+            // Continue asking the coming back message until it comes.
+            while (rcvStatus == MyStatus.TimeoutErrorStatus)
+            {
+                Status = rcvStatus;
+                rcvStatus = client.Receive();
+            }
             // If this is not an error or a disconnection.
             if ((rcvStatus != MyStatus.RcvErrorStatus) && (rcvStatus != MyStatus.SimulatorDisconnectedStatus))
             {
@@ -393,6 +395,7 @@ namespace FlightSimulatorApp
                     // Latitude and longitude has their own error status.
                     if ((property != "Latitude") && (property != "Longitude"))
                     {
+                        Console.WriteLine($"got invalid from {property}, value is {rcvStatus}");
                         Status = MyStatus.InvalidValueErrorStatus;
                     }
                     switchValues(property, "ERR");
@@ -452,6 +455,7 @@ namespace FlightSimulatorApp
             double doubleLong;
             bool validLat = false;
             bool validLong = false;
+            Queue<string> copySetMsgs;
             // Send messages to the simulator on a thread so the application won't stuck.
             new Thread(delegate ()
             {
@@ -459,39 +463,54 @@ namespace FlightSimulatorApp
                 {
                     lock (myLock)
                     {
-                        // While there are still messages to send to the simulator.
-                        while (setMsgs.Count != 0)
+                        copySetMsgs = new Queue<string>(setMsgs);
+                        setMsgs.Clear();
+                    }
+                    // While there are still messages to send to the simulator.
+                    while (connected && (copySetMsgs.Count != 0))
+                    {
+                        Console.WriteLine("4");
+                        msg = copySetMsgs.Dequeue();
+                        Console.WriteLine(msg);
+                        string sendStatus = client.Send(msg);
+                        if (sendStatus != MyStatus.OkStatus)
                         {
-                            msg = setMsgs.Dequeue();
-                            string sendStatus = client.Send(msg);
-                            if (sendStatus != MyStatus.OkStatus)
+                            if (sendStatus == "ERR\n")
                             {
-                                if (sendStatus == "ERR\n")
+                                Status = MyStatus.SendErrorStatus;
+                            }
+                            else
+                            {
+                                Status = sendStatus;
+                            }
+                        }
+                        else
+                        {
+                            // Receive the coming back message from the simulator.
+                            string rcvStatus = client.Receive();
+                            // Continue asking the coming back message until it comes.
+                            while (rcvStatus == MyStatus.TimeoutErrorStatus)
+                            {
+                                Console.WriteLine("5");
+                                Status = rcvStatus;
+                                rcvStatus = client.Receive();
+                            }
+                            if ((rcvStatus != MyStatus.RcvErrorStatus) && (rcvStatus != MyStatus.SimulatorDisconnectedStatus))
+                            {
+                                if (rcvStatus == "ERR\n")
                                 {
                                     Status = MyStatus.SendErrorStatus;
-                                }
-                                else
-                                {
-                                    Status = sendStatus;
                                 }
                             }
                             else
                             {
-                                // Receive the coming back message from the simulator.
-                                string rcvStatus = client.Receive();
-                                if ((rcvStatus != MyStatus.RcvErrorStatus) && (rcvStatus != MyStatus.SimulatorDisconnectedStatus))
-                                {
-                                    if (rcvStatus == "ERR\n")
-                                    {
-                                        Status = MyStatus.SendErrorStatus;
-                                    }
-                                }
-                                else
-                                {
-                                    Status = rcvStatus;
-                                }
+                                Status = rcvStatus;
                             }
                         }
+                    }
+                    if (!connected)
+                    {
+                        break;
                     }
                     // Send all the parameters getters to the simulator and receive the response.
                     client.Send("get /instrumentation/heading-indicator/indicated-heading-deg\n");
@@ -652,6 +671,7 @@ namespace FlightSimulatorApp
             AltimeterIndicatedAltitudeFt = "";
             Latitude = "";
             Longitude = "";
+            setMsgs.Clear();
         }
     }
 }

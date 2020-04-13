@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Net.Sockets;
+using System;
 
 namespace FlightSimulatorApp
 {
@@ -10,7 +11,7 @@ namespace FlightSimulatorApp
         public string Connect(string ip, int port)
         {
             // Make a new socket with a 10 seconds timeout.
-            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ReceiveTimeout = 10000 };
+            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ReceiveTimeout = 500 };
             try
             {
                 mySocket.Connect(ip, port);
@@ -42,9 +43,22 @@ namespace FlightSimulatorApp
             {
                 int numberOfBytes = mySocket.Receive(rcvBuffer);
                 return Encoding.ASCII.GetString(rcvBuffer, 0, numberOfBytes);
-            } 
-            catch
+            }
+            catch (Exception e) 
             {
+                try
+                {
+                    SocketException se = (SocketException)e;
+                    if (se.SocketErrorCode == SocketError.TimedOut)
+                    {
+                        return MyStatus.TimeoutErrorStatus;
+                    }
+                }
+                catch
+                {
+
+                }
+                Console.WriteLine("pass");
                 if (!mySocket.Connected)
                 {
                     return MyStatus.SimulatorDisconnectedStatus;

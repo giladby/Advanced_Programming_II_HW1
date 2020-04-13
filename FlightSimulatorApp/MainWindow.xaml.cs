@@ -49,7 +49,7 @@ namespace FlightSimulatorApp
             portBox.IsEnabled = false;
             controlsView.Visibility = Visibility.Collapsed;
             controlsTextBox.Visibility = Visibility.Collapsed;
-            airplane.Visibility = Visibility.Visible;
+            //airplane.Visibility = Visibility.Visible;
             planeBoxView.Visibility = Visibility.Collapsed;
             planeViewText.Visibility = Visibility.Collapsed;
             centerButton.IsEnabled = true;
@@ -78,6 +78,7 @@ namespace FlightSimulatorApp
             planeColorBox.SelectedItem = null;
             routeCheckBox.IsEnabled = false;
             deleteRouteButton.IsEnabled = false;
+            locationBox.Text = "";
         }
 
         private void ConnectDisconnectButton_Click(object sender, RoutedEventArgs e)
@@ -166,6 +167,14 @@ namespace FlightSimulatorApp
         // Add a new point to the flight route line.
         private void LocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (locationBox.Text == "")
+            {
+                return;
+            }
+            if (airplane.Visibility == Visibility.Collapsed)
+            {
+                airplane.Visibility = Visibility.Visible;
+            }
             flightRoute.Locations.Add(MapLayer.GetPosition(airplane));
         }
 
