@@ -18,7 +18,7 @@ namespace FlightSimulatorApp
         static public string StartLatitudeErrorStatus = "Initialized With Invalid Latitude Value";
         static public string StartLongitudeErrorStatus = "Initialized With Invalid Longitude Value";
         static public string InvalidValueErrorStatus = "Got Invalid Value From Simulator";
-        static public string TimeoutErrorStatus = "Timeout - The Simulator Is Not Responding";
+        static public string TimeoutErrorStatus = "Timeout: - The Simulator Is Not Responding";
 
         static public bool IsErrorStatus(string status)
         {

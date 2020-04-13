@@ -11,7 +11,7 @@ namespace FlightSimulatorApp
         public string Connect(string ip, int port)
         {
             // Make a new socket with a 10 seconds timeout.
-            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ReceiveTimeout = 500 };
+            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ReceiveTimeout = 10000 };
             try
             {
                 mySocket.Connect(ip, port);
@@ -46,6 +46,7 @@ namespace FlightSimulatorApp
             }
             catch (Exception e) 
             {
+                // Trying to check if this is a timeout exception.
                 try
                 {
                     SocketException se = (SocketException)e;
@@ -54,11 +55,7 @@ namespace FlightSimulatorApp
                         return MyStatus.TimeoutErrorStatus;
                     }
                 }
-                catch
-                {
-
-                }
-                Console.WriteLine("pass");
+                catch { }
                 if (!mySocket.Connected)
                 {
                     return MyStatus.SimulatorDisconnectedStatus;

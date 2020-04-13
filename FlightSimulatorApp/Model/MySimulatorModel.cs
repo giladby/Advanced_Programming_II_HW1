@@ -395,7 +395,6 @@ namespace FlightSimulatorApp
                     // Latitude and longitude has their own error status.
                     if ((property != "Latitude") && (property != "Longitude"))
                     {
-                        Console.WriteLine($"got invalid from {property}, value is {rcvStatus}");
                         Status = MyStatus.InvalidValueErrorStatus;
                     }
                     switchValues(property, "ERR");
@@ -461,6 +460,7 @@ namespace FlightSimulatorApp
             {
                 while (connected)
                 {
+                    // Copy the msgs queue in a lock.
                     lock (myLock)
                     {
                         copySetMsgs = new Queue<string>(setMsgs);
@@ -469,9 +469,7 @@ namespace FlightSimulatorApp
                     // While there are still messages to send to the simulator.
                     while (connected && (copySetMsgs.Count != 0))
                     {
-                        Console.WriteLine("4");
                         msg = copySetMsgs.Dequeue();
-                        Console.WriteLine(msg);
                         string sendStatus = client.Send(msg);
                         if (sendStatus != MyStatus.OkStatus)
                         {
@@ -491,7 +489,6 @@ namespace FlightSimulatorApp
                             // Continue asking the coming back message until it comes.
                             while (rcvStatus == MyStatus.TimeoutErrorStatus)
                             {
-                                Console.WriteLine("5");
                                 Status = rcvStatus;
                                 rcvStatus = client.Receive();
                             }
@@ -508,6 +505,7 @@ namespace FlightSimulatorApp
                             }
                         }
                     }
+                    // If the simulator disconnected.
                     if (!connected)
                     {
                         break;
