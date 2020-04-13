@@ -49,7 +49,6 @@ namespace FlightSimulatorApp
             portBox.IsEnabled = false;
             controlsView.Visibility = Visibility.Collapsed;
             controlsTextBox.Visibility = Visibility.Collapsed;
-            //airplane.Visibility = Visibility.Visible;
             planeBoxView.Visibility = Visibility.Collapsed;
             planeViewText.Visibility = Visibility.Collapsed;
             centerButton.IsEnabled = true;
