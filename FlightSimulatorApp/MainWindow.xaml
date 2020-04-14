@@ -33,25 +33,25 @@
                 </Button.Background>
             </Button>
             <Label Content="Status:" HorizontalAlignment="Left" Height="31" Margin="51,15,0,0" VerticalAlignment="Top" Width="74" FontSize="18" FontWeight="Bold"/>
-            <Rectangle HorizontalAlignment="Left" Height="186" Margin="624,33,0,0" Stroke="Black" VerticalAlignment="Top" Width="409" Fill="#FF292929"/>
-            <Rectangle HorizontalAlignment="Left" Height="176" Margin="629,38,0,0" Stroke="Black" VerticalAlignment="Top" Width="399" Fill="Black"/>
+            <Rectangle HorizontalAlignment="Left" Height="186" Margin="596,33,0,0" Stroke="Black" VerticalAlignment="Top" Width="463" Fill="#FF292929"/>
+            <Rectangle HorizontalAlignment="Left" Height="176" Margin="601,38,0,0" Stroke="Black" VerticalAlignment="Top" Width="453" Fill="Black"/>
             <Label Content="DASHBOARD" HorizontalAlignment="Left" Height="35" Margin="767,1,0,0" VerticalAlignment="Top" Width="146" FontSize="18" FontWeight="Bold"/>
-            <Label Content="altimeter__indicated-altitude-ft" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,179,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="attitude-indicator__internal-pitch-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,159,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="attitude-indicator_internal-roll-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,139,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="gps__indicated-altitude-ft" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,119,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="airspeed-indicator__indicated-speed-kt" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,99,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="gps__indicated-ground-speed-kt" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,79,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="gps__indicated-vertical-speed" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,59,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label Content="indicated-heading-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="640,39,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
-            <Label x:Name="altimeter_indicated_altitude_ft" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmAltimeterIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="938,179,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="attitude_indicator_internal_pitch_deg" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmPitchDeg}" HorizontalAlignment="Left" Height="40" Margin="938,159,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="attitude_indicator_internal_roll_deg" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmRollDeg}" HorizontalAlignment="Left" Height="40" Margin="938,139,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="gps_indicated_altitude_ft" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmGpsIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="938,119,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="airspeed_indicator_indicated_speed_kt" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmIndicatedSpeedKt}" HorizontalAlignment="Left" Height="29" Margin="938,99,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="gps_indicated_ground_speed_kt" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmGroundSpeedKt}" HorizontalAlignment="Left" Height="40" Margin="938,79,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="gps_indicated_vertical_speed" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmVerticalSpeed}" HorizontalAlignment="Left" Height="40" Margin="938,59,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-            <Label x:Name="indicated_heading_deg" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmHeadingDeg}" HorizontalAlignment="Left" Height="40" Margin="938,39,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
+            <Label Content="altimeter__indicated-altitude-ft" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,179,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="attitude-indicator__internal-pitch-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,159,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="attitude-indicator_internal-roll-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,139,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="gps__indicated-altitude-ft" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,119,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="airspeed-indicator__indicated-speed-kt" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,99,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="gps__indicated-ground-speed-kt" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,79,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="gps__indicated-vertical-speed" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,59,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label Content="indicated-heading-deg" Foreground ="#FF00B200" HorizontalAlignment="Left" Height="40" Margin="611,39,0,0" VerticalAlignment="Top" Width="300" FontSize="16"/>
+            <Label x:Name="altimeter_indicated_altitude_ft" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmAltimeterIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="909,179,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="attitude_indicator_internal_pitch_deg" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmPitchDeg}" HorizontalAlignment="Left" Height="40" Margin="909,159,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="attitude_indicator_internal_roll_deg" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmRollDeg}" HorizontalAlignment="Left" Height="40" Margin="909,139,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="gps_indicated_altitude_ft" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmGpsIndicatedAltitudeFt}" HorizontalAlignment="Left" Height="40" Margin="909,119,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="airspeed_indicator_indicated_speed_kt" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmIndicatedSpeedKt}" HorizontalAlignment="Left" Height="29" Margin="909,99,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="gps_indicated_ground_speed_kt" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmGroundSpeedKt}" HorizontalAlignment="Left" Height="40" Margin="909,79,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="gps_indicated_vertical_speed" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmVerticalSpeed}" HorizontalAlignment="Left" Height="40" Margin="909,59,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
+            <Label x:Name="indicated_heading_deg" Foreground ="#FF00B200" Content="{Binding DashboardVM.VmHeadingDeg}" HorizontalAlignment="Left" Height="40" Margin="909,39,0,0" VerticalAlignment="Top" Width="176" FontSize="16"/>
             <MyControls:MyControls x:Name="myControls" Margin="434,184,-124.6,-27" RenderTransformOrigin="0.736,0.574" Grid.RowSpan="2">
                 <MyControls:MyControls.RenderTransform>
                     <TransformGroup>
