@@ -83,7 +83,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        public void Connect(string ip, int port)
+        public void Connect(string ip, string port)
         {
             model.Connect(ip, port);
         }

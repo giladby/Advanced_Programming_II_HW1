@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Configuration;
 using Microsoft.Maps.MapControl.WPF;
+using System.Net;
 
 namespace FlightSimulatorApp
 {
@@ -90,12 +91,13 @@ namespace FlightSimulatorApp
             }
             else
             {
-                (Application.Current as App).ControlsVM.Connect(ipBox.Text, int.Parse(portBox.Text));
+                (Application.Current as App).ControlsVM.Connect(ipBox.Text, portBox.Text);
             }
         }
 
         private void StatusBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
             string status = statusBox.Text;
             // Set the status color to red if this is an error, set to orange otherwise.
             if (MyStatus.IsErrorStatus(status))

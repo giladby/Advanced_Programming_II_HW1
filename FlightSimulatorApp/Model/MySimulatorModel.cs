@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using Microsoft.Maps.MapControl.WPF;
 using System.ComponentModel;
+using System.Net;
 
 namespace FlightSimulatorApp
 {
@@ -188,6 +189,12 @@ namespace FlightSimulatorApp
             }
             set
             {
+                // If this is the starting empty value.
+                if (value == "")
+                {
+                    latitude = value;
+                    return;
+                }
                 double doubleValue;
                 if (Double.TryParse(value, out doubleValue))
                 {
@@ -237,6 +244,12 @@ namespace FlightSimulatorApp
             }
             set
             {
+                // If this is the starting empty value.
+                if (value == "")
+                {
+                    longitude = value;
+                    return;
+                }
                 double doubleValue;
                 if (Double.TryParse(value, out doubleValue))
                 {
@@ -346,14 +359,26 @@ namespace FlightSimulatorApp
             }
         }
 
-        public void Connect(string ip, int port)
+        public void Connect(string ip, string port)
         {
+            // If the IP Address is invalid.
+            if (!IPAddress.TryParse(ip, out IPAddress address))
+            {
+                Status = MyStatus.InvalidIPStatus;
+                return;
+            }
+            // If the port is invalid.
+            if (!int.TryParse(port, out int intPort))
+            {
+                Status = MyStatus.InvalidPortStatus;
+                return;
+            }
             TurnOffLocationFlags();
             Status = MyStatus.TryingToConnectStatus;
             // Trying to connect to the given IP and port on a thread so the application won't stuck.
             new Thread(delegate ()
             {
-                string result = client.Connect(ip, port);
+                string result = client.Connect(ip, intPort);
                 if (result == MyStatus.ConnectedStatus)
                 {
                     connected = true;
@@ -386,7 +411,7 @@ namespace FlightSimulatorApp
                 if (rcvStatus == "ERR\n")
                 {
                     Status = MyStatus.RcvErrorStatus;
-                    switchValues(property, "ERR");
+                    SwitchValues(property, "ERR");
                     return;
                 }
                 // If the value is not a number.
@@ -397,12 +422,12 @@ namespace FlightSimulatorApp
                     {
                         Status = MyStatus.InvalidValueErrorStatus;
                     }
-                    switchValues(property, "ERR");
+                    SwitchValues(property, "ERR");
                     return;
                 }
                 value = Math.Round(value, 6);
                 // Set the right property with the received value.
-                switchValues(property, value.ToString());
+                SwitchValues(property, value.ToString());
             }
             else
             {
@@ -410,7 +435,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        private void switchValues(string property, string value)
+        private void SwitchValues(string property, string value)
         {
             switch (property)
             {
