@@ -43,6 +43,10 @@ namespace FlightSimulatorApp
         // A mode for when the program is connected to a simulator.
         private void ConnectedMode()
         {
+            if (!connected)
+            {
+                planeColorBox.SelectedItem = blackColor;
+            }
             connected = true;
             connectDisconnectButton.Content = "DISCONNECT";
             myControls.ConnectedMode();
@@ -54,7 +58,6 @@ namespace FlightSimulatorApp
             planeViewText.Visibility = Visibility.Collapsed;
             centerButton.IsEnabled = true;
             planeColorBox.IsEnabled = true;
-            planeColorBox.SelectedItem = blackColor;
             routeCheckBox.IsEnabled = true;
             deleteRouteButton.IsEnabled = true;
         }
@@ -150,6 +153,10 @@ namespace FlightSimulatorApp
         // Center and zoom on the airplane.
         private void CenterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (MapLayer.GetPosition(airplane) == null)
+            {
+                return;
+            }
             myMap.ZoomLevel = 6;
             myMap.Center = MapLayer.GetPosition(airplane);
         }
